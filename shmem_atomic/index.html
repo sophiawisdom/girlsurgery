@@ -1,0 +1,187 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/shmem_atomic/file.css"></style>
+    </head>
+
+    <title> Shared Memory Atomic throughput </title>
+
+    <body class="container">
+
+<h1> Shared Memory Atomic throughput </h1>
+
+There are two categories of shared memory atomic operation: those <span style="color:red">😊with😊</span> hardware support and those without <span style="color:red">🙁without🙁</span>. The following operations have direct hardware support: 32-bit integer add, 32-bit integer max, and 32-bit bitwise operations. All other operations are implemented with Compare-And-Swap loops that are much slower under contention.
+
+<p style="padding-top: 20px">Here are some explanations of atomics and shared memory so that you can understand the context.</p>
+
+<details closed>
+    <summary> <h3>introduction to <span style="color:red">Atomic</span></h3> </summary>
+<p>
+Many operations that we think of logically as a single operation are composed of multiple smaller operations. Let's say you have a web server serving requests with many threads and you want to count how many requests you receive. You do this by incrementing a value in memory by 1 for every request: in C<code>(*request_counter)++</code>. We think of "incrementing a value in memory by 1" as being a single logical operation but in fact <a href="https://godbolt.org/z/W881cd45z">it is composed of three operations</a>:
+</p>
+
+<ol>
+<li> Load value from memory into registers </li>
+<li> Increment value in register by one </li>
+<li> Write value from register to memory </li>
+</ol>
+
+These operations are not connected in the processor and happen separately.
+
+Now imagine you have two threads that receive a request at exactly the same time and try to update the counter:
+
+<pre>
+Thread 1       | Thread 2
+Read value(0)  | Read value (0)
+Increment (1)  | Increment (1)
+Write back (1) | Write back (1)
+</pre>
+
+<p> The counter now records you have received one request when you actually received two. </p>
+
+<p>To fix this, we make the single logical operation a single physical operation ("atomic", in the sense of "indivisible"). It now becomes a <a href="https://godbolt.org/z/jGGK9GjdG"> single instruction </a> that the hardware guarantees will always be consistent.
+
+<h3>Compare-And-Swap</h3>
+
+Often we would like to implement atomic operations that the hardware does not support natively, for example appending a value to a list. To do this we want a lock, and to implement a lock we use compare-and-swap (CAS). The idea being CAS is that we attempt to replace a value in memory with another value (swap) *only if* the current value is equal to a value we provide (compare) and return the prev. To implement a lock I might have a value in memory where 0 means the lock is not taken and 1 means it is. To try to take the lock, we would do the following:
+
+<pre>
+while (compare_and_swap(memory_location=lock_ptr, compare=0, replace_with=1) == 1) {} // take lock
+// write value to end of array
+*lock_ptr = 0; // release lock
+</pre>
+
+This will try to set the lock value to 1 over and over until it succeeds. This is also known as a spinlock.<sup id="red_spinlock"><a href="#ref_spinlock"></a></sup>
+
+We can implement any operation we want on top of this, for example we can implement our own increment instead of using a hardware increment instruction:
+
+<pre>
+int old = *request_counter; // load the value initially
+int assumed;
+while (assumed != old) {
+    assumed = old;
+    int incremented = assumed + 1;
+    // get the value it was before the compare-and-swap attempt. If it was the value we thought it was, exit out. Otherwise, try to compare-and-swap again with the incremented new value.
+    old = compare_and_swap(memory_location=request_counter, compare=old, replace_with=incremented);
+}
+</pre>
+
+<p style="padding-bottom:30px">Because CAS is so flexible, we can implement anything we want as the operation -- atomic cosine, atomic multiplication, atomic XOR, etc.</p>
+
+</details>
+
+<details closed>
+    <summary> <h3>   introduction to <span style="color:red">Shared Memory</span> </h3> </summary>
+
+<p>
+In general, the more localized and limited communication is, the more efficient it is to implement in hardware. Therefore NVIDIA hardware is optimized to provide several levels of communication of different flexibility so your programs can use the least expensive communication possible.
+</p>
+
+<p>
+In CUDA, programs execute in units of what NVIDIA calls a "warp"<sup id="red_warp"><a href="#ref_warp">4</a></sup> which is analogous to a CPU thread. Each warp has 32 "threads", analogous to SIMD lanes. GPUs have many registers, 256KB per <abbr title="Streaming Multiprocessors">SMs</abbr>, which allows them to implement an aggressive form of hyperthreading where up to 64 warps can be running at the same time. This makes masking the latency of expensive memory accesses easy, because while one warp is waiting for data other threads can be computing. Communication between threads in a warp can be done using <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#warp-shuffle-functions">warp shuffle functions</a>.
+</p>
+
+<p>
+The next highest level of hierarchy is that multiple warps can be grouped into a "CTA" or "block" which are all guaranteed to run on the same SM, which consists of 4 SMSPs plus 128KB of "shared memory" which is like very fast addressible L1 cache. Multiple warps can communicate and work together through shared memory. For example in a matrix multiplication <abbr title="basically just a program. idk why they call it this">kernel</abbr> many warps do different computations on the same data, reducing memory bandwidth.
+</p>
+
+<p style="padding-bottom:30px">In order for the warps in a block to communicate together they often need atomics: to track the maximum value they've seen, to calculate a sum, to keep a list or queue.</p>
+
+</details>
+
+<p>
+Here is the list of shared memory atomic SASS instructions.<sup id="red_atoms"><a href="#ref_atoms">5</a></sup>.
+<ul>
+    <li><code><a href="https://godbolt.org/z/zcPzPjPrE">ATOMS.ADD</a></code>Atomically add a u32/i32 <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicadd">cuda</a></sup></li>
+    <li><code><a href="https://godbolt.org/z/EvEz45d9q">ATOMS.POPC.INC</a></code> Implemented in Ampere. It increments a u32/i32. It is very fast (&lt;10 cycles) and never suffers from contention. Discussed <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s33322/">here</a> <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicinc">cuda</a></sup> </li>
+    <li><code>ATOMS.{<a href="https://godbolt.org/z/oGzhzWvYb">MIN</a>,<a href="https://godbolt.org/z/v9dW6GKha">MAX</a>}</code> Atomically min/max a u32/i32 <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicmin">cuda</a></sup></li>
+    <li><code>ATOMS.{<a href="https://godbolt.org/z/ExaP4rjcs">XOR</a>,<a href="https://godbolt.org/z/YEq8zjcWq">OR</a>,<a href="https://godbolt.org/z/6YGeaodE1">AND</a>}</code>Atomically apply 32 bit wide bitwise operations <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#bitwise-functions">cuda</a></sup></li>
+    <li><code>ATOMS.CAS.{<a href="https://godbolt.org/z/s7WcPYrxz">32</a>,<a href="https://godbolt.org/z/Wd1TWPd79">64</a>,<a href="https://godbolt.org/z/Wd1TWPd79">128</a>}</code>Atomically Compare-And-Swap a 32/64/128 bit value. These can be generated with user code. <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomiccas">cuda</a></sup></li>
+    <li><code>ATOMS.CAST.SPIN.{<a href="https://godbolt.org/z/bKv4qqr59">32</a>, <a href="https://godbolt.org/z/x7qW97c8a">64</a>}</code>Atomically Compare-And-Swap a 32/64 bit value. These are only generated by ptxas in loops (where you <code>SPIN</code>) to implement atomics not supported natively. </li>
+</ul>
+
+Here's an annotated example of what <a href="https://godbolt.org/z/34srEhePv">that inner loop looks like</a> for an atomic not supported natively, like <code>atomicAdd((float *)ptr, 15)</code>.
+
+<div>
+<pre>
+.LOOPSTART:
+LDS R2, [R0] // Load current value from shared memory (LD<b>S</b>) and put it in R2
+FADD R3, R2, 15 // Add 15 (the value we're atomically adding) to R2 and put it in R3
+ATOMS.CAST.SPIN R3, [R0], R2, R3 // Attempt to replace the value at *ptr with R3 if *ptr==R2
+ISETP.EQ.U32.AND P0<sup id="red_pred"><a href="#ref_pred">6</a></sup>, PT, R3, 0x1, PT // If the CAS failed
+@!P0 BRA `(.LOOPSTART)                // Loop back
+</pre>
+</div>
+
+<p>
+This has several implications:
+<ol>
+    <li> If many threads are trying to update the same value, they do so sequentially (trying to get at: many issue an atomic CAS, only one succeeds) </li>
+    <li> This means non-int32 atomics are ~100x slower under extreme contention (NOTE: mention __shfl_sync, mention random index stuff too) </li>
+    <li> Updates that don't change the initial value (e.g. INF + 5 = INF) are meaningfully faster (NOTE: what if I just predicated the atomic on whether there was a change?) </li>
+    <li> Manually implementing atomics in CUDA is just as fast as using builtins like atomicAdd() (for non-int32 operations) </li>
+    <li> Other operations like atomic multiply or atomic exponent are just as fast as atomicAdd() (NOTE: atomic exponent probably isn't. I can try this though. What are other operations?) </li>
+    <li> Any operations that can be converted from CAS operations into hardware operations should be. </li>
+</ol>
+</p>
+
+<p style="font-size: 20px;padding-top:20px;padding-bottom:20px;"> Now I will substantiate all these claims. </p>
+
+First, the headline numbers. This shows the number of cycles per atomicAdd() from each of 256 threads to a varying number of values. The X axis is the average number of threads trying to write to a particular address and the Y axis is the number of cycles. Both are on a log scale.
+<img src="/shmem_atomic/float_int.png">
+
+<p> We can see that under heavy contention, float32 atomicAdd()s are about 50x slower than int32 atomicAdd()s. Even under no contention at contending threads=1, int32 atomicAdd()s are about 10x faster than float32 atomicAdd()s. </p>
+
+<p>A note on a common pattern: Lines stay closely log-linear (2x reduction in contention means a ~2x reduction in runtime.) until a kink at which time stops reducing almost at all (here for int32 at 32 and float32 at 4). Often this kink comes because of bank conflicts.</p>
+
+<p style="padding-top: 15px;"> Some operations that by default are expensive CAS operations can be converted into a single hardware operation or a series of hardware operations. Notably: <a href="https://godbolt.org/z/v8joGW1Ko">float32 max can be implemented with int max</a>, 64 bit AND/OR/XOR can be implemented with two 32 bit operations, int64 add can be implemented with two in32 adds. The easiest and most useful of these is float32 max. Graphed below is <a href="https://stackoverflow.com/a/17401122/4196243">float32 max with CAS</a> vs float32 max with int max. </p>
+
+<img src="/shmem_atomic/max.png">
+
+<p> We can see int32 max is about 10x faster and has better contention behavior. Implementations of 64 bit add/AND/OR/XOR -> 32 bit are left to the reader :p  </p>
+
+<div>
+<p> This is an expanded version of the first graph, with two new lines: "add manual", which uses a CAS loop in CUDA, and "add nochange", which sets the initial value being atomicAdd()ed to to be +INF, so atomics never change the value.
+    <img src="/shmem_atomic/adds.png">
+<p> As we suspected, "nochange" improves performance significantly under high contention. This is because we are performing a CAS with the same value before and after. </p>
+<p> Manual is almost the same speed but confusingly sometimes faster than atomicAdd(). My only guess at why this is is that atomicAdd() is not optimized for high contention (reasonable). </p>
+</div>
+
+There are two compare-and-swap instructions: one that can be used from CUDA directly<sup id="red_cas"><a href="#ref_cas">6</a></sup>, <code>ATOMS.CAS</code> (32/64/128), and one that 
+
+</p>
+
+<h3 style="padding-top: 30px;"> References </h3>
+<div id="refs">
+<p id="ref_spinlock"><b><a href="#red_spinlock"></a></b>: There are good reasons why spinlocks are bad on the CPU (cf <a href="https://www.realworldtech.com/forum/?threadid=189711&curpostid=189723">Linus</a>) that don't apply on the GPU because there's no scheduler.</a></p>
+
+<p id="ref_warp"><b><a href="#red_warp"></a></b>: because it was the first <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#simt-architecture:~:text=first%20parallel%20thread%20technology">"parallel thread technology"</a></p>
+
+<p id="ref_atoms"><b><a href="#red_atoms"></a></b>: By this I mean has a single SASS instruction that implements that operation. It's possible I missed some. If I did, let me know. On the SASS index only the generic <code>ATOMS</code> for "Atomic Operation on Shared Memory" <a href="https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html"> is listed</a> </p>
+
+<p id="ref_pred"><b><a href="#red_pred"></a></b>: "Predicate register 0". Predicate registers are special registers that hold a boolean for every lane in a warp, which then enables you to only execute an instruction for lanes where the predicate is true/false. The <code>ISETP</code> sets P0 to a value indicating whether the CAS succeeded, then <code>@!P0 BRA `(.LOOPSTART)</code> makes all the lanes where the CAS failed start over. </p>
+
+<p id="ref_cas"><b><a href="#red_cas"></a></b>: Specifically with <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomiccas">atomicCAS()</a>, which is <code>atom.shared.cas</code> in PTX </p>
+
+</div>
+
+    </body>
+
+    <script>
+        // setTimeout(() => window.location.reload(), 1000);
+        const start = document.getElementById("start");
+        if (start) {
+        const newHtml = start.textContent.split(" ").map(word => `<span class="red-letter">${word[0]}</span>${word.slice(1)}`).join(" ");
+        start.innerHTML = newHtml;
+        }
+
+        const refs = document.getElementById("refs");
+        let ref_idx = 0;
+        for (let child of Array.from(refs.children)) {
+            const c = child.children[0].children[0];
+            c.textContent = ref_idx++;
+            document.getElementById(c.getAttribute("href").slice(1)).children[0].textContent = c.textContent;
+        }
+    </script>
+
+</html>

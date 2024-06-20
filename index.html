@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            /*
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+     height:30px; width:100vw;
+    */
+        #lex h3 {
+            padding: 0px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        #lex p {
+            padding: 0px;
+            margin: 0px;
+            width: 300px;
+        }
+        </style>
+    </head>
+    <canvas id="love" style="width:100vw; height:40px;">
+    </canvas>
+    <a id="shmem" style="position:absolute;display:none" href="/shmem_atomic"> <h2 style="margin: 0; padding: 0;">SHARED MEMORY ATOMIC THROUGHPUT (DRAFT!!!)</h2> </a>
+
+    <h3> My name is <span class="name">Sophia</span> </h3>
+    <p> I lost my passport while in Japan.  Probably my only option left is to find an accomodating cave and live there forever. In the <abbr title="cruel">mean</abbr> time I am at room 1518 1-2-1 Tosabori, Nishi-ku, Osaka, Osaka-fu, 550-0001 Japan.</p>
+    <p> Chase me! Maybe I'll still be there when you next see me. </p>
+
+    <h4 id="findme_dad"> I am looking for a philo-<span class="name">Sophia</span>-ist. <span style="position: absolute;" id="findme">Find me.</span> </h4>
+
+    <div id="days">The current date is</div>
+
+    <p> Want to talk to <span class="name">Sophia</span>? <a href="mailto:sophia@girl.surgery" id="email">Send her an email</a>. </p>
+
+
+    <p> I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span style="font-size:50px;">💹</span> emoji. I am filled with shame, though currently enjoying, the <img style="height:50px; vertical-align: sub;" src="/yen_down.png"/></p>
+
+
+
+    <h2> <span class="name">Sophia</span>'s Lex Posts </h2>
+    <div id="lex">
+        <h3> me and you </h3>
+        <p>
+            you put your lips to me and i open to you and our tongues touch but mine is cotton candy that disentegrates under your gentle saliva… i jerk away but you hold me firm. i scream and need you, grasp for you, but find no purchase and with nothing left slack and can only moan as i entigrate into you
+        </p>
+        <h3> Seeking Destruction </h3>
+        <p>
+            Destroy the part of me that aches. Destroy the part of me that weeps. Destroy the part of me that feels desperate and loss. Destroy the part of me that desires anything but your touch. Destroy the part of me that loves anyone but you. Leave me nothing but a shell with a perfectly you-sized hole.
+        </p>
+        <h3> Rend me limb from limb </h3>
+        <p>
+            Find me on your bed, laying coyly, challenging you to take what's yours, you try to bind me with your legs, i resist, you give me a little bite and i relax and grind against you, you take that opportunity and i lose ability and shortly afterwards will to resist and give you a deep kiss
+        </p>
+
+    </div>
+
+    <a style="padding-top:100;" href="/surg.jpg"> insipidiration for the domain </a>
+
+    <script>
+
+
+const months = [
+    "Wisdom",
+    "Temperance",
+    "Beauty",
+    "Lightness",
+    "Diligence",
+    "Humility",
+    "Kindness",
+    "Playfulness",
+    "Truth",
+    "Love",
+    "Fortitude",
+    "Courage",
+    "Mercy"
+];
+
+const gregorian_leap_year = gregorian_year => {
+    if (gregorian_year%4 == 0) {
+        if (gregorian_year%100 == 0) {
+            if (gregorian_year%400 == 0) {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+const sophia_leap_year = sophia_year => {
+    let leap_years = [4, 8, 12, 16, 20, 24];
+    return leap_years.includes(sophia_year);
+}
+const days_to_ymd = days_since_sophia => {
+    if (days_since_sophia < 0) {
+        throw "needs to be positive! no B.S.";
+    }
+
+    let day_in_year = days_since_sophia;
+    let year = 0;
+    while (day_in_year >= (365+sophia_leap_year(year))) {
+        day_in_year -= 365;
+        day_in_year -= sophia_leap_year(year);
+        year += 1;
+    }
+
+    let month = "";
+    let day_in_month = 0;
+    let year_string = `year ${year} of <span class="name">Sophia</span>`
+    if (day_in_year == 0) {
+        return "Sophia day of " + year_string;
+    } else if (sophia_leap_year(year) && (day_in_year >= (6*28+1))) {
+        if (day_in_year == (6*28+1)) {
+            return "Leap day of " + year_string;
+        } else {
+            month = months[Math.floor((day_in_year-2)/28)];
+            day_in_month = (day_in_year-2)%28
+        }
+    } else {
+        month = months[Math.floor((day_in_year-1)/28)];
+        day_in_month = (day_in_year-1)%28;
+    }
+    const day = day_in_month+1;
+    const day_ordinal = ((day%10) == 1) ? "st" : ((day%10) == 2) ? "nd" : ((day%10) == 3) ? "rd" : "th";
+    const year_ordinal = ((year%10) == 1) ? "st" : ((year%10) == 2) ? "nd" : ((year%10) == 3) ? "rd" : "th";
+
+    return `the ${day}${day_ordinal} day of the month of ${month} in the ${year}${year_ordinal} year of <span class="name">Sophia</span>`;
+}
+
+const gregorian_date = new Date();
+const sophia_day = new Date(1999, 9, 7);
+const diff_in_days = Math.floor((gregorian_date - sophia_day)/1000/86400);
+
+let days = document.getElementById("days");
+days.innerHTML = `Is is currently ${days_to_ymd(diff_in_days)}.`
+
+
+    </script>
+    <script src="/movables.js"></script>
+    <script src="/canvas.js"></script>
+</html>
