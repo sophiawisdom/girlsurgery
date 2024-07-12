@@ -13,7 +13,7 @@ function shuffleArray(array) {
 }
 
 fetch("image_widths_heights.json").then(f => f.json()).then(data => {
-    let key_values = shuffleArray(data);
+    let key_values = shuffleArray(data.slice(0, 10));
 
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
@@ -30,19 +30,27 @@ fetch("image_widths_heights.json").then(f => f.json()).then(data => {
             return [parseInt(w/4), parseInt(h/4)];
         }
         return [parseInt(w/2), parseInt(h/2)];
-    }).map(([key, [w, h]]) => [key, [(w+10) > screen_width ? screen_width-10 : w, h]]);
+    }).map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
+
+    // gather all the text nodes so the images don't intersect them
+    const textNodes = [];
+    const treeWalker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        { acceptNode: (node) => node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
+    );
+    while(treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
 
     // Now we attempt to place images. I looked at some actually good algorithms but decided to instead use a stupid
-    // algorithm: for each image, attempt to place it in a random location. if it intersects with any other images,
-    // try again.
+    // algorithm: for each image, attempt to place it in a random location up to height 600. if it intersects with
+    // any other images, try again. If after 50 attempts at random placing we don't manage to place it, increase the
+    // height by 50.
     let positions = [];
     let i = 0;
+    // this could be a for loop, but i thought it would be fun to have them appear gradually.
     let interval = setInterval(() => {
         let height = 600;
         let [w, h] = pairs[i];
-        if ((w+10) > screen_width) {
-            return;
-        }
         while (1) {
             let found_place = false;
             let w_max = screen_width-w;
@@ -53,6 +61,7 @@ fetch("image_widths_heights.json").then(f => f.json()).then(data => {
                 let a_right = a_left+w;
                 let a_bottom = a_top+h;
 
+                // do intersection checks against images
                 let intersects = false;
                 for (let j = 0; j < positions.length; j++) {
                     let [b_left, b_top] = positions[j];
@@ -63,6 +72,21 @@ fetch("image_widths_heights.json").then(f => f.json()).then(data => {
                         break;
                     }
                 }
+
+                // do intersection checks against text. TOCONSIDER: cache bounding rect calculation?
+                for (const node of textNodes) {
+                    const range = document.createRange();
+                    range.selectNodeContents(node);
+                    const rect = range.getBoundingClientRect();
+                    let node_top = rect.top + window.pageYOffset;
+                    let node_left = rect.left + window.pageXOffset;
+                    
+                    if (a_left < (node_left+rect.width) && a_right > node_left && a_bottom > node_top && a_top < (node_top+rect.height)) {
+                        intersects = true;
+                        break;
+                    }
+                }
+
                 if (!intersects) {
                     found_place = true;
                     positions.push([parseInt(a_left), parseInt(a_top)]);
@@ -76,6 +100,7 @@ fetch("image_widths_heights.json").then(f => f.json()).then(data => {
             }
         }
 
+        // Create the image
         let img = document.createElement("img");
         img.src = key_values[i][0];
         img.width = pairs[i][0];
@@ -92,8 +117,6 @@ fetch("image_widths_heights.json").then(f => f.json()).then(data => {
             clearInterval(interval);
         }
     }, 100);
-}).catch(e => {
-    console.error("Got the following error while attempting to load files.json", e);
 })
     </script>
 </html>
