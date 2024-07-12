@@ -1,1 +1,10 @@
 .DS_Store
+*.jpeg
+*.jpg
+*.heif
+*.HEIC
+*.HEIF
+*.heic
+*.webp
+*.png
+website_vibes/image_widths_heights.json

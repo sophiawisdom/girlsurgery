@@ -1,0 +1,193 @@
+<html>
+    <h3> graphs! </h3>
+    <style>
+        .canvas-container {
+            position: relative;
+            display: inline-block;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <textarea id="filter"></textarea>
+    <code id="error"></code>
+    <p style="font: 30px arial; text-align:left;"> GB/$ vs GB/S/$ </p>
+    <div class="canvas-container">
+        <canvas id="graph" width="1000" height="400"></canvas>
+        <canvas id="tooltipLayer" width="1000" height="400"></canvas>
+    </div>
+    <!--
+    <table>
+        <thead>
+            <th> test </th>
+        </thead>
+        <tbody>
+            <tr> blah </th>
+        </tbody>
+    </table>
+    -->
+    <script>
+        // Furthermore, Nvidia buys 80GB of HBM from SK Hynix for ~$1,150 for each H100 chip.
+        async function dostuff() {
+            let data = (await fetch("/dramexchange.json").then(r => r.json()));
+            //data = [...(await fetch("/memorynet.json").then(r => r.json())), ...data];
+            let canvas = document.getElementById("graph");
+            const ctx = canvas.getContext('2d');
+
+            const tooltipCanvas = document.getElementById('tooltipLayer');
+            const tooltipCtx = tooltipCanvas.getContext('2d');
+
+            data.forEach(value => {
+                value.gb_per_dollar = value.capacity_per_dollar || value.capacity/value.cost;
+                value.gbps_per_dollar = value.membw_per_dollar || value.membw/value.cost;
+            });
+
+            let min_gb = Math.min(...data.map(a => a.gb_per_dollar));
+            let max_gb = Math.max(...data.map(a => a.gb_per_dollar));
+            let min_gbps = Math.min(...data.map(a => a.gbps_per_dollar));
+            let max_gbps = Math.max(...data.map(a => a.gbps_per_dollar));
+
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+
+            tooltipCanvas.width = rect.width * dpr;
+            tooltipCanvas.height = rect.height * dpr;
+            tooltipCanvas.style.width = `${rect.width}px`;
+            tooltipCanvas.style.height = `${rect.height}px`;
+
+            const graph_start_x = 100;
+            const graph_start_y = 100;
+            const graph_end_x = canvas.width-50;
+            const graph_end_y = canvas.height-50;
+            let gb_scale = Math.log(max_gb/min_gb)/(graph_end_x-graph_start_x);
+            let gbps_scale = Math.log(max_gbps/min_gbps)/(graph_end_y-graph_start_y);
+    
+            console.log("canvas.width", canvas.width, canvas.height, max_gb, max_gbps);
+
+            tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            function drawExtra() {
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "black";
+                ctx.moveTo(graph_start_x, graph_start_y);
+                ctx.lineTo(graph_end_x, graph_start_y);
+                ctx.stroke();
+                ctx.lineTo(graph_end_x, graph_end_y);
+                ctx.stroke();
+                ctx.lineTo(graph_start_x, graph_end_y);
+                ctx.stroke();
+                ctx.lineTo(graph_start_x, graph_start_y);
+                ctx.stroke();
+
+                ctx.rotate(270/180 * Math.PI);
+                ctx.font = "50px Arial";
+                ctx.fillStyle = "black";
+                ctx.fillText("GB/s/$", -500, 100);
+                ctx.rotate(90/180 * Math.PI);
+                ctx.fillText("GB/$", 500, 50);
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+            }
+            
+            const legend = {
+                "DDR5": "blue",
+                "DDR4": "red",
+                "DDR3": "green",
+                "GDDR6X": "orange",
+                "LPDDR5X": "black",
+            }
+
+            function showTooltip(point) {
+                // TODO: if it would run off the side, start it on the left.
+                tooltipCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+                const height = 30
+                tooltipCtx.font = `${height}px Arial`;
+                const text = point.more_info;
+                let measured = tooltipCtx.measureText(point.more_info);
+                const y_offset = -height-25;
+                const rect_full_width = measured.width + 20;
+                const x_offset = (point.x + rect_full_width) > tooltipCanvas.width ? -rect_full_width : 10;
+                console.log(point.x + x_offset + measured.width + 10, tooltipCanvas.width);
+
+                tooltipCtx.fillRect(point.x + x_offset, point.y+y_offset, measured.width+10, height+10);
+                tooltipCtx.fillStyle = 'white'; // "green" to debug
+                tooltipCtx.fillText(text, point.x + x_offset + 5, point.y+y_offset+height);
+            }
+
+            function drawData(ourData) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawExtra();
+                ourData.forEach(value => {
+                    ctx.beginPath();
+                    // let x = (value.gb_per_dollar/gb_scale)+graph_start_x;
+                    // let y = graph_end_y-(value.gbps_per_dollar/gbps_scale);
+                    let x = Math.log(value.gb_per_dollar/min_gb) / gb_scale + graph_start_x;
+                    let y = graph_end_y-Math.log(value.gbps_per_dollar/min_gbps) / gbps_scale;
+                    value.x = x;
+                    value.y = y;
+
+                    console.log(value.more_info, value.gb_per_dollar, value.gbps_per_dollar)
+
+                    // console.log(parseInt(x), parseInt(y), value.gb_per_dollar, value.gbps_per_dollar);
+                    ctx.arc(x, y, 8, 0, Math.PI * 2);
+                    ctx.fillStyle = legend[value.subtechnology];
+                    ctx.fill();
+                    ctx.closePath();
+                });
+            }
+            drawData(data);
+
+            filter.addEventListener("input", event => {
+                if (!event.target.value) { return; }
+                try {
+                    const func_text = "value => " + event.target.value + ";";
+                    console.log(func_text);
+                    const func = eval(func_text);
+                    console.log(func);
+                    drawData(data.filter(func));
+                    document.getElementById("error").textContent = '';
+                } catch (e) {
+                    console.log("e", e);
+                    document.getElementById("error").textContent = e;
+                }
+            });
+
+            let showingTooltip = null;
+
+            tooltipCanvas.addEventListener("click", event => {
+                const rect = tooltipCanvas.getBoundingClientRect();
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
+
+                if (showingTooltip !== null) {
+                    navigator.clipboard.writeText(data[showingTooltip].more_info);
+                }
+            });
+
+            tooltipCanvas.addEventListener('mousemove', (event) => {
+                const rect = tooltipCanvas.getBoundingClientRect();
+                const mouseX = (event.clientX - rect.left) * dpr;
+                const mouseY = (event.clientY - rect.top) * dpr;
+
+                let distances = data.map(point => Math.sqrt((mouseX - point.x) ** 2 + (mouseY - point.y) ** 2));
+                let minDist = Math.min(...distances);
+                let idx = distances.indexOf(minDist);
+                if (minDist < 10 && showingTooltip !== idx) {
+                    tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
+                    showingTooltip = idx;
+                    showTooltip(data[idx]);
+                } else if (minDist >= 10) {
+                    tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
+                    showingTooltip = null;
+                }
+            });
+        }
+        dostuff();
+    </script>
+</html>

@@ -84,14 +84,17 @@ const colors = [
 
 const love = document.getElementById("love");
 const resize = () => {
-    console.log("resizing width and height!", love.offsetWidth, love.offsetHeight);
-    love.width = love.offsetWidth;
-    love.height = love.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = love.getBoundingClientRect();
+    // it goes a little bit off without the -10s and makes a scrollbar at the bottom
+    let w = window.innerWidth-10;
+    love.width = w * dpr;
+    love.height = 40 * dpr;
+    love.style.width = `${w}px`;
+    love.style.height = `${40}px`;
     ctx = love.getContext("2d");
+    ctx.scale(dpr, dpr);
     ctx.font = "30px sans-serif";
-
-    console.log("ctx.width", ctx.width);
-    console.log("ctx.height", ctx.height);
 }
 window.addEventListener('resize', resize);
 var ctx = love.getContext("2d");
@@ -117,7 +120,7 @@ function weightedRandom(message_weights) {
 }
 const message_weights = [
     ["i love you; ", 0.1],
-    ["contact me at sophia.wisdom1999@gmail.com", 0.01],
+    ["contact me at sophia.wisdom1999@gmail.com ", 0.01],
     ["welcome to sophia's blog! ", 0.2],
     ["you're so beautiful ", 0.01],
     ["no one has to know ", 0.01],
@@ -143,7 +146,7 @@ let idx = 0;
 
 let prev_color = [0, 0, 0];
 let next_color = [0, 128, 77];
-let colors_for_interpolation = 15;
+let colors_for_interpolation = 6;
 setInterval(() => {
     const message = weightedRandom(message_weights);
     const text_width = ctx.measureText(message).width;

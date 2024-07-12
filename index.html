@@ -1,66 +1,230 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&family=Courier+New&display=swap" rel="stylesheet">
         <style>
-            /*
-    body, html {
-        margin: 0;
-        padding: 0;
-    }
-     height:30px; width:100vw;
-    */
-        #lex h3 {
-            padding: 0px;
-            margin-top: 10px;
-            margin-bottom: 0px;
+    h1, h2, h3, h4, h5, h6 {
+            # font-family: 'Playfair Display', serif;
         }
-        #lex p {
-            padding: 0px;
-            margin: 0px;
-            width: 300px;
+    #lex-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 300px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            #lex h3 {
+                padding: 0px;
+                margin-top: 10px;
+                margin-bottom: 0px;
+            }
+
+            #lex p {
+                padding: 0px;
+                margin: 0px;
+                width: 100%;
+            }
+
+            .columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px; /* Space between columns */
+        }
+        .column {
+            flex: 1;
+            /* Adjust the width of each column as needed */
         }
         </style>
+        <title> sophism </title>
     </head>
-    <canvas id="love" style="width:100vw; height:40px;">
+    <canvas style="margin: 0px;" id="love" style="width:1710px; height:40px;">
     </canvas>
-    <a id="shmem" style="position:absolute;display:none" href="/shmem_atomic"> <h2 style="margin: 0; padding: 0;">SHARED MEMORY ATOMIC THROUGHPUT (DRAFT!!!)</h2> </a>
+    <!-- replacement for user-agent body 8px margin-->
+    <div style="margin:8px">
 
-    <h3> My name is <span class="name">Sophia</span> </h3>
-    <p> I lost my passport while in Japan.  Probably my only option left is to find an accomodating cave and live there forever. In the <abbr title="cruel">mean</abbr> time I am at room 1518 1-2-1 Tosabori, Nishi-ku, Osaka, Osaka-fu, 550-0001 Japan.</p>
-    <p> Chase me! Maybe I'll still be there when you next see me. </p>
+    <p style="font-size:30px; justify-content: center; text-align: center; display:flex;"> I am&nbsp;<span class="name">Sophia</span>. This is my blog. I am looking for a philo-<span class="name">Sophia</span>-ist.&nbsp;<a href="mailto:spam@girl.surgery" id="email" style="text-decoration: none;">email me</a>. </p>
 
-    <h4 id="findme_dad"> I am looking for a philo-<span class="name">Sophia</span>-ist. <span style="position: absolute;" id="findme">Find me.</span> </h4>
+    <div class="columns">
+        <div class="column">
 
-    <div id="days">The current date is</div>
+    <p> I'm back in San Francisco, at my home, 56 Sycamore Street #C. I hope to make some short videos on  </p>
+    <p> I want to date people. Consider this my dating doc. I'm a bisexual transfem nb. </p>
+    I'm not going to provide a bio. Track me down :3
+        </div>
 
-    <p> Want to talk to <span class="name">Sophia</span>? <a href="mailto:sophia@girl.surgery" id="email">Send her an email</a>. </p>
+    <div class="column">
+        <!--<video id="fish" style="display: none;" autocapitalize="" src="https://biggo.girl.surgery/fish2.mp4" width="100%"></video>-->
+        <p style="margin: 0px;"><a style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a>. <a href="/facts.html"> i'm assembling a list of facts</a>. let me know if you find new facts. or new screenshots, for that matter.</p>
+        <!--<p style="margin:0px;"><a href="https://www.bloomberg.com/opinion/articles/2023-11-21/openai-is-a-strange-nonprofit"> i was linked to by matt levine</a> (who fired sam altman market).</p>-->
+        I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span style="font-size:30px;">💹</span> emoji. I am filled with shame, though currently enjoying, the <img loading="lazy" style="height:30px; vertical-align: sub;" src="/yen_down.png"/></p>
+    </div>
 
+        <div class="column">
+    <p style="margin-bottom: 0px;"> I've devised a new calendar. The first day is <span class="name" style="font-weight: bold;">Sophia</span>day. Then proceed 13 months of 28 days each. Their names are <span id="months"></span>. I am open to suggestions for new month names. Maybe just your name! But only if I love you.</p>
+    <span style="padding-top: 0px; margin-top: 0px;" id="days">The current date is</span>
+        </div>
 
-    <p> I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span style="font-size:50px;">💹</span> emoji. I am filled with shame, though currently enjoying, the <img style="height:50px; vertical-align: sub;" src="/yen_down.png"/></p>
+<!--
+<div class="column">
+    Currently I am reading <a href="https://www.amazon.com/History-Jews-Paul-Johnson/dp/0060915331">A history of the Jews</a>. The author's bias is so extreme it makes me not trust him. For example he has strong opinions on 13th century doctrinal debates, calling one side "pious" and the other side (e.g. kabbala, hasidism) unserious or not true jews. He believes Noah was definitely a historical person and that Islam is a failed branch of Judaism. He constantly talks about how communism is a kind of veiled antisemitism. Also his writing currently makes up like 90% of all instances of the word "adumbrated" I've read in my life.
+</div>
+-->
 
+</div>
 
+<div style="border-top: 1px solid grey; padding-bottom: 20px; border-bottom: 1px solid grey;">
+    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
+    <ol>
+        <li> What does it mean to be skilled? How does being skilled change you? Often the answer in history for why one  </li>
+        <li> Why are some people and organizations far better than others? How do you even tell </li>
+        <li> Why are there regularly negative electricity prices in the US? Why don't people curtail more?</li>
+        <li> Why did nuclear energy capacity factors go from <a href="https://www.energy.gov/sites/default/files/styles/full_article_width/public/2022-06/chart-title.png?itok=jorBkYE1">~70% to ~90% between 1990 and 2003</a>? </li>
+        <li> Are there real use cases for very cheap solar? </li>
+        <li> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </li>
+        <li> How much total revenue is there from AI-based products? Nobody can seem to tell. </li>
+        <li> Fun little product ideas:
+            <ol>
+                <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
+                <li> Hyperscalers should spin out REITs to own the datacenter land/buildings </li>
+                <li> <a href="https://x.com/cis_female/status/1811447447622697392">Parametric consumer disaster insurance</a> </li>
+                <li> Conveyor belt tapas instead of conveyor belt sushi </li>
+            </ol>
+        </li>
+    </ol>
+</div>
 
-    <h2> <span class="name">Sophia</span>'s Lex Posts </h2>
-    <div id="lex">
-        <h3> me and you </h3>
-        <p>
-            you put your lips to me and i open to you and our tongues touch but mine is cotton candy that disentegrates under your gentle saliva… i jerk away but you hold me firm. i scream and need you, grasp for you, but find no purchase and with nothing left slack and can only moan as i entigrate into you
-        </p>
+<p style="padding-bottom: 10px; border-bottom:1px solid grey;"> <a style="text-decoration: none;" href="/shmem_atomic"> I have a draft blog post on shared memory atomic throughput on RTX 4090</a>. I'm planning to publish it soon. Let me know what you think! </p>
+
+<div id="lex-container" style="text-align: center; max-width: 300px;">
+    <h2 style="margin:0px;"> <span class="name">Sophia</span>'s feelings </h2>
+    <p style="margin-bottom:10px; margin-top: 0px;"> Mostly I feel placid, but sometimes I start to Need, I become Active like an Animal and I need to manipulate Flesh. Sometimes I write down how I feel and these are from those times.</p>
+</div>
+    <div class="columns">
+        <div class="column">
+            <h3> me and you </h3>
+            <p>
+                you put your lips to me and i open to you and our tongues touch but mine is cotton candy that disentegrates under your gentle saliva… i jerk away but you hold me firm. i scream and need you, grasp for you, but find no purchase and with nothing left slack and can only moan as i entigrate into you
+            </p>
+        </div>
+        <div class="column">
         <h3> Seeking Destruction </h3>
         <p>
             Destroy the part of me that aches. Destroy the part of me that weeps. Destroy the part of me that feels desperate and loss. Destroy the part of me that desires anything but your touch. Destroy the part of me that loves anyone but you. Leave me nothing but a shell with a perfectly you-sized hole.
         </p>
-        <h3> Rend me limb from limb </h3>
-        <p>
-            Find me on your bed, laying coyly, challenging you to take what's yours, you try to bind me with your legs, i resist, you give me a little bite and i relax and grind against you, you take that opportunity and i lose ability and shortly afterwards will to resist and give you a deep kiss
-        </p>
+        </div>
+        <div class="column">
+            <h3> Rend me limb from limb </h3>
+            <p>
+                Find me on your bed, laying coyly, challenging you to take what's yours, you try to bind me with your legs, i resist, you give me a little bite and i relax and grind against you, you take that opportunity and i lose ability and shortly afterwards will to resist and give you a deep kiss
+            </p>
+        </div>
 
     </div>
+</div>
 
-    <a style="padding-top:100;" href="/surg.jpg"> insipidiration for the domain </a>
+<div style="border-top: 1px solid grey;">
+    <p style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>
+    <span>
+    <canvas id="pointer" style="width: 400; height:400; position: absolute;"></canvas>
+    <img loading="lazy" src="/sopics/family.jpeg" style="width: 400; height: 300;">
+    </span>
+    <img loading="lazy" src="/sopics/church.jpeg" style="max-height:400px">
+    <img loading="lazy" src="/sopics/fire.jpeg" style="max-height:400px">
+    <img loading="lazy" src="/sopics/parade.jpeg" style="max-height:400px">
+    <img loading="lazy" src="/sopics/peace.jpeg" style="max-height:400px">
+</div>
+
+<div style="border-top: 1px solid grey; padding-bottom: 20px;">
+    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some songs I enjoy.</p>
+    <ul>
+        <li> <a href="https://www.youtube.com/watch?v=F_f00f0OVsc">Nearer To Thee</a>. It sweeps me away. It makes me feel one with the crowd. It makes me believe in god. </li>
+        <li> <a href="https://www.youtube.com/watch?v=2HookiS1BmY">Clipo clipo</a>. It's feels insane that a song this deeply affecting is about a topic so obscure to me (apparently Ivorian independence). </li>
+        <li> <a href="https://www.youtube.com/watch?v=28BFJ_TgiK8">Undone in sorrow</a>. Prototypical short story, played with candor. It feels like the sort of trap I could fall into, the song I could be singing. </li>
+        <li> <a href="https://www.youtube.com/watch?v=A_4N05coN2g">Tumble in the Wind</a>. The songwriter's history strongly influences my understanding of songs like these. This man's life is full of tragedy and sorrow. This song is too. The beginning makes my heart sway, powerfully moves my chest to beat with him. Also <a href="https://www.youtube.com/watch?v=XzF09zbEbxI">Box Canyon</a> by him. </li>
+        <li> <a href="https://www.youtube.com/watch?v=PC3eDwpVn6M">Fireflies Made Out of Dust</a>. I can't explain this one yet. </li>
+        <li> <a href="https://www.youtube.com/watch?v=b_dO7sUZI9g">Western Island</a>. A real, compelling vision of a life of solitude. I could live on a western island. I need to feel the ground. </li>
+        <li> <a href="https://www.youtube.com/watch?v=dTfmUAg0AGM"> Freak Show</a>. I find this song deeply disgusting. A connection to a world and a group of people I used to know. </li>
+        <li> <a href="https://www.youtube.com/watch?v=BuNBLjJzRoo"> 90210 </a>. To me this song is about walking slick, rainy streets late at night without a friend for a thousand miles. </li>
+        <li> <a href="https://www.youtube.com/watch?v=WVkD4lgXTEU"> Bones in the Ocean</a>. One of the songs I listened to <a href="/colorado.jpeg">wandering in Colorado</a>. I made a Finnish friend there, and then she said she wanted to kill all the rationalists. </li>
+        <li> <a href="https://www.youtube.com/watch?v=c7khrDCCiHo"> Daddies</a>. Rocking, makes my body sway, brings me into the music.</li>
+    </ul>
+</div>
 
     <script>
+const can = document.getElementById("pointer");
+const rect = can.getBoundingClientRect();
+const dpr = window.devicePixelRatio || 1;
+can.width = rect.width * dpr;
+can.height = rect.height * dpr;
+can.style.width = `${rect.width}px`;
+can.style.height = `${rect.height}px`;
 
+can.getBoundingClientRect();
+
+can.addEventListener("mousemove", event => {
+    const rect = can.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    console.log(mouseX, mouseY);
+})
+const sopic_ctx = can.getContext("2d");
+const centerX = 95*dpr;
+const centerY = 180*dpr;
+
+const radiusX = 30*dpr;
+const radiusY = 45*dpr;
+let angle = 0;
+
+function drawArrow() {
+    const arrowLength = 40;
+    const arrowWidth = 15;
+
+    const x = centerX + (radiusX + 20) * Math.cos(angle);
+    const y = centerY + (radiusY + 20) * Math.sin(angle);
+
+    // draw dot at center
+    /*
+    sopic_ctx.beginPath();
+    sopic_ctx.arc(centerX, centerY, 8, 0, Math.PI * 2);
+    sopic_ctx.fillStyle = "black";
+    sopic_ctx.fill();
+    sopic_ctx.closePath();
+    */
+
+    sopic_ctx.save();
+    sopic_ctx.translate(x, y);
+    sopic_ctx.rotate(Math.atan2(centerY - y, centerX - x));
+
+    sopic_ctx.beginPath();
+    sopic_ctx.moveTo(0, 0);
+    sopic_ctx.lineTo(-arrowLength, -arrowWidth / 2);
+    sopic_ctx.lineTo(-arrowLength, arrowWidth / 2);
+    sopic_ctx.closePath();
+    sopic_ctx.fillStyle = 'red';
+    sopic_ctx.fill();
+
+    sopic_ctx.restore();
+}
+
+function animate() {
+    // this is kind of insane... maybe re
+    // sopic_ctx.drawImage(image, 0, 0, 450*2, 337*2);
+    sopic_ctx.clearRect(0, 0, 450*2, 337*2);
+
+    // drawOval();
+    drawArrow();
+
+    angle += 0.02;
+    if (angle > 2 * Math.PI) {
+        angle -= 2 * Math.PI;
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
 
 const months = [
     "Wisdom",
@@ -73,7 +237,7 @@ const months = [
     "Playfulness",
     "Truth",
     "Love",
-    "Fortitude",
+    '<abbr title="my sister!">Lacey</abbr>',
     "Courage",
     "Mercy"
 ];
@@ -135,10 +299,314 @@ const sophia_day = new Date(1999, 9, 7);
 const diff_in_days = Math.floor((gregorian_date - sophia_day)/1000/86400);
 
 let days = document.getElementById("days");
-days.innerHTML = `Is is currently ${days_to_ymd(diff_in_days)}.`
+days.innerHTML = `It is currently ${days_to_ymd(diff_in_days)}.`
 
+document.getElementById("months").innerHTML = months.slice(0, months.length-2).join(", ") + ", and " + months[months.length-1];
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+/*
+fetch("/website_vibes/files.json").then(f => f.json()).then(data => {
+    let key_values = Object.keys(data).map(key => [key, data[key]])
+    shuffleArray(key_values);
+
+    const pairs = key_values.map(([key, [w, h]]) => {
+        let goal_pixels = 300*200;
+        let max_width = 700;
+        let max_height = 700;
+        let actual_pixels = w*h;
+        if (actual_pixels/goal_pixels > 16) {
+            return [parseInt(w/8), parseInt(h/8)];
+        }
+        if (actual_pixels/goal_pixels > 4) {
+            return [parseInt(w/4), parseInt(h/4)];
+        }
+        return [parseInt(w/2), parseInt(h/2)];
+
+        if (actual_pixels/goal_pixels > 4) {
+            return [parseInt(w/3), parseInt(h/3)];
+        }
+        if (actual_pixels/goal_pixels > 2) {
+            return [parseInt(w/2), parseInt(h/2)];
+        } else if (actual_pixels/goal_pixels < 0.5) {
+            return [parseInt(w*2), parseInt(h*2)]
+        }
+
+        return [parseInt(w), parseInt(h)]
+    });
+
+    let doc_width = rect.width;
+    let positions = [];
+    let i = 0;
+    setInterval(() => {
+        let doc_height = document.body.scrollHeight;
+        let [w, h] = pairs[i];
+
+        const textNodes = [];
+        const treeWalker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            { acceptNode: (node) => node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
+        );
+        
+        while(treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
+
+        let found_place = false;
+        let w_max = window.innerWidth-w;
+        let h_max = window.innerHeight-h;
+        for (let _ = 0; _ < 100; _++) {
+            let a_left = parseInt(Math.random() * w_max);
+            let a_top = 40 + parseInt(Math.random() * h_max); // 40 for canvas
+            let a_right = a_left+w;
+            let a_bottom = a_top+h;
+
+            let intersects = false;
+            for (let j = 0; j < positions.length; j++) {
+                let [b_left, b_top] = positions[j];
+                let b_right = b_left + pairs[j][0];
+                let b_bottom = b_top + pairs[j][1];
+                if (a_left < b_right && a_right > b_left && a_bottom > b_top && a_top < b_bottom) {
+                    intersects = true;
+                    break;
+                }
+            }
+
+            let x = a_left;
+            let x_2 = x+w;
+            let top = a_top;
+            let bottom = top+h;
+
+            // Check each text node
+            for (const node of textNodes) {
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                const rect = range.getBoundingClientRect();
+                let node_top = rect.top + window.pageYOffset;
+                let node_left = rect.left + window.pageXOffset;
+                
+                if (x < (node_left+rect.width) && x_2 > node_left && bottom > node_top && top < (node_top+rect.height)) {
+                    intersects = true;
+                    // console.log("location", x, bottom, w, h, "conflicts with", node);
+                    break;
+                } else {
+                    // console.log("node", node, "at location", node_left, node_top, rect.width, rect.height, "does not conflict with", a_left, a_top, w, h, "screen offset: ", window.pageYOffset);
+                }
+            }
+            if (!intersects) {
+                found_place = true;
+                console.log("final location: ", a_left, a_top, w, h);
+                positions.push([parseInt(a_left), parseInt(a_top)]);
+                break;
+            }
+        }
+        if (!found_place) {
+            console.log("UNABLE TO FIND PLACE!!!!");
+            return;
+        }
+
+        let img = document.createElement("img");
+        img.src = "/website_vibes/" + key_values[i][0];
+        img.width = pairs[i][0];
+        img.height = pairs[i][1];
+        img.style.width = pairs[i][0];
+        img.style.height = pairs[i][1];
+        img.style.position = "absolute";
+        img.style.top = positions[i][1];
+        img.style.left = positions[i][0];
+        document.body.appendChild(img);
+
+        i++;
+        if (i == key_values.length) {
+            clearInterval(interval);
+        }
+    }, 500);
+});
+*/
 
     </script>
     <script src="/movables.js"></script>
-    <script src="/canvas.js"></script>
+
+
+
+    <script>
+        function rgbToLab(rgb) {
+    let r = rgb[0] / 255,
+        g = rgb[1] / 255,
+        b = rgb[2] / 255;
+
+    // Apply gamma correction
+    r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+    g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+    b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+    // Convert to XYZ
+    let x = (r * 0.4124564 + g * 0.3575761 + b * 0.1804375) / 0.95047,
+        y = (r * 0.2126729 + g * 0.7151522 + b * 0.0721750),
+        z = (r * 0.0193339 + g * 0.1191920 + b * 0.9503041) / 1.08883;
+
+    // Convert to Lab
+    x = x > 0.008856 ? Math.pow(x, 1/3) : (7.787 * x) + 16/116;
+    y = y > 0.008856 ? Math.pow(y, 1/3) : (7.787 * y) + 16/116;
+    z = z > 0.008856 ? Math.pow(z, 1/3) : (7.787 * z) + 16/116;
+
+    let l = (116 * y) - 16,
+        a = 500 * (x - y),
+        bLab = 200 * (y - z);  // Renamed variable here to avoid conflict with 'b' from RGB
+
+    return [l, a, bLab];
+}
+
+function labToRgb(lab) {
+    let y = (lab[0] + 16) / 116,
+        x = lab[1] / 500 + y,
+        z = y - lab[2] / 200;
+
+    // Convert to XYZ
+    x = x > 0.206897 ? Math.pow(x, 3) : (x - 16/116) / 7.787;
+    y = y > 0.206897 ? Math.pow(y, 3) : (y - 16/116) / 7.787;
+    z = z > 0.206897 ? Math.pow(z, 3) : (z - 16/116) / 7.787;
+
+    // Adjust reference white points and convert to RGB
+    x *= 0.95047;
+    y *= 1.00000;
+    z *= 1.08883;
+
+    let r =  3.2406 * x - 1.5372 * y - 0.4986 * z,
+        g = -0.9689 * x + 1.8758 * y + 0.0415 * z,
+        b =  0.0557 * x - 0.2040 * y + 1.0570 * z;
+
+    // Apply gamma correction
+    r = r > 0.0031308 ? 1.055 * Math.pow(r, 1/2.4) - 0.055 : 12.92 * r;
+    g = g > 0.0031308 ? 1.055 * Math.pow(g, 1/2.4) - 0.055 : 12.92 * g;
+    b = b > 0.0031308 ? 1.055 * Math.pow(b, 1/2.4) - 0.055 : 12.92 * b;
+
+    return [Math.max(0, Math.min(255, r * 255)),
+            Math.max(0, Math.min(255, g * 255)),
+            Math.max(0, Math.min(255, b * 255))].map(Math.round);
+}
+
+const randomrgb = () => {
+    return [
+        Math.floor(Math.random() * 256),
+        Math.floor(Math.random() * 256),
+        Math.floor(Math.random() * 256)
+    ];
+}
+
+function interpolateColors(colors, fraction) {
+    let labs = colors.map(rgb => rgbToLab(rgb));
+    let resultLab = [
+        labs[0][0] * (1-fraction) + labs[1][0] * fraction,
+        labs[0][1] * (1-fraction) + labs[1][1] * fraction,
+        labs[0][2] * (1-fraction) + labs[1][2] * fraction
+];
+
+    return labToRgb(resultLab);
+}
+
+const colors = [
+    [0, 128, 77],
+    [255, 0, 0],
+    [66, 19, 59],
+    [0, 255, 0],
+    [115, 68, 108],
+    [0, 0, 255],
+]
+
+const love = document.getElementById("love");
+const resize = () => {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = love.getBoundingClientRect();
+    // it goes a little bit off without the -10s and makes a scrollbar at the bottom
+    let w = window.innerWidth-10;
+    love.style.width = `${w}px`;
+    love.style.height = `${40}px`;
+    love.width = w * dpr;
+    love.height = 40 * dpr;
+    ctx = love.getContext("2d");
+    ctx.scale(dpr, dpr);
+    ctx.font = "30px sans-serif";
+}
+window.addEventListener('resize', resize);
+var ctx = love.getContext("2d");
+
+ctx.font = "30px sans-serif";
+function weightedRandom(message_weights) {
+    const choices = message_weights.map(([a, b]) => a);
+    const weights = message_weights.map(([a, b]) => b);
+    let totalWeight = weights.reduce((acc, weight) => acc + weight, 0);
+    let random = Math.random() * totalWeight;
+    let sum = 0;
+
+    for (let i = 0; i < choices.length; i++) {
+        sum += weights[i];
+        if (random < sum) {
+            return choices[i];
+        }
+    }
+}
+const message_weights = [
+    ["i love you; ", 0.1],
+    ["contact me at sophia.wisdom1999@gmail.com ", 0.01],
+    ["welcome to sophia's blog! ", 0.2],
+    ["you're so beautiful ", 0.01],
+    ["no one has to know ", 0.01],
+    ["please ", 0.001],
+    ["show me ", 0.001],
+    ["how are you doing? ", 0.01],
+    ["let me see you ", 0.04],
+    ["let me touch you ", 0.01],
+    ["let me grab you ", 0.01],
+    ['let me taste you ', 0.01],
+    ["let me cut you", 0.01],
+    ["let me open you up ", 0.01],
+    ["send me a poem ", 0.01],
+    ["eatme ", 0.02],
+    ["touch me ", 0.01],
+    ["kiss me ", 0.01],
+    ["love me ", 0.01],
+    ["looking in the source code, are you? ", 0]
+]
+
+let pixel_idx = 0;
+let idx = 0;
+
+let prev_color = [0, 0, 0];
+let next_color = [0, 128, 77];
+let colors_for_interpolation = 6;
+setInterval(() => {
+    const message = weightedRandom(message_weights);
+    const text_width = ctx.measureText(message).width;
+    if ((pixel_idx + text_width) > love.width) {
+        ctx.clearRect(pixel_idx, 0, 1000, 1000);
+        pixel_idx = 0;
+    }
+
+    let interpolation_point = (idx % (colors_for_interpolation));
+    if (interpolation_point == 0) {
+        prev_color = next_color;
+        next_color = randomrgb();
+    }
+    let cur_color = interpolateColors([prev_color, next_color], interpolation_point/colors_for_interpolation);
+
+    // console.log("interpolating between", [...prev_color], [...next_color], "got", [...cur_color], "for fraction", interpolation_point/colors_for_interpolation);
+
+    const [r, g, b] = cur_color;
+    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
+
+    ctx.clearRect(pixel_idx, 0, text_width, 100);
+    ctx.fillText(message, pixel_idx, 30);
+    pixel_idx += text_width;
+    idx += 1;
+}, 100);
+
+resize();
+
+    </script>
+</div>
 </html>

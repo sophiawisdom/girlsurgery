@@ -1,0 +1,99 @@
+<html>
+    <title> vibe images </title>
+    <div id="container">
+    </div>
+    <script>
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+fetch("image_widths_heights.json").then(f => f.json()).then(data => {
+    let key_values = shuffleArray(data);
+
+    const rect = container.getBoundingClientRect();
+    let screen_width = rect.width;
+
+    // By default I will have a lot of images that are just enormous and take up most of the screen. Here I attempt
+    // to resize the images to be approximately a similar size.
+    const pairs = key_values.map(([key, [w, h]]) => {
+        let goal_pixels = 500*300;
+        let actual_pixels = w*h;
+        if (actual_pixels/goal_pixels > 16) {
+            return [parseInt(w/8), parseInt(h/8)];
+        }
+        if (actual_pixels/goal_pixels > 4) {
+            return [parseInt(w/4), parseInt(h/4)];
+        }
+        return [parseInt(w/2), parseInt(h/2)];
+    }).map(([key, [w, h]]) => [key, [(w+10) > screen_width ? screen_width-10 : w, h]]);
+
+    // Now we attempt to place images. I looked at some actually good algorithms but decided to instead use a stupid
+    // algorithm: for each image, attempt to place it in a random location. if it intersects with any other images,
+    // try again.
+    let positions = [];
+    let i = 0;
+    let interval = setInterval(() => {
+        let height = 600;
+        let [w, h] = pairs[i];
+        if ((w+10) > screen_width) {
+            return;
+        }
+        while (1) {
+            let found_place = false;
+            let w_max = screen_width-w;
+            let h_max = height-h;
+            for (let _ = 0; _ < 50; _++) {
+                let a_left = Math.random() * w_max;
+                let a_top = Math.random() * h_max;
+                let a_right = a_left+w;
+                let a_bottom = a_top+h;
+
+                let intersects = false;
+                for (let j = 0; j < positions.length; j++) {
+                    let [b_left, b_top] = positions[j];
+                    let b_right = b_left + pairs[j][0];
+                    let b_bottom = b_top + pairs[j][1];
+                    if (a_left < b_right && a_right > b_left && a_bottom > b_top && a_top < b_bottom) {
+                        intersects = true;
+                        break;
+                    }
+                }
+                if (!intersects) {
+                    found_place = true;
+                    positions.push([parseInt(a_left), parseInt(a_top)]);
+                    break;
+                }
+            }
+            if (found_place) {
+                break;
+            } else {
+                height += 50;
+            }
+        }
+
+        let img = document.createElement("img");
+        img.src = key_values[i][0];
+        img.width = pairs[i][0];
+        img.height = pairs[i][1];
+        img.style.width = pairs[i][0];
+        img.style.height = pairs[i][1];
+        img.style.position = "absolute";
+        img.style.top = positions[i][1];
+        img.style.left = positions[i][0];
+        container.appendChild(img);
+
+        i++;
+        if (i == key_values.length) {
+            clearInterval(interval);
+        }
+    }, 100);
+}).catch(e => {
+    console.error("Got the following error while attempting to load files.json", e);
+})
+    </script>
+</html>

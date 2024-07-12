@@ -1,6 +1,9 @@
 //
 // FINDME
 //
+let findme = document.getElementById("findme");
+console.log(findme);
+if (findme) {
 const reset = () => {
     let findme = document.getElementById("findme");
     let findme_dad = document.getElementById("findme_dad");
@@ -25,28 +28,40 @@ var mousemove = e => {
     findme.style.top = `${e.clientY+(e.movementY > 0 ? 30 : -30)}px`;
 }
 findme.onmousemove = mousemove;
+}
 
 //
 // NAMES
 //
-let names = ["Sophia", "Chrysanthemum", "Fork", "$DEADNAME", "cis_female", "computegorl", "the_great_magician", "girl.surgery", "me"]
+let mouse_interval = null;
+let names = ["Sophia", "Chrysanthemum", "Fork", "$DEADNAME", "cis_female", "computergorl", "the_great_magician", "girl.surgery", "me", "Sophirot", "Ein Sof"]
 let mouseover = e => {
     let idx = Math.floor(Math.random()*names.length);
     Array.from(document.getElementsByClassName("name")).forEach(n => n.textContent = names[idx]);
-    document.getElementById("email").href = `mailto:${names[idx]}@girl.surgery`
+    clearInterval(mouse_interval);
+    mouse_interval = setInterval(mouseover, 15000);
+    let email = document.getElementById("email");
+    if (email) {
+        email.href = `mailto:${names[idx]}@girl.surgery`;
+    }
 }
+if (document.getElementById("email")) {
+    document.getElementById("email").href = `mailto:sophia@girl.surgery`;
+}
+
 Array.from(document.getElementsByClassName("name")).forEach(n => n.onmouseover = mouseover);
-setInterval(mouseover, 15000);
+mouse_interval = setInterval(mouseover, 30000);
 
 //
 // BLOG POST
 //
+let shmem = document.getElementById("shmem");
+if (shmem) {
 const shmem_interpolation_count = 100;
 let prev_pos = [0, 0];
 let next_pos = [500, 500];
 let shmem_idx = 0;
 let fixed = false;
-let shmem = document.getElementById("shmem");
 shmem.onmouseenter = () => fixed = true;
 shmem.onmouseleave = () => fixed = false;
 setInterval(() => {
@@ -66,3 +81,4 @@ setInterval(() => {
     shmem.style.color = `rgb(${r}, ${g}, ${b})`;
     shmem_idx += 1;
 }, 16);
+}
