@@ -17,3 +17,4 @@ for file in os.listdir("."):
     except: # e.g. .DS_Store, calculater.py, file
         continue
 json.dump(files, open("image_widths_heights.json", 'w'))
+print(f"Successfully created image_widths_heights.json with {len(files)} files.")

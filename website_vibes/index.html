@@ -12,8 +12,13 @@ function shuffleArray(array) {
     return array;
 }
 
-fetch("image_widths_heights.json").then(f => f.json()).then(data => {
-    let key_values = shuffleArray(data.slice(0, 10));
+fetch("image_widths_heights.json").then(f => {
+    if (f.status == 404) {
+        alert("unable to find image_widths_heights.json -- you should run lister.py to create it.");
+    }
+    return f.json();
+}).then(data => {
+    let key_values = shuffleArray(data);
 
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
@@ -110,6 +115,7 @@ fetch("image_widths_heights.json").then(f => f.json()).then(data => {
         img.style.position = "absolute";
         img.style.top = positions[i][1];
         img.style.left = positions[i][0];
+        img.loading = "lazy";
         container.appendChild(img);
 
         i++;

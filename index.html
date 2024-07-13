@@ -36,6 +36,9 @@
             flex: 1;
             /* Adjust the width of each column as needed */
         }
+        a {
+            text-decoration: none;
+        }
         </style>
         <title> sophism </title>
     </head>
@@ -44,14 +47,13 @@
     <!-- replacement for user-agent body 8px margin-->
     <div style="margin:8px">
 
-    <p style="font-size:30px; justify-content: center; text-align: center; display:flex;"> I am&nbsp;<span class="name">Sophia</span>. This is my blog. I am looking for a philo-<span class="name">Sophia</span>-ist.&nbsp;<a href="mailto:spam@girl.surgery" id="email" style="text-decoration: none;">email me</a>. </p>
+    <p style="font-size:30px; justify-content: center; text-align: center; display:flex;"> I am&nbsp;<span class="name">Sophia</span>. This is my blog. I am looking for a philo-<span class="name">Sophia</span>-ist.&nbsp;<a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">email me</a>. </p>
 
     <div class="columns">
         <div class="column">
 
-    <p> I'm back in San Francisco, at my home, 56 Sycamore Street #C. I hope to make some short videos on  </p>
-    <p> I want to date people. Consider this my dating doc. I'm a bisexual transfem nb. </p>
-    I'm not going to provide a bio. Track me down :3
+    <p style="margin-bottom: 0px;"> I am back in San Francisco, at my home, 56 Sycamore Street #C. I'm literally just hanging out, working on filling out this website, and trying to learn more about the world. I hope to make short videos on various factual topics so people can be better informed. </p>
+    <p style="margin-top: 0px;"> I'm a <a href="#:~:text=Love%20in%20the-,24th%20year,-of">24</a> year old transfem nb. I am looking for a monogamous relationship with a woman. Could it be you? I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">email me</a>. </p>
         </div>
 
     <div class="column">
@@ -77,28 +79,37 @@
 <div style="border-top: 1px solid grey; padding-bottom: 20px; border-bottom: 1px solid grey;">
     <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
     <ol>
-        <li> What does it mean to be skilled? How does being skilled change you? Often the answer in history for why one  </li>
-        <li> Why are some people and organizations far better than others? How do you even tell </li>
+        <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.</details> </li>
+        <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> <!-- thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
         <li> Why are there regularly negative electricity prices in the US? Why don't people curtail more?</li>
         <li> Why did nuclear energy capacity factors go from <a href="https://www.energy.gov/sites/default/files/styles/full_article_width/public/2022-06/chart-title.png?itok=jorBkYE1">~70% to ~90% between 1990 and 2003</a>? </li>
-        <li> Are there real use cases for very cheap solar? </li>
+        <li> Are there real use cases for very cheap solar modules, or is intermittent power just hard to do anything with? </li>
+        <li> <a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </li>
         <li> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </li>
         <li> How much total revenue is there from AI-based products? Nobody can seem to tell. </li>
-        <li> Fun little product ideas:
+        <li> <details> <summary> Fun little product ideas: </summary>
             <ol>
                 <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
                 <li> Hyperscalers should spin out REITs to own the datacenter land/buildings </li>
                 <li> <a href="https://x.com/cis_female/status/1811447447622697392">Parametric consumer disaster insurance</a> </li>
                 <li> Conveyor belt tapas instead of conveyor belt sushi </li>
             </ol>
+        </details>
+        </li>
+        <li> <details><summary>silly projects i <abbr title="want theoretically but probably won't do">want</abbr> to make</summary>
+            <ol>
+                <li> Ten rings, each of a different element (Samarium, Vanadium, Tungsten, etc.) </li>
+                <li> Solar panels that arc </li>
+            </ol>
+        </details>
         </li>
     </ol>
+
+    <a style="text-decoration: none;" href="/shmem_atomic"> I have a draft blog post on shared memory atomic throughput on RTX 4090</a>. I'm planning to publish it soon. Let me know what you think!
 </div>
 
-<p style="padding-bottom: 10px; border-bottom:1px solid grey;"> <a style="text-decoration: none;" href="/shmem_atomic"> I have a draft blog post on shared memory atomic throughput on RTX 4090</a>. I'm planning to publish it soon. Let me know what you think! </p>
-
 <div id="lex-container" style="text-align: center; max-width: 300px;">
-    <h2 style="margin:0px;"> <span class="name">Sophia</span>'s feelings </h2>
+    <h2 style="margin-bottom:0px; margin-top: 10px;"> <span class="name">Sophia</span>'s feelings </h2>
     <p style="margin-bottom:10px; margin-top: 0px;"> Mostly I feel placid, but sometimes I start to Need, I become Active like an Animal and I need to manipulate Flesh. Sometimes I write down how I feel and these are from those times.</p>
 </div>
     <div class="columns">
@@ -429,7 +440,7 @@ fetch("/website_vibes/files.json").then(f => f.json()).then(data => {
 */
 
     </script>
-    <script src="/movables.js"></script>
+    <script async src="/movables.js"></script>
 
 
 
