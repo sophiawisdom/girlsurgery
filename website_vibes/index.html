@@ -1,5 +1,6 @@
 <html>
     <title> vibe images </title>
+    <div id="bigcontainer" style="display:none; position: absolute;"></div>
     <div id="container">
     </div>
     <script>
@@ -12,13 +13,71 @@ function shuffleArray(array) {
     return array;
 }
 
+function splitFit(rectangles, stripWidth) {
+    // Step 1: Determine the maximum height of all rectangles
+    const maxHeight = Math.max(...rectangles.map(rect => rect.h));
+
+    // Step 2: Split rectangles into two groups
+    const large = []; // Rectangles with height > maxHeight / 2
+    const small = []; // Rectangles with height <= maxHeight / 2
+    rectangles.forEach(rect => {
+        if (rect.h > maxHeight / 2) {
+            large.push(rect);
+        } else {
+            small.push(rect);
+        }
+    });
+
+    // Step 3: Sort both groups by height descending
+    large.sort((a, b) => b.h - a.h);
+    small.sort((a, b) => b.h - a.h);
+
+    // Step 4: Positioning rectangles on the strip
+    const positions = [];
+    let currentX = 0;
+    let currentY = 0;
+    let rowMaxHeight = 0;
+
+    // Function to place rectangles in a row
+    const placeRectangles = (rects) => {
+        rects.forEach(rect => {
+            if (currentX + rect.w > stripWidth) {
+                // Start a new row
+                currentX = 0;
+                currentY += rowMaxHeight;
+                rowMaxHeight = 0;
+            }
+            // Place the rectangle
+            positions.push({ x: currentX, y: currentY });
+            // Update positions and maximum height in the row
+            currentX += rect.w;
+            rowMaxHeight = Math.max(rowMaxHeight, rect.h);
+        });
+    };
+
+    // Place large rectangles
+    placeRectangles(large);
+    // Check if a new row is needed before placing small rectangles
+    if (currentX > 0) {
+        currentX = 0;
+        currentY += rowMaxHeight;
+        rowMaxHeight = 0;
+    }
+    // Place small rectangles
+    placeRectangles(small);
+
+    return positions;
+}
+
 fetch("image_widths_heights.json").then(f => {
     if (f.status == 404) {
         alert("unable to find image_widths_heights.json -- you should run lister.py to create it.");
     }
     return f.json();
 }).then(data => {
+    console.log(data);
     let key_values = shuffleArray(data);
+    console.log(key_values);
 
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
@@ -26,8 +85,14 @@ fetch("image_widths_heights.json").then(f => {
     // By default I will have a lot of images that are just enormous and take up most of the screen. Here I attempt
     // to resize the images to be approximately a similar size.
     const pairs = key_values.map(([key, [w, h]]) => {
-        let goal_pixels = 500*300;
+        let aspect_ratio = Math.max(w/h, h/w);
+        let goal_pixels = (aspect_ratio > 8) ? 100*200 : (aspect_ratio > 4) ? 300*200 : 500*300;
         let actual_pixels = w*h;
+        let adjustment_factor = Math.sqrt(actual_pixels/goal_pixels);
+        
+        console.log(w, h, adjustment_factor);
+        return {w:parseInt(w/adjustment_factor), h:parseInt(h/adjustment_factor)}
+
         if (actual_pixels/goal_pixels > 16) {
             return [parseInt(w/8), parseInt(h/8)];
         }
@@ -35,7 +100,27 @@ fetch("image_widths_heights.json").then(f => {
             return [parseInt(w/4), parseInt(h/4)];
         }
         return [parseInt(w/2), parseInt(h/2)];
-    }).map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
+    })//.map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
+
+    console.log(pairs);
+
+    /*
+    let algo_positions = splitFit(pairs, screen_width);
+    for (let i = 0; i < algo_positions.length; i++) {
+        let img = document.createElement("img");
+        img.src = key_values[i][0];
+        img.width = pairs[i].w;
+        img.height = pairs[i].h;
+        img.style.width = pairs[i].w;
+        img.style.height = pairs[i].h;
+        img.style.position = "absolute";
+        img.style.top = algo_positions[i].y;
+        img.style.left = algo_positions[i].x;
+        img.loading = "lazy";
+        container.appendChild(img);
+    }
+    return;
+    */
 
     // gather all the text nodes so the images don't intersect them
     const textNodes = [];
@@ -55,7 +140,7 @@ fetch("image_widths_heights.json").then(f => {
     // this could be a for loop, but i thought it would be fun to have them appear gradually.
     let interval = setInterval(() => {
         let height = 600;
-        let [w, h] = pairs[i];
+        let {w, h} = pairs[i];
         while (1) {
             let found_place = false;
             let w_max = screen_width-w;
@@ -70,8 +155,8 @@ fetch("image_widths_heights.json").then(f => {
                 let intersects = false;
                 for (let j = 0; j < positions.length; j++) {
                     let [b_left, b_top] = positions[j];
-                    let b_right = b_left + pairs[j][0];
-                    let b_bottom = b_top + pairs[j][1];
+                    let b_right = b_left + pairs[j].w;
+                    let b_bottom = b_top + pairs[j].h;
                     if (a_left < b_right && a_right > b_left && a_bottom > b_top && a_top < b_bottom) {
                         intersects = true;
                         break;
@@ -107,15 +192,31 @@ fetch("image_widths_heights.json").then(f => {
 
         // Create the image
         let img = document.createElement("img");
+        // console.log(key_values[i][0]);
         img.src = key_values[i][0];
-        img.width = pairs[i][0];
-        img.height = pairs[i][1];
-        img.style.width = pairs[i][0];
-        img.style.height = pairs[i][1];
+        img.width = pairs[i].w;
+        img.height = pairs[i].h;
+        img.style.width = pairs[i].w;
+        img.style.height = pairs[i].h;
         img.style.position = "absolute";
         img.style.top = positions[i][1];
         img.style.left = positions[i][0];
         img.loading = "lazy";
+        let timeout = null;
+        img.onmouseenter = e => {
+            timeout = setTimeout(() => {
+                let newimg = document.createElement("img");
+                img.src = key_values[i][0];
+                img.width = pairs[i][0]*4;
+                img.height = pairs[i][1]*4;
+                img.style.position = "absolute";
+                bigcontainer.appendChild(img);
+                bigcontainer.style.display = "";
+            }, 100000000000000);
+        };
+        img.onmouseleave = e => {
+            clearTimeout(timeout);
+        }
         container.appendChild(img);
 
         i++;

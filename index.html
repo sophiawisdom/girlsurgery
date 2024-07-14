@@ -3,9 +3,6 @@
         <meta charset="utf-8">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&family=Courier+New&display=swap" rel="stylesheet">
         <style>
-    h1, h2, h3, h4, h5, h6 {
-            # font-family: 'Playfair Display', serif;
-        }
     #lex-container {
                 display: flex;
                 flex-direction: column;
@@ -57,7 +54,6 @@
         </div>
 
     <div class="column">
-        <!--<video id="fish" style="display: none;" autocapitalize="" src="https://biggo.girl.surgery/fish2.mp4" width="100%"></video>-->
         <p style="margin: 0px;"><a style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a>. <a href="/facts.html"> i'm assembling a list of facts</a>. let me know if you find new facts. or new screenshots, for that matter.</p>
         <!--<p style="margin:0px;"><a href="https://www.bloomberg.com/opinion/articles/2023-11-21/openai-is-a-strange-nonprofit"> i was linked to by matt levine</a> (who fired sam altman market).</p>-->
         I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span style="font-size:30px;">💹</span> emoji. I am filled with shame, though currently enjoying, the <img loading="lazy" style="height:30px; vertical-align: sub;" src="/yen_down.png"/></p>
@@ -67,20 +63,21 @@
     <p style="margin-bottom: 0px;"> I've devised a new calendar. The first day is <span class="name" style="font-weight: bold;">Sophia</span>day. Then proceed 13 months of 28 days each. Their names are <span id="months"></span>. I am open to suggestions for new month names. Maybe just your name! But only if I love you.</p>
     <span style="padding-top: 0px; margin-top: 0px;" id="days">The current date is</span>
         </div>
-
-<!--
-<div class="column">
-    Currently I am reading <a href="https://www.amazon.com/History-Jews-Paul-Johnson/dp/0060915331">A history of the Jews</a>. The author's bias is so extreme it makes me not trust him. For example he has strong opinions on 13th century doctrinal debates, calling one side "pious" and the other side (e.g. kabbala, hasidism) unserious or not true jews. He believes Noah was definitely a historical person and that Islam is a failed branch of Judaism. He constantly talks about how communism is a kind of veiled antisemitism. Also his writing currently makes up like 90% of all instances of the word "adumbrated" I've read in my life.
-</div>
--->
-
 </div>
 
 <div style="border-top: 1px solid grey; padding-bottom: 20px; border-bottom: 1px solid grey;">
     <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
     <ol>
         <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.</details> </li>
-        <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> <!-- thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
+        <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
+        <li><details> <summary> As a general theme, the relationship between compute and intelligence </summary>
+            <ol>
+                <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture a ~arbitrarily good player by just giving it more time! </li>
+                <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly, many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~2k positions/s. </li>
+                <li> LLM tradeoffs between size and quality are interesting because the pareto frontier is moving so quickly. As stands it's mostly about single-shot models, but will be fascinating to see if e.g. agents can make a poor model a good one. </li>
+                <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone claimed on twitter that they were able to tell ASICs were being used by someone because highly complex signals were being traded at latencies faster than FPGAs were capable of. </li>
+            </ol>
+        </details></li>
         <li> Why are there regularly negative electricity prices in the US? Why don't people curtail more?</li>
         <li> Why did nuclear energy capacity factors go from <a href="https://www.energy.gov/sites/default/files/styles/full_article_width/public/2022-06/chart-title.png?itok=jorBkYE1">~70% to ~90% between 1990 and 2003</a>? </li>
         <li> Are there real use cases for very cheap solar modules, or is intermittent power just hard to do anything with? </li>
@@ -161,6 +158,12 @@
         <li> <a href="https://www.youtube.com/watch?v=WVkD4lgXTEU"> Bones in the Ocean</a>. One of the songs I listened to <a href="/colorado.jpeg">wandering in Colorado</a>. I made a Finnish friend there, and then she said she wanted to kill all the rationalists. </li>
         <li> <a href="https://www.youtube.com/watch?v=c7khrDCCiHo"> Daddies</a>. Rocking, makes my body sway, brings me into the music.</li>
     </ul>
+
+    <div style="border-top: 1px solid black; margin-top: 20px;">
+    <h2> Some cool fish I saw in China </h2>
+    <p> It's in a temple they said was a thousand years old but I'm pretty sure is from the 80s. </p>
+    <video id="fish" height="600px" controls src="https://biggo.girl.surgery/fish2.mp4"></video>
+    </div>
 </div>
 
     <script>
@@ -172,13 +175,10 @@ can.height = rect.height * dpr;
 can.style.width = `${rect.width}px`;
 can.style.height = `${rect.height}px`;
 
-can.getBoundingClientRect();
-
 can.addEventListener("mousemove", event => {
     const rect = can.getBoundingClientRect();
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
-    console.log(mouseX, mouseY);
 })
 const sopic_ctx = can.getContext("2d");
 const centerX = 95*dpr;
@@ -235,7 +235,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-animate();
+// animate();
 
 const months = [
     "Wisdom",
@@ -520,15 +520,6 @@ function interpolateColors(colors, fraction) {
     return labToRgb(resultLab);
 }
 
-const colors = [
-    [0, 128, 77],
-    [255, 0, 0],
-    [66, 19, 59],
-    [0, 255, 0],
-    [115, 68, 108],
-    [0, 0, 255],
-]
-
 const love = document.getElementById("love");
 const resize = () => {
     const dpr = window.devicePixelRatio || 1;
@@ -584,40 +575,58 @@ const message_weights = [
     ["looking in the source code, are you? ", 0]
 ]
 
-let pixel_idx = 0;
-let idx = 0;
+function generate_direction() {
+    while (1) {
+        let dir = [Math.random()-0.5, Math.random()-0.5, Math.random()-0.5];
+        if (dir.reduce((a, b) => Math.abs(a)+Math.abs(b), 0) > 0.6) {
+            return dir;
+        }
+    }
+}
 
-let prev_color = [0, 0, 0];
-let next_color = [0, 128, 77];
-let colors_for_interpolation = 6;
-setInterval(() => {
-    const message = weightedRandom(message_weights);
-    const text_width = ctx.measureText(message).width;
-    if ((pixel_idx + text_width) > love.width) {
-        ctx.clearRect(pixel_idx, 0, 1000, 1000);
+let pixel_idx = 0;
+let color = rgbToLab([0, 128, 77]);
+let color_direction = generate_direction();
+let color_magnitude = 2;
+let message = message_weights[2][0];
+let msg_index = 0;
+
+let f = (time) => {
+    if (message.length == msg_index) {
+        message = weightedRandom(message_weights);
+        msg_index = 0;
+    }
+    let letter = message[msg_index];
+    const letter_width = ctx.measureText(letter).width;
+    if ((pixel_idx + letter_width) > (love.width/dpr)) {
         pixel_idx = 0;
     }
-
-    let interpolation_point = (idx % (colors_for_interpolation));
-    if (interpolation_point == 0) {
-        prev_color = next_color;
-        next_color = randomrgb();
+    // console.log(letter, pixel_idx, love.width);
+    color = color.map((val, idx) => val + (color_direction[idx]*color_magnitude));
+    if (color[0] > 80 || color[0] < 10 || Math.abs(color[1]) > 128 || Math.abs(color[2]) > 128) {
+        if (color[0] > 80) {
+            color[0] -= 10;
+        } else if (color[0] < 10) {
+            color[0] += 10;
+        }
+        if (Math.abs(color[1]) > 128) {
+            color[1] *= 0.9;
+        }
+        if (Math.abs(color[2]) > 128) {
+            color[2] *= 0.9;
+        }
+        color_direction = generate_direction();
     }
-    let cur_color = interpolateColors([prev_color, next_color], interpolation_point/colors_for_interpolation);
-
-    // console.log("interpolating between", [...prev_color], [...next_color], "got", [...cur_color], "for fraction", interpolation_point/colors_for_interpolation);
-
-    const [r, g, b] = cur_color;
+    const [r, g, b] = labToRgb(color);
+    ctx.clearRect(pixel_idx, 0, letter_width, 100);
     ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
-
-    ctx.clearRect(pixel_idx, 0, text_width, 100);
-    ctx.fillText(message, pixel_idx, 30);
-    pixel_idx += text_width;
-    idx += 1;
-}, 100);
-
+    ctx.fillText(letter, pixel_idx, 30);
+    pixel_idx += letter_width;
+    msg_index += 1;
+    requestAnimationFrame(f);
+};
 resize();
-
+f(0);
     </script>
 </div>
 </html>
