@@ -18,6 +18,83 @@
         <canvas id="graph" width="1000" height="400"></canvas>
         <canvas id="tooltipLayer" width="1000" height="400"></canvas>
     </div>
+    <script>
+var memory = [
+    {
+        "cost": 4.877,
+        "capacity": 2,
+        "membw": 9.375,
+        "comment": "BEWARE!!! MEMORY BANDWIDTH NUMBERS ARE IN GB/S BUT CAPACITY IS IN GiB!!!!",
+        "technology":"DRAM",
+        "subtechnology":"DDR5",
+        "more_info": "dramexchange.com DDR5 16G (2Gx8) 4800/5600"
+    },
+    {
+        "cost": 3.502,
+        "capacity": 2,
+        "membw": 6.25,
+        "technology":"DRAM",
+        "subtechnology":"DDR4",
+        "more_info": "dramexchange.com DDR4 16Gb (1Gx16)3200"
+    },
+    {
+        "cost": 0.973,
+        "capacity": 0.5,
+        "membw": 3.125,
+        "technology":"DRAM",
+        "subtechnology":"DDR3",
+        "more_info": "dramexchange.com DDR3 4Gb 512Mx8 1600/1866"
+    },
+    {
+        "cost": 8,
+        "capacity": 2,
+        "membw": 84,
+        "technology":"DRAM",
+        "subtechnology":"GDDR6X",
+        "more_info": "this was quoted to me: GDDR6X 16Gb 21gbps"
+    },
+    {
+        "cost": 10,
+        "capacity": 2,
+        "membw": 33.33,
+        "technology":"DRAM",
+        "subtechnology":"LPDDR5X",
+        "more_info": "from leaked dell numbers, adjusted to lower capacity"
+    },
+    {
+        "cost": 80,
+        "capacity": 16763,
+        "comment": "this looks fucked up bc it's 18 power-of-ten TB",
+        "membw_per_dollar": 0.00008,
+        "technology":"Tape",
+        "subtechnology":"LTO-9",
+        "more_info": "LTO-9 https://tapeandmedia.com/lto-ultrium-9-tapes/"
+    },
+    {
+        "cost": 233,
+        "capacity": 14901,
+        "membw": 0.261,
+        "technology":"Disk",
+        "subtechnology":"non-shingled",
+        "more_info": "backblaze 16TB disk https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/ st16000nm001g https://www.seagate.com/files/www-content/datasheets/pdfs/exos-x16-DS2011-1-1904US-en_US.pdf"
+    },
+    {
+        "cost": 1100,
+        "capacity": 80,
+        "membw": 3000,
+        "technology":"DRAM",
+        "subtechnology":"HBM3",
+        "more_info": "H100 HBM3"
+    },
+    {
+        "cost": 50,
+        "capacity": 500,
+        "membw": 5,
+        "technology": "Flash",
+        "subtechnology": "TLC"
+    }
+]
+    </script>
     <!--
     <table>
         <thead>
@@ -29,7 +106,6 @@
     </table>
     -->
     <script>
-        // Furthermore, Nvidia buys 80GB of HBM from SK Hynix for ~$1,150 for each H100 chip.
         async function dostuff() {
             let data = (await fetch("/dramexchange.json").then(r => r.json()));
             //data = [...(await fetch("/memorynet.json").then(r => r.json())), ...data];

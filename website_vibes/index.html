@@ -75,9 +75,7 @@ fetch("image_widths_heights.json").then(f => {
     }
     return f.json();
 }).then(data => {
-    console.log(data);
     let key_values = shuffleArray(data);
-    console.log(key_values);
 
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
@@ -90,8 +88,7 @@ fetch("image_widths_heights.json").then(f => {
         let actual_pixels = w*h;
         let adjustment_factor = Math.sqrt(actual_pixels/goal_pixels);
         
-        console.log(w, h, adjustment_factor);
-        return {w:parseInt(w/adjustment_factor), h:parseInt(h/adjustment_factor)}
+        return [parseInt(w/adjustment_factor), parseInt(h/adjustment_factor)]
 
         if (actual_pixels/goal_pixels > 16) {
             return [parseInt(w/8), parseInt(h/8)];
@@ -100,9 +97,7 @@ fetch("image_widths_heights.json").then(f => {
             return [parseInt(w/4), parseInt(h/4)];
         }
         return [parseInt(w/2), parseInt(h/2)];
-    })//.map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
-
-    console.log(pairs);
+    }).map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
 
     /*
     let algo_positions = splitFit(pairs, screen_width);
@@ -123,40 +118,49 @@ fetch("image_widths_heights.json").then(f => {
     */
 
     // gather all the text nodes so the images don't intersect them
-    const textNodes = [];
+    let textNodes = [];
     const treeWalker = document.createTreeWalker(
         document.body,
         NodeFilter.SHOW_TEXT,
         { acceptNode: (node) => node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
     );
     while(treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
+    textNodes = textNodes.filter(node => node.parentNode.tagName !== "SCRIPT")
+    textNodes = [];
 
     // Now we attempt to place images. I looked at some actually good algorithms but decided to instead use a stupid
     // algorithm: for each image, attempt to place it in a random location up to height 600. if it intersects with
     // any other images, try again. If after 50 attempts at random placing we don't manage to place it, increase the
     // height by 50.
+    let start = performance.now();
     let positions = [];
+    let heights = [];
+    for (let i = 0; i < 300; i++) {
+        heights.push([]);
+    }
     let i = 0;
     // this could be a for loop, but i thought it would be fun to have them appear gradually.
     let interval = setInterval(() => {
+    // for (let i = 0; i < key_values.length; i++) {
+        let min_height = 0;
         let height = 600;
-        let {w, h} = pairs[i];
+        let [w, h] = pairs[i];
         while (1) {
             let found_place = false;
             let w_max = screen_width-w;
             let h_max = height-h;
-            for (let _ = 0; _ < 50; _++) {
-                let a_left = Math.random() * w_max;
-                let a_top = Math.random() * h_max;
+            for (let k = 0; k < 50; k++) {
+                let a_left = parseInt(Math.random() * w_max);
+                let a_top = parseInt(Math.random() * h_max);
                 let a_right = a_left+w;
                 let a_bottom = a_top+h;
 
                 // do intersection checks against images
                 let intersects = false;
                 for (let j = 0; j < positions.length; j++) {
-                    let [b_left, b_top] = positions[j];
-                    let b_right = b_left + pairs[j].w;
-                    let b_bottom = b_top + pairs[j].h;
+                    let [b_left, b_top, other_w, other_h] = positions[j];
+                    let b_right = b_left + other_w;
+                    let b_bottom = b_top + other_h;
                     if (a_left < b_right && a_right > b_left && a_bottom > b_top && a_top < b_bottom) {
                         intersects = true;
                         break;
@@ -164,6 +168,8 @@ fetch("image_widths_heights.json").then(f => {
                 }
 
                 // do intersection checks against text. TOCONSIDER: cache bounding rect calculation?
+                // THIS IS EXTREMELY SLOW (80% of runtime with 400 rects and 1 textNode)
+                /*
                 for (const node of textNodes) {
                     const range = document.createRange();
                     range.selectNodeContents(node);
@@ -176,16 +182,19 @@ fetch("image_widths_heights.json").then(f => {
                         break;
                     }
                 }
+                */
 
                 if (!intersects) {
                     found_place = true;
-                    positions.push([parseInt(a_left), parseInt(a_top)]);
+                    // let orig = parseInt(a_top/)
+                    positions.push([parseInt(a_left), parseInt(a_top), w, h]);
                     break;
                 }
             }
             if (found_place) {
                 break;
             } else {
+                min_height += 50;
                 height += 50;
             }
         }
@@ -194,10 +203,10 @@ fetch("image_widths_heights.json").then(f => {
         let img = document.createElement("img");
         // console.log(key_values[i][0]);
         img.src = key_values[i][0];
-        img.width = pairs[i].w;
-        img.height = pairs[i].h;
-        img.style.width = pairs[i].w;
-        img.style.height = pairs[i].h;
+        img.width = pairs[i][0];
+        img.height = pairs[i][1];
+        img.style.width = pairs[i][0];
+        img.style.height = pairs[i][1];
         img.style.position = "absolute";
         img.style.top = positions[i][1];
         img.style.left = positions[i][0];
@@ -224,6 +233,10 @@ fetch("image_widths_heights.json").then(f => {
             clearInterval(interval);
         }
     }, 100);
+    // }
+
+    // let end = performance.now();
+    // console.log("time", parseInt(end-start), "height", Math.max(...positions.map(a => a[1]+a[3])));
 })
     </script>
 </html>

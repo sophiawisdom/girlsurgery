@@ -36,6 +36,13 @@
         a {
             text-decoration: none;
         }
+        .name {
+            color: #20a6df;
+        }
+        .age {
+            color: red;
+            font-weight: bold;
+        }
         </style>
         <title> sophism </title>
     </head>
@@ -49,41 +56,46 @@
     <div class="columns">
         <div class="column">
 
-    <p style="margin-bottom: 0px;"> I am back in San Francisco, at my home, 56 Sycamore Street #C. I'm literally just hanging out, working on filling out this website, and trying to learn more about the world. I hope to make short videos on various factual topics so people can be better informed. </p>
-    <p style="margin-top: 0px;"> I'm a <a href="#:~:text=Love%20in%20the-,24th%20year,-of">24</a> year old transfem nb. I am looking for a monogamous relationship with a woman. Could it be you? I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">email me</a>. </p>
+    <p style="margin-bottom: 0px;"> I am back in San Francisco, at my home, 56 Sycamore Street #C. I'm working on a silly project with Vincent Woo that involves QR code generation on GPU. Stay tuned for a future blog post. </p>
+    <p style="margin-top: 0px;"> I'm a <span class="age">24</span> year old transfem nb. I am looking for a monogamous relationship with a woman-type creature. Could it be you? I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>. </p>
         </div>
 
     <div class="column">
         <p style="margin: 0px;"><a style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a>. <a href="/facts.html"> i'm assembling a list of facts</a>. let me know if you find new facts. or new screenshots, for that matter.</p>
         <!--<p style="margin:0px;"><a href="https://www.bloomberg.com/opinion/articles/2023-11-21/openai-is-a-strange-nonprofit"> i was linked to by matt levine</a> (who fired sam altman market).</p>-->
-        I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span style="font-size:30px;">💹</span> emoji. I am filled with shame, though currently enjoying, the <img loading="lazy" style="height:30px; vertical-align: sub;" src="/yen_down.png"/></p>
+        I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span style="font-size:30px;">💹</span> emoji.</p>
     </div>
 
         <div class="column">
-    <p style="margin-bottom: 0px;"> I've devised a new calendar. The first day is <span class="name" style="font-weight: bold;">Sophia</span>day. Then proceed 13 months of 28 days each. Their names are <span id="months"></span>. I am open to suggestions for new month names. Maybe just your name! But only if I love you.</p>
+    <p style="margin-bottom: 0px;"> I've devised a new calendar. The first day is <span class="name" style="font-weight: bold;">Sophia</span>day. Then proceed 13 months of 28 days each. Their names are <span id="months"></span>. I am open to suggestions for new month names.</p>
     <span style="padding-top: 0px; margin-top: 0px;" id="days">The current date is</span>
         </div>
 </div>
 
+<div style="text-align: center; font-size: x-large; padding-top: 10px; margin: 10px;"><a style="text-decoration: none;" href="/shmem_atomic"> I wrote a blog post on shared memory atomic throughput on RTX 4090</a>. Let me know what you think!</div>
+
 <div style="border-top: 1px solid grey; padding-bottom: 20px; border-bottom: 1px solid grey;">
-    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
+    <div>
+        <p style="font-size: 1.5vh; padding: 0px; color:grey; position: absolute; left: 50px;"> click on the arrows to expand the content </p>
+        <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
+    </div>
     <ol>
-        <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.</details> </li>
-        <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
-        <li><details> <summary> As a general theme, the relationship between compute and intelligence </summary>
+        <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a></details> </li>
+        <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
+        <li><details> <summary> The relationship between compute and intelligence </summary>
             <ol>
-                <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture a ~arbitrarily good player by just giving it more time! </li>
+                <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture an ~arbitrarily good player by just thinking longer! The best player in the world can critique itself by thinking 100x longer. </li>
                 <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly, many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~2k positions/s. </li>
                 <li> LLM tradeoffs between size and quality are interesting because the pareto frontier is moving so quickly. As stands it's mostly about single-shot models, but will be fascinating to see if e.g. agents can make a poor model a good one. </li>
-                <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone claimed on twitter that they were able to tell ASICs were being used by someone because highly complex signals were being traded at latencies faster than FPGAs were capable of. </li>
+                <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone on twitter claimed they were able to tell ASICs were being used by some market participant because highly complex signals were being traded at latencies faster than FPGAs were capable of. That's fascinating. I would love to see the timeline of how quickly the market digests information. How many "bps of alpha per ms" do we see the market improve by? </li>
+                <!-- TODO: compression -->
             </ol>
         </details></li>
-        <li> Why are there regularly negative electricity prices in the US? Why don't people curtail more?</li>
-        <li> Why did nuclear energy capacity factors go from <a href="https://www.energy.gov/sites/default/files/styles/full_article_width/public/2022-06/chart-title.png?itok=jorBkYE1">~70% to ~90% between 1990 and 2003</a>? </li>
-        <li> Are there real use cases for very cheap solar modules, or is intermittent power just hard to do anything with? </li>
-        <li> <a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </li>
+        <li> <details><summary>How does information diffuse through industries?</summary>I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a> <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a> <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a> <a href="https://research.google/pubs/cores-that-dont-count/">its</a> <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>, but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry? </details></li>
+        <li> Are there real use cases for very cheap solar modules, or is intermittent power too hard to do anything with? </li>
+        <li> <details><summary><a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </summary> My personal feeling is that spreads for any retail financial product should be very close to 0, because retail traders have no real informational advantage (ignoring e.g. GME/AMC). But in fact we often see options spreads of 5% or more for options on relatively common stocks. Some of this is that Robinhood shows bid/ask numbers from exchanges and price improvement happens later (pointed out by @theemilyaccount). Another part is that retail options might go to an exchange more (though somehow robinhood made $150m last quarter on options revenue). Something I'm theorizing is that internalizing retail options takes a lot of capital and skill, so there's less competition than for equities, which means spreads are wider and robinhood/market makers can take more of the price improvement. </details> </li>
         <li> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </li>
-        <li> How much total revenue is there from AI-based products? Nobody can seem to tell. </li>
+        <li> How much total revenue is there from AI-based products? Seems to be about $5B, but accurate figures are hard to come by (exactly how many people are using Copilot 365?) </li>
         <li> <details> <summary> Fun little product ideas: </summary>
             <ol>
                 <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
@@ -96,13 +108,20 @@
         <li> <details><summary>silly projects i <abbr title="want theoretically but probably won't do">want</abbr> to make</summary>
             <ol>
                 <li> Ten rings, each of a different element (Samarium, Vanadium, Tungsten, etc.) </li>
-                <li> Solar panels that arc </li>
+                <li> buy 10KW of solar panels for ~$2k and have them arc through the air starting in the morning. use the power of the sun to rip the air apart </li>
             </ol>
         </details>
         </li>
+        <li>
+            <details><summary>Previous questions that have been answered by viewers like you</summary>
+            <ol>
+                <li> Why are there regularly negative electricity prices in the US? Why don't people curtail more?</li>
+                Basic answer is approximately "many plants are expensive to turn off for a short period of time" + production-based tax credits for wind and solar that encourage them to produce even when they have to pay money to do so.
+            <li> Why did nuclear energy capacity factors go from <a href="https://www.energy.gov/sites/default/files/styles/full_article_width/public/2022-06/chart-title.png?itok=jorBkYE1">~70% to ~90% between 1990 and 2003</a>? </li>
+            Answered by <a href="https://x.com/Vernon3Austin"> Austin Vernon </a>: "Nuclear power plant capacity factor went up because of countless small improvements, slightly modified equipment, better operations management, etc. Also NRC got more flexible with performance based regulation. [This] kind of performance increase is relatively normal for factories, chemical plants, and power plants."
+            </ol>
+        </details></li>
     </ol>
-
-    <a style="text-decoration: none;" href="/shmem_atomic"> I have a draft blog post on shared memory atomic throughput on RTX 4090</a>. I'm planning to publish it soon. Let me know what you think!
 </div>
 
 <div id="lex-container" style="text-align: center; max-width: 300px;">
@@ -136,7 +155,7 @@
     <p style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>
     <span>
     <canvas id="pointer" style="width: 400; height:400; position: absolute;"></canvas>
-    <img loading="lazy" src="/sopics/family.jpeg" style="width: 400; height: 300;">
+    <img id="family" loading="lazy" src="/sopics/family.jpeg" style="width: 400; height: 300;">
     </span>
     <img loading="lazy" src="/sopics/church.jpeg" style="max-height:400px">
     <img loading="lazy" src="/sopics/fire.jpeg" style="max-height:400px">
@@ -221,8 +240,7 @@ function drawArrow() {
 
 function animate() {
     // this is kind of insane... maybe re
-    // sopic_ctx.drawImage(image, 0, 0, 450*2, 337*2);
-    sopic_ctx.clearRect(0, 0, 450*2, 337*2);
+    sopic_ctx.clearRect(0, 0, 450*dpr, 337*dpr);
 
     // drawOval();
     drawArrow();
@@ -235,7 +253,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// animate();
+document.getElementById("family").onload = animate;
 
 const months = [
     "Wisdom",
@@ -302,7 +320,7 @@ const days_to_ymd = days_since_sophia => {
     const day_ordinal = ((day%10) == 1) ? "st" : ((day%10) == 2) ? "nd" : ((day%10) == 3) ? "rd" : "th";
     const year_ordinal = ((year%10) == 1) ? "st" : ((year%10) == 2) ? "nd" : ((year%10) == 3) ? "rd" : "th";
 
-    return `the ${day}${day_ordinal} day of the month of ${month} in the ${year}${year_ordinal} year of <span class="name">Sophia</span>`;
+    return `the ${day}${day_ordinal} day of the month of ${month} in the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`;
 }
 
 const gregorian_date = new Date();
@@ -445,188 +463,23 @@ fetch("/website_vibes/files.json").then(f => f.json()).then(data => {
 
 
     <script>
-        function rgbToLab(rgb) {
-    let r = rgb[0] / 255,
-        g = rgb[1] / 255,
-        b = rgb[2] / 255;
-
-    // Apply gamma correction
-    r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
-    g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
-    b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
-
-    // Convert to XYZ
-    let x = (r * 0.4124564 + g * 0.3575761 + b * 0.1804375) / 0.95047,
-        y = (r * 0.2126729 + g * 0.7151522 + b * 0.0721750),
-        z = (r * 0.0193339 + g * 0.1191920 + b * 0.9503041) / 1.08883;
-
-    // Convert to Lab
-    x = x > 0.008856 ? Math.pow(x, 1/3) : (7.787 * x) + 16/116;
-    y = y > 0.008856 ? Math.pow(y, 1/3) : (7.787 * y) + 16/116;
-    z = z > 0.008856 ? Math.pow(z, 1/3) : (7.787 * z) + 16/116;
-
-    let l = (116 * y) - 16,
-        a = 500 * (x - y),
-        bLab = 200 * (y - z);  // Renamed variable here to avoid conflict with 'b' from RGB
-
-    return [l, a, bLab];
-}
-
-function labToRgb(lab) {
-    let y = (lab[0] + 16) / 116,
-        x = lab[1] / 500 + y,
-        z = y - lab[2] / 200;
-
-    // Convert to XYZ
-    x = x > 0.206897 ? Math.pow(x, 3) : (x - 16/116) / 7.787;
-    y = y > 0.206897 ? Math.pow(y, 3) : (y - 16/116) / 7.787;
-    z = z > 0.206897 ? Math.pow(z, 3) : (z - 16/116) / 7.787;
-
-    // Adjust reference white points and convert to RGB
-    x *= 0.95047;
-    y *= 1.00000;
-    z *= 1.08883;
-
-    let r =  3.2406 * x - 1.5372 * y - 0.4986 * z,
-        g = -0.9689 * x + 1.8758 * y + 0.0415 * z,
-        b =  0.0557 * x - 0.2040 * y + 1.0570 * z;
-
-    // Apply gamma correction
-    r = r > 0.0031308 ? 1.055 * Math.pow(r, 1/2.4) - 0.055 : 12.92 * r;
-    g = g > 0.0031308 ? 1.055 * Math.pow(g, 1/2.4) - 0.055 : 12.92 * g;
-    b = b > 0.0031308 ? 1.055 * Math.pow(b, 1/2.4) - 0.055 : 12.92 * b;
-
-    return [Math.max(0, Math.min(255, r * 255)),
-            Math.max(0, Math.min(255, g * 255)),
-            Math.max(0, Math.min(255, b * 255))].map(Math.round);
-}
-
-const randomrgb = () => {
-    return [
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256)
-    ];
-}
-
-function interpolateColors(colors, fraction) {
-    let labs = colors.map(rgb => rgbToLab(rgb));
-    let resultLab = [
-        labs[0][0] * (1-fraction) + labs[1][0] * fraction,
-        labs[0][1] * (1-fraction) + labs[1][1] * fraction,
-        labs[0][2] * (1-fraction) + labs[1][2] * fraction
-];
-
-    return labToRgb(resultLab);
-}
-
 const love = document.getElementById("love");
-const resize = () => {
-    const dpr = window.devicePixelRatio || 1;
-    const rect = love.getBoundingClientRect();
-    // it goes a little bit off without the -10s and makes a scrollbar at the bottom
+
+// dpr = window.devicePixelRatio || 1;
+
+let w = window.innerWidth-10;
+love.style.width = `${w}px`;
+love.style.height = `${40}px`;
+
+const worker = new Worker("offscreen_canvas.js");
+const canvasLove = love.transferControlToOffscreen();
+worker.postMessage({ love: canvasLove, dpr, w: window.innerWidth }, [canvasLove]);
+window.addEventListener('resize', () => {
     let w = window.innerWidth-10;
     love.style.width = `${w}px`;
     love.style.height = `${40}px`;
-    love.width = w * dpr;
-    love.height = 40 * dpr;
-    ctx = love.getContext("2d");
-    ctx.scale(dpr, dpr);
-    ctx.font = "30px sans-serif";
-}
-window.addEventListener('resize', resize);
-var ctx = love.getContext("2d");
-
-ctx.font = "30px sans-serif";
-function weightedRandom(message_weights) {
-    const choices = message_weights.map(([a, b]) => a);
-    const weights = message_weights.map(([a, b]) => b);
-    let totalWeight = weights.reduce((acc, weight) => acc + weight, 0);
-    let random = Math.random() * totalWeight;
-    let sum = 0;
-
-    for (let i = 0; i < choices.length; i++) {
-        sum += weights[i];
-        if (random < sum) {
-            return choices[i];
-        }
-    }
-}
-const message_weights = [
-    ["i love you; ", 0.1],
-    ["contact me at sophia.wisdom1999@gmail.com ", 0.01],
-    ["welcome to sophia's blog! ", 0.2],
-    ["you're so beautiful ", 0.01],
-    ["no one has to know ", 0.01],
-    ["please ", 0.001],
-    ["show me ", 0.001],
-    ["how are you doing? ", 0.01],
-    ["let me see you ", 0.04],
-    ["let me touch you ", 0.01],
-    ["let me grab you ", 0.01],
-    ['let me taste you ', 0.01],
-    ["let me cut you", 0.01],
-    ["let me open you up ", 0.01],
-    ["send me a poem ", 0.01],
-    ["eatme ", 0.02],
-    ["touch me ", 0.01],
-    ["kiss me ", 0.01],
-    ["love me ", 0.01],
-    ["looking in the source code, are you? ", 0]
-]
-
-function generate_direction() {
-    while (1) {
-        let dir = [Math.random()-0.5, Math.random()-0.5, Math.random()-0.5];
-        if (dir.reduce((a, b) => Math.abs(a)+Math.abs(b), 0) > 0.6) {
-            return dir;
-        }
-    }
-}
-
-let pixel_idx = 0;
-let color = rgbToLab([0, 128, 77]);
-let color_direction = generate_direction();
-let color_magnitude = 2;
-let message = message_weights[2][0];
-let msg_index = 0;
-
-let f = (time) => {
-    if (message.length == msg_index) {
-        message = weightedRandom(message_weights);
-        msg_index = 0;
-    }
-    let letter = message[msg_index];
-    const letter_width = ctx.measureText(letter).width;
-    if ((pixel_idx + letter_width) > (love.width/dpr)) {
-        pixel_idx = 0;
-    }
-    // console.log(letter, pixel_idx, love.width);
-    color = color.map((val, idx) => val + (color_direction[idx]*color_magnitude));
-    if (color[0] > 80 || color[0] < 10 || Math.abs(color[1]) > 128 || Math.abs(color[2]) > 128) {
-        if (color[0] > 80) {
-            color[0] -= 10;
-        } else if (color[0] < 10) {
-            color[0] += 10;
-        }
-        if (Math.abs(color[1]) > 128) {
-            color[1] *= 0.9;
-        }
-        if (Math.abs(color[2]) > 128) {
-            color[2] *= 0.9;
-        }
-        color_direction = generate_direction();
-    }
-    const [r, g, b] = labToRgb(color);
-    ctx.clearRect(pixel_idx, 0, letter_width, 100);
-    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
-    ctx.fillText(letter, pixel_idx, 30);
-    pixel_idx += letter_width;
-    msg_index += 1;
-    requestAnimationFrame(f);
-};
-resize();
-f(0);
+    worker.postMessage({type: "resize", w, dpr});
+});
     </script>
 </div>
 </html>

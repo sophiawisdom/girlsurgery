@@ -4,11 +4,11 @@
     <link rel="stylesheet" href="/shmem_atomic/file.css"></style>
     </head>
 
-    <title> Shared Memory Atomic throughput </title>
+    <title> Shared Memory Atomic throughput on RTX 4090 </title>
 
     <body class="container">
 
-<h1> Shared Memory Atomic throughput </h1>
+<h1> Shared Memory Atomic throughput on RTX 4090 </h1>
 
 There are two categories of shared memory atomic operation: those <span style="color:red">😊with😊</span> hardware support and those without <span style="color:red">🙁without🙁</span>. The following operations have direct hardware support: 32-bit integer add, 32-bit integer max, and 32-bit bitwise operations. All other operations are implemented with Compare-And-Swap loops that are much slower under contention.
 
@@ -39,7 +39,7 @@ Write back (1) | Write back (1)
 
 <p> The counter now records you have received one request when you actually received two. </p>
 
-<p>To fix this, we make the single logical operation a single physical operation ("atomic", in the sense of "indivisible"). It now becomes a <a href="https://godbolt.org/z/jGGK9GjdG"> single instruction </a> that the hardware guarantees will always be consistent.
+<p>To fix this, we make the single logical operation a single physical operation ("atomic", in the sense of "indivisible"). It now becomes a <a href="https://godbolt.org/z/jGGK9GjdG"> single instruction </a> that the hardware guarantees will always be indivisible.
 
 <h3>Compare-And-Swap</h3>
 
@@ -66,7 +66,7 @@ while (assumed != old) {
 }
 </pre>
 
-<p style="padding-bottom:30px">Because CAS is so flexible, we can implement anything we want as the operation -- atomic cosine, atomic multiplication, atomic XOR, etc.</p>
+<p style="border-bottom: 1px solid black;">Because CAS is so flexible, we can implement anything we want as the operation -- atomic multiplication, atomic log-sum-exp, atomic XOR-then-shiftleft etc.</p>
 
 </details>
 
@@ -85,7 +85,7 @@ In CUDA, programs execute in units of what NVIDIA calls a "warp"<sup id="red_war
 The next highest level of hierarchy is that multiple warps can be grouped into a "CTA" or "block" which are all guaranteed to run on the same SM, which consists of 4 SMSPs plus 128KB of "shared memory" which is like very fast addressible L1 cache. Multiple warps can communicate and work together through shared memory. For example in a matrix multiplication <abbr title="basically just a program. idk why they call it this">kernel</abbr> many warps do different computations on the same data, reducing memory bandwidth.
 </p>
 
-<p style="padding-bottom:30px">In order for the warps in a block to communicate together they often need atomics: to track the maximum value they've seen, to calculate a sum, to keep a list or queue.</p>
+<p style="border-bottom: 1px solid black; margin-bottom: 10px; padding-bottom: 10px;">In order for the warps in a block to communicate together they often need atomics: to track the maximum value they've seen, to calculate a sum, to keep a list or queue.</p>
 
 </details>
 
@@ -93,20 +93,20 @@ The next highest level of hierarchy is that multiple warps can be grouped into a
 Here is the list of shared memory atomic SASS instructions.<sup id="red_atoms"><a href="#ref_atoms">5</a></sup>.
 <ul>
     <li><code><a href="https://godbolt.org/z/zcPzPjPrE">ATOMS.ADD</a></code>Atomically add a u32/i32 <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicadd">cuda</a></sup></li>
-    <li><code><a href="https://godbolt.org/z/EvEz45d9q">ATOMS.POPC.INC</a></code> Implemented in Ampere. It increments a u32/i32. It is very fast (&lt;10 cycles) and never suffers from contention. Discussed <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s33322/">here</a> <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicinc">cuda</a></sup> </li>
+    <li><code><a href="https://godbolt.org/z/EvEz45d9q">ATOMS.POPC.INC</a></code> Increments a u32/i32. It's very fast (&lt;10 cycles) and never suffers from contention. Discussed <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s33322/">here</a> <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicinc">cuda</a></sup> </li>
     <li><code>ATOMS.{<a href="https://godbolt.org/z/oGzhzWvYb">MIN</a>,<a href="https://godbolt.org/z/v9dW6GKha">MAX</a>}</code> Atomically min/max a u32/i32 <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicmin">cuda</a></sup></li>
     <li><code>ATOMS.{<a href="https://godbolt.org/z/ExaP4rjcs">XOR</a>,<a href="https://godbolt.org/z/YEq8zjcWq">OR</a>,<a href="https://godbolt.org/z/6YGeaodE1">AND</a>}</code>Atomically apply 32 bit wide bitwise operations <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#bitwise-functions">cuda</a></sup></li>
-    <li><code>ATOMS.CAS.{<a href="https://godbolt.org/z/s7WcPYrxz">32</a>,<a href="https://godbolt.org/z/Wd1TWPd79">64</a>,<a href="https://godbolt.org/z/Wd1TWPd79">128</a>}</code>Atomically Compare-And-Swap a 32/64/128 bit value. These can be generated with user code. <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomiccas">cuda</a></sup></li>
-    <li><code>ATOMS.CAST.SPIN.{<a href="https://godbolt.org/z/bKv4qqr59">32</a>, <a href="https://godbolt.org/z/x7qW97c8a">64</a>}</code>Atomically Compare-And-Swap a 32/64 bit value. These are only generated by ptxas in loops (where you <code>SPIN</code>) to implement atomics not supported natively. </li>
+    <li><code>ATOMS.CAS.{<a href="https://godbolt.org/z/s7WcPYrxz">32</a>,<a href="https://godbolt.org/z/6Y7b8j6Td">64</a>,<a href="https://godbolt.org/z/Wd1TWPd79">128</a>}</code>Atomically Compare-And-Swap a 32/64/128 bit value. These can be generated with user code. <sup><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomiccas">cuda</a></sup></li>
+    <li><code>ATOMS.CAST.<span class="spin">SPIN</span>.{<a href="https://godbolt.org/z/bKv4qqr59">32</a>, <a href="https://godbolt.org/z/x7qW97c8a">64</a>}</code>Atomically Compare-And-Swap a 32/64 bit value. These are only generated by ptxas <span class="loops">in loops</span> (where you <code class="spin">SPIN</a></code>) to implement atomics not supported natively. </li>
 </ul>
 
-Here's an annotated example of what <a href="https://godbolt.org/z/34srEhePv">that inner loop looks like</a> for an atomic not supported natively, like <code>atomicAdd((float *)ptr, 15)</code>.
+Here's an annotated example of what <a href="https://godbolt.org/z/34srEhePv">that <span class="loops">inner loop</span> looks like</a> for an atomic not supported natively, like <code>atomicAdd((float *)ptr, <span class="fifteen">15</span>)</code>.
 
 <div>
 <pre>
 .LOOPSTART:
-LDS R2, [R0] // Load current value from shared memory (LD<b>S</b>) and put it in R2
-FADD R3, R2, 15 // Add 15 (the value we're atomically adding) to R2 and put it in R3
+LD<b><span class="shared">S</span></b> R2, [R0] // Load current value from <span class="shared">shared</span> memory and put it in R2
+FADD R3, R2, <span class="fifteen">15</span> // Add <span class="fifteen">15</span> to R2 and put it in R3
 ATOMS.CAST.SPIN R3, [R0], R2, R3 // Attempt to replace the value at *ptr with R3 if *ptr==R2
 ISETP.EQ.U32.AND P0<sup id="red_pred"><a href="#ref_pred">6</a></sup>, PT, R3, 0x1, PT // If the CAS failed
 @!P0 BRA `(.LOOPSTART)                // Loop back
@@ -117,15 +117,16 @@ ISETP.EQ.U32.AND P0<sup id="red_pred"><a href="#ref_pred">6</a></sup>, PT, R3, 0
 This has several implications:
 <ol>
     <li> If many threads are trying to update the same value, they do so sequentially (trying to get at: many issue an atomic CAS, only one succeeds) </li>
-    <li> This means non-int32 atomics are ~100x slower under extreme contention (NOTE: mention __shfl_sync, mention random index stuff too) </li>
-    <li> Updates that don't change the initial value (e.g. INF + 5 = INF) are meaningfully faster (NOTE: what if I just predicated the atomic on whether there was a change?) </li>
+    <li> Non-int32 atomics are ~100x slower under extreme contention <sup id="red_int32"><a href="#ref_int32">6</a></sup> </li>
+    <li> Updates that don't change the initial value (e.g. INF + 5 = INF) are meaningfully faster </li>
     <li> Manually implementing atomics in CUDA is just as fast as using builtins like atomicAdd() (for non-int32 operations) </li>
-    <li> Other operations like atomic multiply or atomic exponent are just as fast as atomicAdd() (NOTE: atomic exponent probably isn't. I can try this though. What are other operations?) </li>
+    <li> Operations not supported in CUDA like "atomic multiply" or "atomic exponent" are just as fast as atomicAdd() (for non-int32 operations) <!--(NOTE: atomic exponent probably isn't. I can try this though. What are other operations?)--> </li>
     <li> Any operations that can be converted from CAS operations into hardware operations should be. </li>
 </ol>
 </p>
 
-<p style="font-size: 20px;padding-top:20px;padding-bottom:20px;"> Now I will substantiate all these claims. </p>
+<p style="font-size: 20px;padding-top:20px;padding-bottom:20px;"> Here are some graphs to substantiate these claims. 
+This is unfortunately incomplete. The original code for all of these is <a href="https://github.com/sophiawisdom/benchmarks">here</a>, in <a href="https://github.com/sophiawisdom/benchmarks/blob/master/blog.ipynb">blog.ipynb</a>. </p>
 
 First, the headline numbers. This shows the number of cycles per atomicAdd() from each of 256 threads to a varying number of values. The X axis is the average number of threads trying to write to a particular address and the Y axis is the number of cycles. Both are on a log scale.
 <img src="/shmem_atomic/float_int.png">
@@ -157,11 +158,13 @@ There are two compare-and-swap instructions: one that can be used from CUDA dire
 
 <p id="ref_warp"><b><a href="#red_warp"></a></b>: because it was the first <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#simt-architecture:~:text=first%20parallel%20thread%20technology">"parallel thread technology"</a></p>
 
-<p id="ref_atoms"><b><a href="#red_atoms"></a></b>: By this I mean has a single SASS instruction that implements that operation. It's possible I missed some. If I did, let me know. On the SASS index only the generic <code>ATOMS</code> for "Atomic Operation on Shared Memory" <a href="https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html"> is listed</a> </p>
+<p id="ref_atoms"><b><a href="#red_atoms"></a></b>: I'm ignoring <code>ATOMS.ARRIVE</code> (<a href="https://godbolt.org/z/3bhY4adah">AKA <code>mbarrier.arrive.shared</code></a>) because it doesn't seem important. Otherwise, we can be pretty confident about this because of Kuter Dinel's good work -- he <a href="https://kuterdinel.com/nv_isa/ATOMS.html">listed all the modifiers for ATOMS</a>, the generic instruction for "Atomic Operation on Shared Memory". </p>
 
 <p id="ref_pred"><b><a href="#red_pred"></a></b>: "Predicate register 0". Predicate registers are special registers that hold a boolean for every lane in a warp, which then enables you to only execute an instruction for lanes where the predicate is true/false. The <code>ISETP</code> sets P0 to a value indicating whether the CAS succeeded, then <code>@!P0 BRA `(.LOOPSTART)</code> makes all the lanes where the CAS failed start over. </p>
 
 <p id="ref_cas"><b><a href="#red_cas"></a></b>: Specifically with <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomiccas">atomicCAS()</a>, which is <code>atom.shared.cas</code> in PTX </p>
+
+<p id="ref_int32"><b><a href="#red_int32"></a></b>: (NOTE: mention __shfl_sync, mention random index stuff too) </p>
 
 </div>
 

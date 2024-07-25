@@ -15,7 +15,7 @@ body {
 
 /* Container */
 .container {
-    max-width: 800px;
+    max-width: 60%;
     margin: 0 auto;
     padding: 20px;
     background: #fff;
@@ -168,4 +168,19 @@ img {
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.spin {
+    color: green;
+    font-weight: bold;
+}
+.loops {
+    color: red;
+    font-weight: bold;
+}
+.fifteen {
+    /* color: purple; */
+    background-color: rgba(128, 0, 128, 0.3);
+}
+.shared {
+    color: blue;
 }

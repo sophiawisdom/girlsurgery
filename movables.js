@@ -44,9 +44,10 @@ let mouseover = e => {
         mail.href = `mailto:${names[idx]}@girl.surgery`;
     });
 }
-if (document.getElementById("email")) {
-    document.getElementById("email").href = `mailto:sophia@girl.surgery`;
-}
+
+Array.from(document.getElementsByClassName("email")).forEach(mail => {
+    mail.href = `mailto:sophia@girl.surgery`;
+});
 
 Array.from(document.getElementsByClassName("name")).forEach(n => n.onmouseover = mouseover);
 mouse_interval = setInterval(mouseover, 30000);
