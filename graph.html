@@ -1,5 +1,5 @@
 <html>
-    <h3> graphs! </h3>
+    <title> Memory bandwidth vs capacity </title>
     <style>
         .canvas-container {
             position: relative;
@@ -10,23 +10,43 @@
             top: 0;
             left: 0;
         }
+        .read {
+            color: blue;
+        }
+        .storage {
+            color: red;
+        }
     </style>
+    <!--
     <textarea id="filter"></textarea>
     <code id="error"></code>
-    <p style="font: 30px arial; text-align:left;"> GB/$ vs GB/S/$ </p>
-    <div class="canvas-container">
-        <canvas id="graph" width="1000" height="400"></canvas>
-        <canvas id="tooltipLayer" width="1000" height="400"></canvas>
+    -->
+    <!--
+ -->
+
+ <!-- Send to Richard Ngo! -->
+ <p style="font: 20px arial; text-align:center;"> Memory technologies make fundamental tradeoffs between <span class="storage">storage capacity</span> and <span class="read">read speeds</span>, and these drive programmers to put different data on different memory technologies.</p>
+<p> But what actually are those tradeoffs? Here is a graph of <span class="read">read speeds</span> (in MB/s of sequential <span class="read">reads</span>) vs <span class="storage">capacity</span> (in GB) per dollar.</p>
+
+    <div id="container" class="canvas-container">
+        <canvas id="graph" width="3" height="5"></canvas>
+        <canvas id="tooltipLayer" width="3" height="5"></canvas>
     </div>
+    <div style="margin: 0px; padding: 0px; border: 1px solid black; width:100%;">
+        <span style="background-color: lightgrey"> Why did I not include SRAM? </span>
+        <span> because </span>
+    </div>
+    <p> When making this graph, there are a lot of tricky modelling assumptions that I've simply had to bulldoze.  </p>
     <script>
+// BEWARE!!! MEMORY BANDWIDTH NUMBERS ARE IN GB/S BUT CAPACITY IS IN GiB!!!!
 var memory = [
     {
         "cost": 4.877,
         "capacity": 2,
         "membw": 9.375,
-        "comment": "BEWARE!!! MEMORY BANDWIDTH NUMBERS ARE IN GB/S BUT CAPACITY IS IN GiB!!!!",
         "technology":"DRAM",
         "subtechnology":"DDR5",
+        "primary": true,
         "more_info": "dramexchange.com DDR5 16G (2Gx8) 4800/5600"
     },
     {
@@ -35,6 +55,7 @@ var memory = [
         "membw": 6.25,
         "technology":"DRAM",
         "subtechnology":"DDR4",
+        "primary": false,
         "more_info": "dramexchange.com DDR4 16Gb (1Gx16)3200"
     },
     {
@@ -43,6 +64,7 @@ var memory = [
         "membw": 3.125,
         "technology":"DRAM",
         "subtechnology":"DDR3",
+        "primary": false,
         "more_info": "dramexchange.com DDR3 4Gb 512Mx8 1600/1866"
     },
     {
@@ -51,6 +73,7 @@ var memory = [
         "membw": 84,
         "technology":"DRAM",
         "subtechnology":"GDDR6X",
+        "primary": true,
         "more_info": "this was quoted to me: GDDR6X 16Gb 21gbps"
     },
     {
@@ -59,6 +82,7 @@ var memory = [
         "membw": 33.33,
         "technology":"DRAM",
         "subtechnology":"LPDDR5X",
+        "primary": false,
         "more_info": "from leaked dell numbers, adjusted to lower capacity"
     },
     {
@@ -68,14 +92,16 @@ var memory = [
         "membw_per_dollar": 0.00008,
         "technology":"Tape",
         "subtechnology":"LTO-9",
+        "primary": true,
         "more_info": "LTO-9 https://tapeandmedia.com/lto-ultrium-9-tapes/"
     },
     {
         "cost": 233,
         "capacity": 14901,
         "membw": 0.261,
-        "technology":"Disk",
-        "subtechnology":"non-shingled",
+        "technology":"HDD",
+        "subtechnology":"CRM",
+        "primary": true,
         "more_info": "backblaze 16TB disk https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/ st16000nm001g https://www.seagate.com/files/www-content/datasheets/pdfs/exos-x16-DS2011-1-1904US-en_US.pdf"
     },
     {
@@ -84,6 +110,7 @@ var memory = [
         "membw": 3000,
         "technology":"DRAM",
         "subtechnology":"HBM3",
+        "primary": true,
         "more_info": "H100 HBM3"
     },
     {
@@ -91,9 +118,104 @@ var memory = [
         "capacity": 500,
         "membw": 5,
         "technology": "Flash",
-        "subtechnology": "TLC"
+        "subtechnology": "TLC",
+        "primary": true,
     }
 ]
+
+memory = [
+    {
+        "cost": 4.877,
+        "capacity": 2,
+        "membw": 9.375,
+        "technology":"DRAM",
+        "subtechnology":"DDR5",
+        "primary": true,
+        "more_info": "dramexchange.com DDR5 16G (2Gx8) 4800/5600",
+        "color": "rgba(0, 120, 255, 1)"
+    },
+    {
+        "cost": 3.502,
+        "capacity": 2,
+        "membw": 6.25,
+        "technology":"DRAM",
+        "subtechnology":"DDR4",
+        "primary": false,
+        "more_info": "dramexchange.com DDR4 16Gb (1Gx16)3200",
+        "color": "rgba(30, 144, 255, 0.7)"
+    },
+    {
+        "cost": 0.973,
+        "capacity": 0.5,
+        "membw": 3.125,
+        "technology":"DRAM",
+        "subtechnology":"DDR3",
+        "primary": false,
+        "more_info": "dramexchange.com DDR3 4Gb 512Mx8 1600/1866",
+        "color": "rgba(65, 105, 225, 0.5)"
+    },
+    {
+        "cost": 8,
+        "capacity": 2,
+        "membw": 84,
+        "technology":"DRAM",
+        "subtechnology":"GDDR6X",
+        "primary": true,
+        "more_info": "this was quoted to me: GDDR6X 16Gb 21gbps",
+        "color": "rgba(255, 69, 0, 1)"
+    },
+    {
+        "cost": 10,
+        "capacity": 2,
+        "membw": 33.33,
+        "technology":"DRAM",
+        "subtechnology":"LPDDR5X",
+        "primary": false,
+        "more_info": "from leaked dell numbers, adjusted to lower capacity",
+        "color": "rgba(50, 205, 50, 0.7)"
+    },
+    {
+        "cost": 80,
+        "capacity": 16763,
+        "comment": "this looks fucked up bc it's 18 power-of-ten TB",
+        "membw_per_dollar": 0.00008,
+        "technology":"Tape",
+        "subtechnology":"LTO-9",
+        "primary": true,
+        "more_info": "LTO-9 https://tapeandmedia.com/lto-ultrium-9-tapes/",
+        "color": "rgba(139, 69, 19, 1)"
+    },
+    {
+        "cost": 233,
+        "capacity": 14901,
+        "membw": 0.261,
+        "technology":"HDD",
+        "subtechnology":"CRM",
+        "primary": true,
+        "more_info": "backblaze 16TB disk https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/ st16000nm001g https://www.seagate.com/files/www-content/datasheets/pdfs/exos-x16-DS2011-1-1904US-en_US.pdf",
+        "color": "rgba(192, 192, 192, 1)"
+    },
+    {
+        "cost": 1100,
+        "capacity": 80,
+        "membw": 3000,
+        "technology":"DRAM",
+        "subtechnology":"HBM3",
+        "primary": true,
+        "more_info": "H100 HBM3",
+        "color": "rgba(255, 215, 0, 1)"
+    },
+    {
+        "cost": 50,
+        "capacity": 500,
+        "membw": 5,
+        "technology": "Flash",
+        "subtechnology": "TLC",
+        "primary": true,
+        "color": "rgba(255, 105, 180, 1)"
+    }
+]
+
     </script>
     <!--
     <table>
@@ -106,164 +228,325 @@ var memory = [
     </table>
     -->
     <script>
-        async function dostuff() {
-            let data = (await fetch("/dramexchange.json").then(r => r.json()));
-            //data = [...(await fetch("/memorynet.json").then(r => r.json())), ...data];
-            let canvas = document.getElementById("graph");
-            const ctx = canvas.getContext('2d');
+let data = memory;
+//data = [...(await fetch("/memorynet.json").then(r => r.json())), ...data];
+let canvas = document.getElementById("graph");
+const ctx = canvas.getContext('2d');
 
-            const tooltipCanvas = document.getElementById('tooltipLayer');
-            const tooltipCtx = tooltipCanvas.getContext('2d');
+data.forEach(value => {
+    value.gb_per_dollar = value.capacity_per_dollar || value.capacity/value.cost;
+    value.gbps_per_dollar = value.membw_per_dollar || value.membw/value.cost;
+});
 
-            data.forEach(value => {
-                value.gb_per_dollar = value.capacity_per_dollar || value.capacity/value.cost;
-                value.gbps_per_dollar = value.membw_per_dollar || value.membw/value.cost;
-            });
+const dpr = window.devicePixelRatio || 1;
+let [min_gb, min_gb_rounded, min_gb_magnitude] = round(Math.min(...data.map(a => a.gb_per_dollar)), false);
+let [max_gb, max_gb_rounded, max_gb_magnitude] = round(Math.max(...data.map(a => a.gb_per_dollar)), true);
+let [min_gbps, min_gbps_rounded, min_gbps_magnitude] = round(Math.min(...data.map(a => a.gbps_per_dollar)), false);
+let [max_gbps, max_gbps_rounded, max_gbps_magnitude] = round(Math.max(...data.map(a => a.gbps_per_dollar)), true);
 
-            let min_gb = Math.min(...data.map(a => a.gb_per_dollar));
-            let max_gb = Math.max(...data.map(a => a.gb_per_dollar));
-            let min_gbps = Math.min(...data.map(a => a.gbps_per_dollar));
-            let max_gbps = Math.max(...data.map(a => a.gbps_per_dollar));
+console.log(min_gb, max_gb);
+console.log(min_gbps, max_gbps);
 
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            canvas.style.width = `${rect.width}px`;
-            canvas.style.height = `${rect.height}px`;
+var graph_start_x = 100;
+var graph_start_y = 100;
+var graph_end_x = canvas.width-50;
+var graph_end_y = canvas.height-20;
+var gb_scale = Math.log(max_gb/min_gb)/(graph_end_y-graph_start_y);
+var gbps_scale = Math.log(max_gbps/min_gbps)/(graph_end_x-graph_start_x);
 
-            tooltipCanvas.width = rect.width * dpr;
-            tooltipCanvas.height = rect.height * dpr;
-            tooltipCanvas.style.width = `${rect.width}px`;
-            tooltipCanvas.style.height = `${rect.height}px`;
+const resize = () => {
+    Array.from(document.getElementById("container").children).forEach(child => {
+        const w = Math.min(window.innerWidth * 0.95, (window.innerHeight-child.getBoundingClientRect().y-10)/0.7);
+        child.width = w * dpr;
+        child.style.width = `${w}px`;
+        child.height = w*dpr*0.7;
+        child.style.height = `${w*0.7}px`;
+        container.style.width = `${w}px`;
+        container.style.height = `${w*0.7}px`;
+        console.log(w*0.7, window.innerHeight);
+    });
+    graph_end_x = canvas.width-50;
+    graph_end_y = canvas.height-20;
+    gb_scale = Math.log(max_gb/min_gb)/(graph_end_y-graph_start_y);
+    gbps_scale = Math.log(max_gbps/min_gbps)/(graph_end_x-graph_start_x);
+};
+resize();
 
-            const graph_start_x = 100;
-            const graph_start_y = 100;
-            const graph_end_x = canvas.width-50;
-            const graph_end_y = canvas.height-50;
-            let gb_scale = Math.log(max_gb/min_gb)/(graph_end_x-graph_start_x);
-            let gbps_scale = Math.log(max_gbps/min_gbps)/(graph_end_y-graph_start_y);
-    
-            console.log("canvas.width", canvas.width, canvas.height, max_gb, max_gbps);
+const tooltipCanvas = document.getElementById('tooltipLayer');
+const tooltipCtx = tooltipCanvas.getContext('2d');
 
-            tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+function round(number, roundUp) {
+  if (number === 0) return 0;
 
-            function drawExtra() {
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "black";
-                ctx.moveTo(graph_start_x, graph_start_y);
-                ctx.lineTo(graph_end_x, graph_start_y);
-                ctx.stroke();
-                ctx.lineTo(graph_end_x, graph_end_y);
-                ctx.stroke();
-                ctx.lineTo(graph_start_x, graph_end_y);
-                ctx.stroke();
-                ctx.lineTo(graph_start_x, graph_start_y);
-                ctx.stroke();
+  number = Math.abs(number);
 
-                ctx.rotate(270/180 * Math.PI);
-                ctx.font = "50px Arial";
-                ctx.fillStyle = "black";
-                ctx.fillText("GB/s/$", -500, 100);
-                ctx.rotate(90/180 * Math.PI);
-                ctx.fillText("GB/$", 500, 50);
-                ctx.setTransform(1, 0, 0, 1, 0, 0);
-            }
-            
-            const legend = {
-                "DDR5": "blue",
-                "DDR4": "red",
-                "DDR3": "green",
-                "GDDR6X": "orange",
-                "LPDDR5X": "black",
-            }
+  // Determine the magnitude of the number
+  const magnitude = Math.floor(Math.log10(number));
+  
+  // Calculate the base for rounding (1, 10, 100, etc.)
+  const base = Math.pow(10, magnitude);
 
-            function showTooltip(point) {
-                // TODO: if it would run off the side, start it on the left.
-                tooltipCtx.fillStyle = 'rgba(0, 0, 0, 1)';
-                const height = 30
-                tooltipCtx.font = `${height}px Arial`;
-                const text = point.more_info;
-                let measured = tooltipCtx.measureText(point.more_info);
-                const y_offset = -height-25;
-                const rect_full_width = measured.width + 20;
-                const x_offset = (point.x + rect_full_width) > tooltipCanvas.width ? -rect_full_width : 10;
-                console.log(point.x + x_offset + measured.width + 10, tooltipCanvas.width);
+  // Normalize the number between 1 and 10
+  const normalized = number / base;
 
-                tooltipCtx.fillRect(point.x + x_offset, point.y+y_offset, measured.width+10, height+10);
-                tooltipCtx.fillStyle = 'white'; // "green" to debug
-                tooltipCtx.fillText(text, point.x + x_offset + 5, point.y+y_offset+height);
-            }
+  let rounded;
+  if (roundUp) {
+    if (normalized > 5) rounded = 10;
+    else if (normalized > 2) rounded = 5;
+    else if (normalized > 1) rounded = 2;
+    else rounded = 1;
+  } else {
+    if (normalized < 1) rounded = 1;
+    else if (normalized < 2) rounded = 1;
+    else if (normalized < 5) rounded = 2;
+    else rounded = 5;
+  }
 
-            function drawData(ourData) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawExtra();
-                ourData.forEach(value => {
-                    ctx.beginPath();
-                    // let x = (value.gb_per_dollar/gb_scale)+graph_start_x;
-                    // let y = graph_end_y-(value.gbps_per_dollar/gbps_scale);
-                    let x = Math.log(value.gb_per_dollar/min_gb) / gb_scale + graph_start_x;
-                    let y = graph_end_y-Math.log(value.gbps_per_dollar/min_gbps) / gbps_scale;
-                    value.x = x;
-                    value.y = y;
+  // Scale the rounded value back up and apply the original sign
+  return [rounded*base, rounded, magnitude];
+}
 
-                    console.log(value.more_info, value.gb_per_dollar, value.gbps_per_dollar)
+function paretoFrontier(data) {
+    // Calculate capacity per dollar and memory bandwidth per dollar
+    const processedData = data.map(item => ({
+        ...item,
+        capacityPerDollar: item.capacity / item.cost,
+        membwPerDollar: (item.membw || item.membw_per_dollar * item.cost) / item.cost
+    }));
 
-                    // console.log(parseInt(x), parseInt(y), value.gb_per_dollar, value.gbps_per_dollar);
-                    ctx.arc(x, y, 8, 0, Math.PI * 2);
-                    ctx.fillStyle = legend[value.subtechnology];
-                    ctx.fill();
-                    ctx.closePath();
-                });
-            }
-            drawData(data);
+    // Sort by capacity per dollar (descending)
+    processedData.sort((a, b) => b.capacityPerDollar - a.capacityPerDollar);
 
-            filter.addEventListener("input", event => {
-                if (!event.target.value) { return; }
-                try {
-                    const func_text = "value => " + event.target.value + ";";
-                    console.log(func_text);
-                    const func = eval(func_text);
-                    console.log(func);
-                    drawData(data.filter(func));
-                    document.getElementById("error").textContent = '';
-                } catch (e) {
-                    console.log("e", e);
-                    document.getElementById("error").textContent = e;
-                }
-            });
+    const frontier = [];
+    let maxMembwPerDollar = -Infinity;
 
-            let showingTooltip = null;
-
-            tooltipCanvas.addEventListener("click", event => {
-                const rect = tooltipCanvas.getBoundingClientRect();
-                const mouseX = event.clientX - rect.left;
-                const mouseY = event.clientY - rect.top;
-
-                if (showingTooltip !== null) {
-                    navigator.clipboard.writeText(data[showingTooltip].more_info);
-                }
-            });
-
-            tooltipCanvas.addEventListener('mousemove', (event) => {
-                const rect = tooltipCanvas.getBoundingClientRect();
-                const mouseX = (event.clientX - rect.left) * dpr;
-                const mouseY = (event.clientY - rect.top) * dpr;
-
-                let distances = data.map(point => Math.sqrt((mouseX - point.x) ** 2 + (mouseY - point.y) ** 2));
-                let minDist = Math.min(...distances);
-                let idx = distances.indexOf(minDist);
-                if (minDist < 10 && showingTooltip !== idx) {
-                    tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
-                    showingTooltip = idx;
-                    showTooltip(data[idx]);
-                } else if (minDist >= 10) {
-                    tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
-                    showingTooltip = null;
-                }
-            });
+    for (const item of processedData) {
+        if (item.membwPerDollar > maxMembwPerDollar) {
+            frontier.push(item);
+            maxMembwPerDollar = item.membwPerDollar;
         }
-        dostuff();
+    }
+
+    return frontier;
+}
+
+// console.log("canvas.width", canvas.width, canvas.height, max_gb, max_gbps);
+
+console.log(gbps_scale, gb_scale);
+
+
+tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+function increment(rounded, magnitude) {
+    if (rounded == 1) {
+        return [2, magnitude]
+    } else if (rounded == 2) {
+        return [5, magnitude];
+    } else {
+        return [1, magnitude+1];
+    }
+}
+
+function numberToString(digit, magnitude) {
+    // Validate input
+    if (!Number.isInteger(digit) || !Number.isInteger(magnitude)) {
+        throw new Error("Both digit and magnitude must be integers.");
+    }
+    
+    // Handle the case when magnitude is negative
+    if (magnitude < 0) {
+        let numberString = "0.";
+        for (let i = 1; i < -magnitude; i++) {
+            numberString += "0";
+        }
+        console.log(numberString, magnitude);
+        return numberString + digit.toString();
+    }
+
+    // Construct the number as a string
+    let numberString = digit.toString();
+    let zerosToAdd = magnitude;
+    
+    // Add zeros to the end of the digit
+    while (zerosToAdd > 0) {
+        numberString += "0";
+        zerosToAdd--;
+    }
+    
+    return numberString;
+}
+
+
+function drawExtra() {
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "black";
+    ctx.moveTo(graph_start_x, graph_start_y);
+    ctx.lineTo(graph_end_x, graph_start_y);
+    ctx.stroke();
+    ctx.lineTo(graph_end_x, graph_end_y);
+    ctx.stroke();
+    ctx.lineTo(graph_start_x, graph_end_y);
+    ctx.stroke();
+    ctx.lineTo(graph_start_x, graph_start_y);
+    ctx.stroke();
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
+
+    let [min_gb, min_gb_rounded, min_gb_magnitude] = round(Math.min(...data.map(a => a.gb_per_dollar)), false);
+    let [max_gb, max_gb_rounded, max_gb_magnitude] = round(Math.max(...data.map(a => a.gb_per_dollar)), true);
+    let [min_gbps, min_gbps_rounded, min_gbps_magnitude] = round(Math.min(...data.map(a => a.gbps_per_dollar)), false);
+    let [max_gbps, max_gbps_rounded, max_gbps_magnitude] = round(Math.max(...data.map(a => a.gbps_per_dollar)), true);
+
+    while (1) {
+        const x = Math.log(min_gbps_rounded * (10**min_gbps_magnitude)/min_gbps) / gbps_scale + graph_start_x;
+        ctx.moveTo(x, 101);
+        ctx.lineTo(x, 85);
+        ctx.stroke();
+        const text = numberToString(min_gbps_rounded, min_gbps_magnitude+3);
+        const text_width = ctx.measureText(text).width;
+        ctx.fillText(text, x-text_width/2, 80);
+
+        [min_gbps_rounded, min_gbps_magnitude] = increment(min_gbps_rounded, min_gbps_magnitude);
+        if ((min_gbps_magnitude > max_gbps_magnitude) ||  ((min_gbps_magnitude == max_gbps_magnitude) && (min_gbps_rounded > max_gbps_rounded))) {
+            break;
+        }
+    }
+
+    ctx.rotate(270/180 * Math.PI);
+
+    while (1) {
+        const x = graph_end_y - (Math.log(min_gb_rounded * (10**min_gb_magnitude)/min_gb) / gb_scale);
+        ctx.moveTo(-x, 101);
+        ctx.lineTo(-x, 85);
+        ctx.stroke();
+        const text = numberToString(min_gb_rounded, min_gb_magnitude);
+        const text_width = ctx.measureText(text).width;
+        ctx.fillText(text, -x-text_width/2, 80);
+
+        [min_gb_rounded, min_gb_magnitude] = increment(min_gb_rounded, min_gb_magnitude);
+        if ((min_gb_magnitude > max_gb_magnitude) ||  ((min_gb_magnitude == max_gb_magnitude) && (min_gb_rounded > max_gb_rounded))) {
+            break;
+        }
+    }
+
+    ctx.font = "50px Arial";
+    ctx.fillStyle = "red";
+    ctx.fillText("GB/$", -(graph_end_y-graph_start_y)/2, 50);
+    ctx.fillStyle = "blue";
+    ctx.rotate(90/180 * Math.PI);
+    ctx.fillText("MB/s/$", (graph_end_x-graph_start_x)/2, 50);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = "black";
+}
+
+const legend = {
+    "DDR5": "blue",
+    "DDR4": "red",
+    "DDR3": "green",
+    "GDDR6X": "orange",
+    "LPDDR5X": "black",
+}
+
+function showTooltip(point) {
+    // TODO: if it would run off the side, start it on the left.
+    tooltipCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+    const height = 30
+    tooltipCtx.font = `${height}px Arial`;
+    const text = point.more_info;
+    let measured = tooltipCtx.measureText(point.more_info);
+    const y_offset = -height-25;
+    const rect_full_width = measured.width + 20;
+    const x_offset = (point.x + rect_full_width) > tooltipCanvas.width ? -rect_full_width : 10;
+    console.log(point.x + x_offset + measured.width + 10, tooltipCanvas.width);
+
+    tooltipCtx.fillRect(point.x + x_offset, point.y+y_offset, measured.width+10, height+10);
+    tooltipCtx.fillStyle = 'white'; // "green" to debug
+    tooltipCtx.fillText(text, point.x + x_offset + 5, point.y+y_offset+height);
+}
+
+function drawData(ourData) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawExtra();
+    ourData.forEach(value => {
+        ctx.beginPath();
+        // let x = (value.gb_per_dollar/gb_scale)+graph_start_x;
+        // let y = graph_end_y-(value.gbps_per_dollar/gbps_scale);
+        let y = graph_end_y - (Math.log(value.gb_per_dollar/min_gb) / gb_scale);
+        let x = graph_start_x + (Math.log(value.gbps_per_dollar/min_gbps) / gbps_scale);
+        value.x = x;
+        value.y = y;
+
+        // console.log(value.more_info, value.gb_per_dollar, value.gbps_per_dollar)
+
+        // console.log(parseInt(x), parseInt(y), value.gb_per_dollar, value.gbps_per_dollar);
+        ctx.arc(x, y, value.primary ? 12 : 6, 0, Math.PI * 2);
+        ctx.fillStyle = value.color;// legend[value.subtechnology];
+        ctx.fill();
+        ctx.closePath();
+
+        if (value.primary) {
+            ctx.font = "30px sans-serif";
+            const text = value.subtechnology + " " + value.technology;
+            const measure = ctx.measureText(text);
+            console.log(measure);
+            ctx.fillText(text, x-measure.width/2, y-measure.actualBoundingBoxAscent+5);
+        }
+    });
+}
+drawData(data);
+
+window.addEventListener('resize', () => {
+    resize();
+    drawData(data);
+});
+
+/*
+filter.addEventListener("input", event => {
+    if (!event.target.value) { return; }
+    try {
+        const func_text = "value => " + event.target.value + ";";
+        console.log(func_text);
+        const func = eval(func_text);
+        console.log(func);
+        drawData(data.filter(func));
+        document.getElementById("error").textContent = '';
+    } catch (e) {
+        console.log("e", e);
+        document.getElementById("error").textContent = e;
+    }
+});
+*/
+
+let showingTooltip = null;
+
+tooltipCanvas.addEventListener("click", event => {
+    const rect = tooltipCanvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    if (showingTooltip !== null) {
+        navigator.clipboard.writeText(data[showingTooltip].more_info);
+    }
+});
+
+tooltipCanvas.addEventListener('mousemove', (event) => {
+    const rect = tooltipCanvas.getBoundingClientRect();
+    const mouseX = (event.clientX - rect.left) * dpr;
+    const mouseY = (event.clientY - rect.top) * dpr;
+
+    let distances = data.map(point => Math.sqrt((mouseX - point.x) ** 2 + (mouseY - point.y) ** 2));
+    let minDist = Math.min(...distances);
+    let idx = distances.indexOf(minDist);
+    if (minDist < 10 && showingTooltip !== idx) {
+        tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
+        showingTooltip = idx;
+        showTooltip(data[idx]);
+    } else if (minDist >= 10) {
+        tooltipCtx.clearRect(0, 0, tooltipCanvas.width, tooltipCanvas.height);
+        showingTooltip = null;
+    }
+});
     </script>
 </html>
