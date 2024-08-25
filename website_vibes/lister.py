@@ -9,7 +9,7 @@ try:
     register_heif_opener()
 except ImportError as e:
     print("Got import error", e)
-    print("You need to install pillow, pillow-heif and pillow-avif: `pip3 install pillow pillow-heif`")
+    print("You need to install pillow, pillow-heif and pillow-avif: `pip3 install pillow pillow-heif pillow-avif-plugin`")
     sys.exit(1)
 
 files = []
@@ -20,11 +20,9 @@ for file in tqdm.tqdm(os.listdir(dir)):
         # it won't recognize things i've rotated w/o this
         im = ImageOps.exif_transpose(Image.open(dir + file))
         out_filename = dir + file# "avif_images/" + ".".join(file.split(".")[:-1]) + ".avif"
-        if len(sys.argv) == 1:
-            im.save(out_filename,'AVIF')
         files.append([out_filename, [im.width, im.height]])
     except Exception as e: # e.g. .DS_Store, calculater.py, file
-        print(e)
+        print("got error: ", e)
         continue
 
 if files:
