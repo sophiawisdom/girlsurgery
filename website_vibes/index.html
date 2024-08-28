@@ -13,69 +13,13 @@ function shuffleArray(array) {
     return array;
 }
 
-function splitFit(rectangles, stripWidth) {
-    // Step 1: Determine the maximum height of all rectangles
-    const maxHeight = Math.max(...rectangles.map(rect => rect.h));
-
-    // Step 2: Split rectangles into two groups
-    const large = []; // Rectangles with height > maxHeight / 2
-    const small = []; // Rectangles with height <= maxHeight / 2
-    rectangles.forEach(rect => {
-        if (rect.h > maxHeight / 2) {
-            large.push(rect);
-        } else {
-            small.push(rect);
-        }
-    });
-
-    // Step 3: Sort both groups by height descending
-    large.sort((a, b) => b.h - a.h);
-    small.sort((a, b) => b.h - a.h);
-
-    // Step 4: Positioning rectangles on the strip
-    const positions = [];
-    let currentX = 0;
-    let currentY = 0;
-    let rowMaxHeight = 0;
-
-    // Function to place rectangles in a row
-    const placeRectangles = (rects) => {
-        rects.forEach(rect => {
-            if (currentX + rect.w > stripWidth) {
-                // Start a new row
-                currentX = 0;
-                currentY += rowMaxHeight;
-                rowMaxHeight = 0;
-            }
-            // Place the rectangle
-            positions.push({ x: currentX, y: currentY });
-            // Update positions and maximum height in the row
-            currentX += rect.w;
-            rowMaxHeight = Math.max(rowMaxHeight, rect.h);
-        });
-    };
-
-    // Place large rectangles
-    placeRectangles(large);
-    // Check if a new row is needed before placing small rectangles
-    if (currentX > 0) {
-        currentX = 0;
-        currentY += rowMaxHeight;
-        rowMaxHeight = 0;
-    }
-    // Place small rectangles
-    placeRectangles(small);
-
-    return positions;
-}
-
 fetch("image_widths_heights.json").then(f => {
     if (f.status == 404) {
         alert("unable to find image_widths_heights.json -- you should run lister.py to create it.");
     }
     return f.json();
 }).then(data => {
-    let key_values = shuffleArray(data);
+    let key_values = shuffleArray(data.slice(0, 20));
 
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
@@ -126,7 +70,8 @@ fetch("image_widths_heights.json").then(f => {
     );
     while(treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
     textNodes = textNodes.filter(node => node.parentNode.tagName !== "SCRIPT")
-    textNodes = [];
+
+    console.log(textNodes);
 
     // Now we attempt to place images. I looked at some actually good algorithms but decided to instead use a stupid
     // algorithm: for each image, attempt to place it in a random location up to height 600. if it intersects with
@@ -139,6 +84,21 @@ fetch("image_widths_heights.json").then(f => {
         heights.push([]);
     }
     let i = 0;
+
+    // Start off the positions with the textnodes
+    for (const node of textNodes) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const rect = range.getBoundingClientRect();
+        // not sure if this is right...
+        let node_top = rect.top + window.pageYOffset;
+        let node_left = rect.left + window.pageXOffset;
+
+        positions.push([node_left, node_top, rect.width, rect.height]);
+    }
+
+    console.log(JSON.parse(JSON.stringify(positions)));
+
     // this could be a for loop, but i thought it would be fun to have them appear gradually.
     let interval = setInterval(() => {
     // for (let i = 0; i < key_values.length; i++) {
@@ -167,23 +127,6 @@ fetch("image_widths_heights.json").then(f => {
                     }
                 }
 
-                // do intersection checks against text. TOCONSIDER: cache bounding rect calculation?
-                // THIS IS EXTREMELY SLOW (80% of runtime with 400 rects and 1 textNode)
-                /*
-                for (const node of textNodes) {
-                    const range = document.createRange();
-                    range.selectNodeContents(node);
-                    const rect = range.getBoundingClientRect();
-                    let node_top = rect.top + window.pageYOffset;
-                    let node_left = rect.left + window.pageXOffset;
-                    
-                    if (a_left < (node_left+rect.width) && a_right > node_left && a_bottom > node_top && a_top < (node_top+rect.height)) {
-                        intersects = true;
-                        break;
-                    }
-                }
-                */
-
                 if (!intersects) {
                     found_place = true;
                     // let orig = parseInt(a_top/)
@@ -208,8 +151,8 @@ fetch("image_widths_heights.json").then(f => {
         img.style.width = pairs[i][0];
         img.style.height = pairs[i][1];
         img.style.position = "absolute";
-        img.style.top = positions[i][1];
-        img.style.left = positions[i][0];
+        img.style.top = positions[positions.length-1][1];
+        img.style.left = positions[positions.length-1][0];
         img.loading = "lazy";
         let timeout = null;
         img.onmouseenter = e => {
