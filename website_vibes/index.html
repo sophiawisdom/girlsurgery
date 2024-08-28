@@ -19,7 +19,7 @@ fetch("image_widths_heights.json").then(f => {
     }
     return f.json();
 }).then(data => {
-    let key_values = shuffleArray(data.slice(0, 20));
+    let key_values = shuffleArray(data);
 
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
