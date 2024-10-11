@@ -60,7 +60,7 @@
         <div class="column">
 
     <p style="margin: 0px;"> I am back in San Francisco, at my home, 56 Sycamore Street #C. I'm working on a silly project with Vincent Woo that involves QR code generation on GPU. Stay tuned for a future blog post. </p>
-    <p style="margin-top: 0px;"> I'm a <span class="age">24</span> year old transfem nb. I am looking for a monogamous relationship with a woman-type creature. Could it be you? I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>. </p>
+    <p style="margin-top: 0px;"> I'm a <span class="age">25</span> year old transfem nb. I am looking for a monogamous relationship with a woman-type creature. Could it be you? I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>. </p>
         </div>
 
     <div class="column">
@@ -307,7 +307,7 @@ const gregorian_leap_year = gregorian_year => {
     return false;
 }
 const sophia_leap_year = sophia_year => {
-    let leap_years = [4, 8, 12, 16, 20, 24];
+    let leap_years = [0, 4, 8, 12, 16, 20, 24];
     return leap_years.includes(sophia_year);
 }
 const days_to_ymd = days_since_sophia => {
@@ -325,9 +325,10 @@ const days_to_ymd = days_since_sophia => {
 
     let month = "";
     let day_in_month = 0;
-    let year_string = `year ${year} of <span class="name">Sophia</span>`
+    const year_ordinal = ((year%10) == 1) ? "st" : ((year%10) == 2) ? "nd" : ((year%10) == 3) ? "rd" : "th";
+    let year_string = `of the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`
     if (day_in_year == 0) {
-        return "Sophia day of " + year_string;
+        return "SOPHIA DAY!!! of " + year_string;
     } else if (sophia_leap_year(year) && (day_in_year >= (6*28+1))) {
         if (day_in_year == (6*28+1)) {
             return "Leap day of " + year_string;
@@ -341,7 +342,6 @@ const days_to_ymd = days_since_sophia => {
     }
     const day = day_in_month+1;
     const day_ordinal = ((day%10) == 1) ? "st" : ((day%10) == 2) ? "nd" : ((day%10) == 3) ? "rd" : "th";
-    const year_ordinal = ((year%10) == 1) ? "st" : ((year%10) == 2) ? "nd" : ((year%10) == 3) ? "rd" : "th";
 
     return `the ${day}${day_ordinal} day of the month of ${month} in the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`;
 }
