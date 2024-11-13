@@ -13,12 +13,43 @@ function shuffleArray(array) {
     return array;
 }
 
+async function hashObject(obj) {
+  const str = JSON.stringify(obj);
+  const buffer = new TextEncoder().encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+  
+  // Convert to hex string
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  
+  // If you need an integer instead of hex string:
+  return parseInt(hashHex.slice(0, 8), 16);
+}
+
 fetch("image_widths_heights.json").then(f => {
     if (f.status == 404) {
         alert("unable to find image_widths_heights.json -- you should run lister.py to create it.");
     }
     return f.json();
 }).then(data => {
+    /*
+    let hash_promises = [];
+    for (let i = 0; i < data.length; i++) {
+        hash_promises.push(hashObject(data[i][0]))
+    }
+    async function x() {
+        return [data, await Promise.all(hash_promises)]
+    }
+    return x()
+    */
+   return [data, undefined]
+}).then(([data, hashes]) => {
+    /*
+    let zippa = data.map((val, idx) => [val, hashes[idx]]);
+    zippa.sort((a, b) => a[1] - b[1]);
+    let crippa = zippa.slice(0, 10).map(([a, b]) => a);
+    let key_values = shuffleArray(crippa);
+    */
     let key_values = shuffleArray(data);
 
     const rect = container.getBoundingClientRect();
@@ -28,10 +59,11 @@ fetch("image_widths_heights.json").then(f => {
     // to resize the images to be approximately a similar size.
     const pairs = key_values.map(([key, [w, h]]) => {
         let aspect_ratio = Math.max(w/h, h/w);
-        let goal_pixels = (aspect_ratio > 8) ? 100*200 : (aspect_ratio > 4) ? 300*200 : 500*300;
+        let goal_pixels = (aspect_ratio > 8) ? 200*200 : (aspect_ratio > 4) ? 300*200 : 500*300;
         let actual_pixels = w*h;
         let adjustment_factor = Math.sqrt(actual_pixels/goal_pixels);
-        
+
+        // console.log(key, w, h, "size: ", parseInt(w*h/1000), "ar", aspect_ratio, parseInt(w/adjustment_factor), parseInt(h/adjustment_factor), "adjSize:", parseInt(parseInt(w/adjustment_factor) * parseInt(h/adjustment_factor)/1000));
         return [parseInt(w/adjustment_factor), parseInt(h/adjustment_factor)]
 
         if (actual_pixels/goal_pixels > 16) {
@@ -149,6 +181,8 @@ fetch("image_widths_heights.json").then(f => {
         img.style.left = positions[positions.length-1][0];
         img.loading = "lazy";
         let timeout = null;
+        // idea here is to make the image bigger when you hover. but i think that's kind of gay now. not sure
+        /*
         img.onmouseenter = e => {
             timeout = setTimeout(() => {
                 let newimg = document.createElement("img");
@@ -163,6 +197,7 @@ fetch("image_widths_heights.json").then(f => {
         img.onmouseleave = e => {
             clearTimeout(timeout);
         }
+        */
         container.appendChild(img);
 
         i++;
