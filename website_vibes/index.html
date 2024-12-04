@@ -1,10 +1,9 @@
 <html>
-    <title> vibe images </title>
+    <title>vibe images</title>
     <div id="bigcontainer" style="display:none; position: absolute;"></div>
     <div id="container">
     </div>
     <script>
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -13,202 +12,107 @@ function shuffleArray(array) {
     return array;
 }
 
-async function hashObject(obj) {
-  const str = JSON.stringify(obj);
-  const buffer = new TextEncoder().encode(str);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-  
-  // Convert to hex string
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  
-  // If you need an integer instead of hex string:
-  return parseInt(hashHex.slice(0, 8), 16);
-}
-
 fetch("image_widths_heights.json").then(f => {
     if (f.status == 404) {
         alert("unable to find image_widths_heights.json -- you should run lister.py to create it.");
     }
     return f.json();
 }).then(data => {
-    /*
-    let hash_promises = [];
-    for (let i = 0; i < data.length; i++) {
-        hash_promises.push(hashObject(data[i][0]))
-    }
-    async function x() {
-        return [data, await Promise.all(hash_promises)]
-    }
-    return x()
-    */
-   return [data, undefined]
-}).then(([data, hashes]) => {
-    /*
-    let zippa = data.map((val, idx) => [val, hashes[idx]]);
-    zippa.sort((a, b) => a[1] - b[1]);
-    let crippa = zippa.slice(0, 10).map(([a, b]) => a);
-    let key_values = shuffleArray(crippa);
-    */
-    let key_values = shuffleArray(data);
-
+    let key_values = shuffleArray([...data]);
     const rect = container.getBoundingClientRect();
     let screen_width = rect.width;
+    console.log(screen_width);
 
-    // By default I will have a lot of images that are just enormous and take up most of the screen. Here I attempt
-    // to resize the images to be approximately a similar size.
+    // Resize the images to be approximately a similar size
     const pairs = key_values.map(([key, [w, h]]) => {
         let aspect_ratio = Math.max(w/h, h/w);
         let goal_pixels = (aspect_ratio > 8) ? 200*200 : (aspect_ratio > 4) ? 300*200 : 500*300;
         let actual_pixels = w*h;
         let adjustment_factor = Math.sqrt(actual_pixels/goal_pixels);
-
-        // console.log(key, w, h, "size: ", parseInt(w*h/1000), "ar", aspect_ratio, parseInt(w/adjustment_factor), parseInt(h/adjustment_factor), "adjSize:", parseInt(parseInt(w/adjustment_factor) * parseInt(h/adjustment_factor)/1000));
         return [parseInt(w/adjustment_factor), parseInt(h/adjustment_factor)]
-
-        if (actual_pixels/goal_pixels > 16) {
-            return [parseInt(w/8), parseInt(h/8)];
-        }
-        if (actual_pixels/goal_pixels > 4) {
-            return [parseInt(w/4), parseInt(h/4)];
-        }
-        return [parseInt(w/2), parseInt(h/2)];
     }).map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
 
-    /*
-    let algo_positions = splitFit(pairs, screen_width);
-    for (let i = 0; i < algo_positions.length; i++) {
-        let img = document.createElement("img");
-        img.src = key_values[i][0];
-        img.width = pairs[i].w;
-        img.height = pairs[i].h;
-        img.style.width = pairs[i].w;
-        img.style.height = pairs[i].h;
-        img.style.position = "absolute";
-        img.style.top = algo_positions[i].y;
-        img.style.left = algo_positions[i].x;
-        img.loading = "lazy";
-        container.appendChild(img);
-    }
-    return;
-    */
+    const USE_STRIP_PACKING = false;  // Set this to true to use strip packing positions
 
-    // gather all the text nodes so the images don't intersect them
-    let textNodes = [];
-    const treeWalker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        { acceptNode: (node) => node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
-    );
-    while(treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
-    textNodes = textNodes.filter(node => node.parentNode.tagName !== "SCRIPT")
+    if (USE_STRIP_PACKING) {
+        // Use pre-calculated positions
+        for (let i = 0; i < strip_packing_positions.length; i++) {
+            let pos = strip_packing_positions[i];
+            let img = document.createElement("img");
+            img.src = pos.name;
+            img.width = pos.width;
+            img.height = pos.height;
+            img.style.width = pos.width;
+            img.style.height = pos.height;
+            img.style.position = "absolute";
+            img.style.top = pos.y + "px";
+            img.style.left = pos.x + 10 + "px";
+            img.loading = "lazy";
+            container.appendChild(img);
+        }
+    } else {
+        // Original random placement algorithm
+        let positions = [];
+        let i = 0;
 
-    // Now we attempt to place images. I looked at some actually good algorithms but decided to instead use a stupid
-    // algorithm: for each image, attempt to place it in a random location up to height 600. if it intersects with
-    // any other images, try again. If after 50 attempts at random placing we don't manage to place it, increase the
-    // height by 50.
-    let positions = [];
-    let heights = [];
-    for (let i = 0; i < 300; i++) {
-        heights.push([]);
-    }
-    let i = 0;
+        let interval = setInterval(() => {
+            let min_height = 0;
+            let height = 600;
+            let [w, h] = pairs[i];
+            
+            while (1) {
+                let found_place = false;
+                let w_max = screen_width-w;
+                let h_max = height-h;
+                for (let k = 0; k < 50; k++) {
+                    let a_left = parseInt(Math.random() * w_max);
+                    let a_top = parseInt(Math.random() * h_max);
+                    let a_right = a_left+w;
+                    let a_bottom = a_top+h;
 
-    // Start off the positions with the textnodes
-    for (const node of textNodes) {
-        const range = document.createRange();
-        range.selectNodeContents(node);
-        const rect = range.getBoundingClientRect();
-        // not sure if this is right...
-        let node_top = rect.top + window.pageYOffset;
-        let node_left = rect.left + window.pageXOffset;
+                    let intersects = false;
+                    for (let j = 0; j < positions.length; j++) {
+                        let [b_left, b_top, other_w, other_h] = positions[j];
+                        let b_right = b_left + other_w;
+                        let b_bottom = b_top + other_h;
+                        if (a_left < b_right && a_right > b_left && a_bottom > b_top && a_top < b_bottom) {
+                            intersects = true;
+                            break;
+                        }
+                    }
 
-        positions.push([node_left, node_top, rect.width, rect.height]);
-    }
-
-    // this could be a for loop, but i thought it would be fun to have them appear gradually.
-    let interval = setInterval(() => {
-    // for (let i = 0; i < key_values.length; i++) {
-        let min_height = 0;
-        let height = 600;
-        let [w, h] = pairs[i];
-        while (1) {
-            let found_place = false;
-            let w_max = screen_width-w;
-            let h_max = height-h;
-            for (let k = 0; k < 50; k++) {
-                let a_left = parseInt(Math.random() * w_max);
-                let a_top = parseInt(Math.random() * h_max);
-                let a_right = a_left+w;
-                let a_bottom = a_top+h;
-
-                // do intersection checks against images
-                let intersects = false;
-                for (let j = 0; j < positions.length; j++) {
-                    let [b_left, b_top, other_w, other_h] = positions[j];
-                    let b_right = b_left + other_w;
-                    let b_bottom = b_top + other_h;
-                    if (a_left < b_right && a_right > b_left && a_bottom > b_top && a_top < b_bottom) {
-                        intersects = true;
+                    if (!intersects) {
+                        found_place = true;
+                        positions.push([parseInt(a_left), parseInt(a_top), w, h]);
                         break;
                     }
                 }
-
-                if (!intersects) {
-                    found_place = true;
-                    // let orig = parseInt(a_top/)
-                    positions.push([parseInt(a_left), parseInt(a_top), w, h]);
+                if (found_place) {
                     break;
+                } else {
+                    min_height += 50;
+                    height += 50;
                 }
             }
-            if (found_place) {
-                break;
-            } else {
-                min_height += 50;
-                height += 50;
+
+            let img = document.createElement("img");
+            img.src = key_values[i][0];
+            img.width = pairs[i][0];
+            img.height = pairs[i][1];
+            img.style.width = pairs[i][0];
+            img.style.height = pairs[i][1];
+            img.style.position = "absolute";
+            img.style.top = positions[positions.length-1][1] + "px";
+            img.style.left = positions[positions.length-1][0] + "px";
+            img.loading = "lazy";
+            container.appendChild(img);
+
+            i++;
+            if (i == key_values.length) {
+                clearInterval(interval);
             }
-        }
-
-        // Create the image
-        let img = document.createElement("img");
-        img.src = key_values[i][0];
-        img.width = pairs[i][0];
-        img.height = pairs[i][1];
-        img.style.width = pairs[i][0];
-        img.style.height = pairs[i][1];
-        img.style.position = "absolute";
-        img.style.top = positions[positions.length-1][1];
-        img.style.left = positions[positions.length-1][0];
-        img.loading = "lazy";
-        let timeout = null;
-        // idea here is to make the image bigger when you hover. but i think that's kind of gay now. not sure
-        /*
-        img.onmouseenter = e => {
-            timeout = setTimeout(() => {
-                let newimg = document.createElement("img");
-                img.src = key_values[i][0];
-                img.width = pairs[i][0]*4;
-                img.height = pairs[i][1]*4;
-                img.style.position = "absolute";
-                bigcontainer.appendChild(img);
-                bigcontainer.style.display = "";
-            }, 100000000000000);
-        };
-        img.onmouseleave = e => {
-            clearTimeout(timeout);
-        }
-        */
-        container.appendChild(img);
-
-        i++;
-        if (i == key_values.length) {
-            clearInterval(interval);
-        }
-    }, 100);
-    // }
-
-    // let end = performance.now();
-    // console.log("time", parseInt(end-start), "height", Math.max(...positions.map(a => a[1]+a[3])));
-})
+        }, 100);
+    }
+});
     </script>
 </html>
