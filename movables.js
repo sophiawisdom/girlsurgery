@@ -1,36 +1,4 @@
 //
-// FINDME
-//
-let findme = document.getElementById("findme");
-console.log(findme);
-if (findme) {
-const reset = () => {
-    let findme = document.getElementById("findme");
-    let findme_dad = document.getElementById("findme_dad");
-    let old_text = findme.textContent;
-    findme_dad.removeChild(findme);
-
-    var findme_new = document.createElement("span")
-    findme_new.id = "findme";
-    findme_new.style.position = "absolute";
-    findme_new.textContent = old_text;
-    findme_dad.appendChild(findme_new);
-    findme_new.onmousemove = mousemove;
-};
-
-let clearable;
-var mousemove = e => {
-    clearTimeout(clearable);
-    clearable = setTimeout(reset, 1000);
-
-    e.movementX
-    findme.style.left = `${e.clientX+(e.movementX > 0 ? 30 : -30)}px`;
-    findme.style.top = `${e.clientY+(e.movementY > 0 ? 30 : -30)}px`;
-}
-findme.onmousemove = mousemove;
-}
-
-//
 // NAMES
 //
 let mouse_interval = null;

@@ -54,13 +54,14 @@
     <!-- replacement for user-agent body 8px margin-->
     <div style="margin:8px">
 
-    <p style="font-size:30px; justify-content: center; text-align: center; display:flex;"> I am&nbsp;<span class="name">Sophia</span>. This is my blog. I am looking for a philo-<span class="name">Sophia</span>-ist.&nbsp;<a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">email me</a>. </p>
+    <p style="font-size:30px; justify-content: center; text-align: center; display:flex; margin-top: 15px; margin-bottom: 10px;"> I am&nbsp;<span class="name">Sophia</span>. This is my blog. I am looking for a philo-<span class="name">Sophia</span>-ist.&nbsp;<a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">email me</a>. Call me: 5044171957 </p>
 
     <div class="columns">
+
         <div class="column">
 
     <p style="margin: 0px;"> I am back in San Francisco, at my home, 56 Sycamore Street #C. I'm working on gathering datasets and selling them to LLM companies. Reach out for more info at sophia@dataset.consulting. </p>
-    <p style="margin-top: 0px;"> I'm a <span class="age">25</span> year old transfem nb. I am looking for a monogamous relationship with a woman-type creature. Could it be you? I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>. </p>
+    <p style="margin-top: 0px;"> I'm a <span class="age">25</span> year old transfem nb. I am looking for a monogamous relationship with a woman-type creature. Could it be you? Consider this my dating doc. I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>. </p>
         </div>
 
     <div class="column">
@@ -70,22 +71,22 @@
     </div>
 
         <div class="column">
-    <p style="margin: 0px;"> I've devised a new calendar. The first day is <span class="name" style="font-weight: bold;">Sophia</span>day. Then proceed 13 months of 28 days each. Their names are <span id="months"></span>. I am open to suggestions for new month names.</p>
-    <span style="padding-top: 0px; margin-top: 0px;" id="days">The current date is</span>
+            <p>
+            I feel it in my fingers, I feel it in my toes.
+            </p>
+            <p>
+            Truth is all around me, and so the feeling grows.
+            </p>
+            <p>
+            It's written in the wind, it's everywhere I go.
+            </p>
+            <p>
+            So if you want to know, come on and let it show.
+            </p>
         </div>
 
-        <div class="column">
-            I get a strange feeling sometimes. Have you felt this?
-            Some hallmarks:
-    1. intense. feels like stimulant comeup
-    2. short, ~1m-1hr
-    3. physical, body-oriented, not "thinky"
-    4. massive positive, pleasurable energy
-    5. often a feeling of warmth
-    6. often related to music
-        </div>
+        <div style="flex: 1; width: 50px;"><a style="text-decoration: none;" href="/shmem_atomic"> I wrote a blog post on shared memory atomic throughput on RTX 4090</a>. Let me know what you think!</div>
 </div>
-<div style="text-align: center; font-size: x-large; margin: 10px;"><a style="text-decoration: none;" href="/shmem_atomic"> I wrote a blog post on shared memory atomic throughput on RTX 4090</a>. Let me know what you think!</div>
 
 <div style="border-top: 1px solid grey; padding-bottom: 20px; border-bottom: 1px solid grey;">
     <div>
@@ -93,6 +94,9 @@
         <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
     </div>
     <ol>
+        <!--
+        <li> <details> <summary> Systems that push risk to the limit </summary> There are certain classes of systems where when we endeavor to reduce the inherent riskiness of systems in order to then immediately plow that into some kind of fundamental risk/reward tradeoff.<br><br>In modern finance, a central insight is that a low-risk low-reward asset can be turned into a high-risk high-reward asset by just borrowing more money. A trade that is guaranteed to return 1% more than the treasuries is worth more than a risky one that returns on average 6% more than treasuries because the safer the investment is the more I can lever up. This is one of the central innovations of money managers to my mind, which is actually working hard to keep portfolio risk down which in turn means you can borrow much more.<br><br> There's a weirdly similar. dynamic in ML training where we want to make our learning rate as high as possible, but this makes our model training unstable. So we want our learning rate to be as high as possible without causing instability. The central insight of methods like shampoo is to "pre-condition" (get it) the gradient so it's less likely to become unstable as we increase the learning rate, which gain we immediately spend on increasing the learning rate and making training more unstable. </details> </li>
+        -->
         <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a> -- the meme maker is so good the meme is *better* than the source material it draws from.</details> </li>
         <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
         <li><details> <summary> The relationship between compute and intelligence </summary>
@@ -105,25 +109,26 @@
             </ol>
         </details></li>
         <li> <details><summary>How does information diffuse through industries?</summary>I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a> <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a> <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a> <a href="https://research.google/pubs/cores-that-dont-count/">its</a> <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>, but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry? </details></li>
+        <li> Why are people in e.g. Africa where grid power is expensive and unreliable not using local solar + batteries? </li>
+        <li> Why are execution units in CPUs not more randomly/evenly distributed among ports? </li>
         <li> Are there real use cases for very cheap solar modules, or is intermittent power too hard to do anything with? </li>
+        <li> How large are the implicit subsidies trucks get from road maintenance? Are they only cheaper than rail because of these subsidies? </li>
         <li> <details><summary><a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </summary> My personal feeling is that spreads for any retail financial product should be essentially 0, because retail traders have no advantage (ignoring e.g. GME/AMC). But in fact we often see options spreads of 5% or more for options on relatively common stocks. Some of this is that Robinhood shows bid/ask numbers from exchanges and price improvement happens later (pointed out by @theemilyaccount). Another part is that retail options might go to an exchange more than retail stocks (though somehow robinhood made $150m last quarter on options revenue). My current theory is that internalizing retail options takes a lot of capital and skill, so there's less competition than for equities, which means spreads are wider and robinhood/market makers can take more of the price improvement. </details> </li>
         <li> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </li>
         <li> How much total revenue is there from AI-based products? Seems to be about $5B, but accurate figures are hard to come by (exactly how many people are using Copilot 365?) </li>
         <li> How on earth does Microsoft make $14b/year in advertising revenue? They're the fourth largest seller of advertising in the world. </li>
-        <li> <details> <summary> Things I would do as dictator </summary>
-            <ol>
-                <li> Expand the number of medical schools significantly </li>
-                <li> Require more uniform housing codes and general regulatory codes between states </li>
-                <li> Encourage/require tech companies to take people in for programming internships, computer science becomes a minor within mathematics, two year software engineering trade degree. </li>
-                <li> Free speech, except the ten social media personalities with the worst takes are executed each year. This ensures people don't go too crazy. </li>
-                <li> Reduce rent-seeking in the legal profession by 1. encouraging more uniformity between bar exams, 2. allowing non-lawyers to own companies that offer legal services. </li>
-            </ol>
+        <li> <details> <summary> Various small questions </summary>
+            <ul>
+                <li>
+                    is "partisan politics evil, i wish everyone could just unite and do what's best for the country" a common brainworm outside the US?
+                </li>
+            </ul>
         </details> </li>
         <li> <details> <summary> Fun little product ideas: </summary>
             <ol>
                 <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
                 <li> Hyperscalers should spin out REITs to own the datacenter land/buildings </li>
-                <li> <a href="https://x.com/cis_female/status/1811447447622697392">Parametric consumer disaster insurance</a> </li>
+                <li> <a href="https://x.com/cis_female/status/1811447447622697392">Parametric consumer disaster insurance</a> (on the BLOCKCHAIN) (because it's probably not legal otherwise) </li>
                 <li> Conveyor belt tapas instead of conveyor belt sushi </li>
             </ol>
         </details>
@@ -132,6 +137,7 @@
             <ol>
                 <li> Ten rings, each of a different element (Samarium, Vanadium, Tungsten, etc.) </li>
                 <li> buy 10KW of solar panels for ~$2k and have them arc through the air starting in the morning. use the power of the sun to rip the air apart </li>
+                <li> A history of something -- a nation, a movement, a war, a company -- that actually takes numbers and statistics seriously, as something that drives the narrative instead of being a sidenote. Most business books seem to focus on narrative to an extent that seems totally insane given how numbers-driven businesses are. </li>
             </ol>
         </details>
         </li>
@@ -200,12 +206,38 @@
         <li> <a href="https://www.youtube.com/watch?v=WVkD4lgXTEU"> Bones in the Ocean</a>. One of the songs I listened to <a href="/colorado.jpeg">wandering in Colorado</a>. I made a Finnish friend there, and then she said she wanted to kill all the rationalists. </li>
         <li> <a href="https://www.youtube.com/watch?v=c7khrDCCiHo"> Daddies</a>. Rocking, makes my body sway, brings me into the music.</li>
     </ul>
+</div>
+<div style="border-top: 1px solid grey; padding-bottom: 20px;">
+    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some other creative works I enjoyed.</p>
+    <ul>
+        <li>
+        The Prize, Daniel Yergin
+        </li>
+        <li>
+        The Blazing World
+    </li>
+    <li>
+        The Wise Man's fear
+    </li>
+    <li>
+        Stone orogenes book (??)
+    </li>
+    <li>
+        Jon Bois's videos
+    </li>
+    <li>
+        Survivor
+    </li>
+    <li>
+        Dan Luu's blog
+    </li>
+    </ul>
+</div>
 
-    <div style="border-top: 1px solid black; margin-top: 20px;">
+<div style="border-top: 1px solid black; margin-top: 20px;">
     <h2> Some cool fish I saw in China </h2>
     <p> It's in a temple they said was a thousand years old but I'm pretty sure is from the 80s. </p>
     <video id="fish" height="600px" controls src="https://biggo.girl.surgery/fish2.mp4"></video>
-    </div>
 </div>
 
     <script>
@@ -346,6 +378,7 @@ const days_to_ymd = days_since_sophia => {
     return `the ${day}${day_ordinal} day of the month of ${month} in the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`;
 }
 
+/*
 const gregorian_date = new Date();
 const sophia_day = new Date(1999, 9, 7);
 const diff_in_days = Math.floor((gregorian_date - sophia_day)/1000/86400);
@@ -354,6 +387,7 @@ let days = document.getElementById("days");
 days.innerHTML = `It is currently ${days_to_ymd(diff_in_days)}.`
 
 document.getElementById("months").innerHTML = months.slice(0, months.length-1).join(", ") + ", and " + months[months.length-1];
+*/
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -362,6 +396,7 @@ function shuffleArray(array) {
     }
 }
     </script>
+    <script async src="/movables.js"></script>
     <script async src="/movables.js"></script>
 
 

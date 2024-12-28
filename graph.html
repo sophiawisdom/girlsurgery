@@ -26,17 +26,18 @@
 
  <!-- Send to Richard Ngo! -->
  <p style="font: 20px arial; text-align:center;"> Memory technologies make fundamental tradeoffs between <span class="storage">storage capacity</span> and <span class="read">read speeds</span>, and these drive programmers to put different data on different memory technologies.</p>
-<p> But what actually are those tradeoffs? Here is a graph of <span class="read">read speeds</span> (in MB/s of sequential <span class="read">reads</span>) vs <span class="storage">capacity</span> (in GB) per dollar.</p>
+<p> But what actually are those tradeoffs? Nobody ever talks about them. Here is a graph of <span class="read">read speeds</span> (in MB/s of sequential <span class="read">reads</span>) vs <span class="storage">capacity</span> (in GB) per dollar.</p>
 
     <div id="container" class="canvas-container">
         <canvas id="graph" width="3" height="5"></canvas>
         <canvas id="tooltipLayer" width="3" height="5"></canvas>
     </div>
-    <div style="margin: 0px; padding: 0px; border: 1px solid black; width:100%;">
-        <span style="background-color: lightgrey"> Why did I not include SRAM? </span>
-        <span> because </span>
+    <div> <h3> Why did I not include SRAM? </h3>
+        because bandwidth is only costly, and therefore something we care about, when it crosses chip boundaries. Even without trying to optimize this metric the A100 has something like 400TB/s of SRAM bandwidth from the registers cache.
     </div>
-    <p> When making this graph, there are a lot of tricky modelling assumptions that I've simply had to bulldoze.  </p>
+    <p> When making this graph, there are a lot of tricky modelling assumptions and subtleties that I've simply had to bulldoze. Keep this in mind before trusting these numbers too blindly. </p>
+    <h2> Why ever use HBM? </h2>
+    Part of the purpose of making this graph was for me to show it to people and ask this question. The basic answer as far as I can tell is that HBM takes less shoreline (area on the edge of a chip). This means you can fit more memory bandwidth on a single chip, which reduces communication requirements, which is even MORE expensive than HBM. It also uses less power, but I'm pretty unconvinced this is meaningful.
     <script>
 // BEWARE!!! MEMORY BANDWIDTH NUMBERS ARE IN GB/S BUT CAPACITY IS IN GiB!!!!
 var memory = [
@@ -108,7 +109,8 @@ var memory = [
         "technology":"HDD",
         "subtechnology":"CRM",
         "primary": true,
-        "more_info": "backblaze 16TB disk https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/ st16000nm001g https://www.seagate.com/files/www-content/datasheets/pdfs/exos-x16-DS2011-1-1904US-en_US.pdf",
+        // backblaze 16TB disk https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/ st16000nm001g https://www.seagate.com/files/www-content/datasheets/pdfs/exos-x16-DS2011-1-1904US-en_US.pdf
+        "more_info": "backblaze 16TB disk st16000nm001g",
         "color": "rgba(192, 192, 192, 1)"
     },
     {
@@ -128,6 +130,7 @@ var memory = [
         "technology": "Flash",
         "subtechnology": "TLC",
         "primary": true,
+        "more_info": "\"Three Level Cell\" Flash, as used in SSDs",
         "color": "rgba(255, 105, 180, 1)"
     }
 ]

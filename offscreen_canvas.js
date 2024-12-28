@@ -89,13 +89,15 @@ function weightedRandom(message_weights) {
 }
 const message_weights = [
     ["i love you; ", 0.1],
-    ["contact me at sophia.wisdom1999@gmail.com ", 0.01],
+    ["call to me... ", 0.01],
     ["welcome to sophia's blog! ", 0.13],
     ["you're so beautiful ", 0.01],
     ["no one has to know ", 0.01],
-    ["please ", 0.001],
+    ["please... ", 0.001],
     ["show me ", 0.001],
     ["how are you doing? ", 0.01],
+    ["let me eat you ", 0.10],
+    ["let me salt your wounds ", 0.02],
     ["let me see you ", 0.04],
     ["let me touch you ", 0.01],
     ["let me grab you ", 0.01],
@@ -107,8 +109,17 @@ const message_weights = [
     ["touch me ", 0.01],
     ["kiss me ", 0.01],
     ["love me ", 0.01],
-    ["looking in the source code, are you? ", 0]
+    ["looking in the source code, are you? ", 0],
+    ["girl.surgery/triskelion_black.png", 0.1],
 ]
+
+const cache = new Map();
+message_weights.forEach(([message, weight]) => {
+    if (message.startsWith("girl.surgery/")) {
+        const url = message.slice(12);
+        fetch(url).then(val => val.blob()).then(blob => createImageBitmap(blob)).then(bitmap => cache.set(message, bitmap))
+    }
+});
 
 function generate_direction() {
     while (1) {
@@ -132,6 +143,20 @@ let dpr = null;
 let f = () => {
     if (msg_index >= message.length) {
         message = weightedRandom(message_weights);
+        // can't display images not already loaded
+        while (message.startsWith("girl.surgery") && !cache.has(message)) {
+            message = weightedRandom(message_weights);
+        }
+        if (message.startsWith("girl.surgery")) {
+            let bitmap = cache.get(message);
+            let scaled_x = bitmap.width * 40 / bitmap.height;
+            ctx.clearRect(pixel_idx, 0, scaled_x+4, 40);
+            ctx.drawImage(cache.get(message), pixel_idx, 0, scaled_x, 40);
+            pixel_idx += scaled_x+4;
+            msg_index = message.length;
+            requestAnimationFrame(f);
+            return;
+        }
         msg_index = 0;
         color = color.map((val, idx) => val + (color_direction[idx]*color_magnitude*10));
     }
@@ -147,25 +172,25 @@ let f = () => {
         }
     }
     if (letter != " ") {
-    // console.log(letter, pixel_idx, love.width);
-    color = color.map((val, idx) => val + (color_direction[idx]*color_magnitude));
-    if (color[0] > 80 || color[0] < 10 || Math.abs(color[1]) > 128 || Math.abs(color[2]) > 128) {
-        if (color[0] > 80) {
-            color[0] = 80;
-        } else if (color[0] < 10) {
-            color[0] = 10;
+        color = color.map((val, idx) => val + (color_direction[idx]*color_magnitude));
+        // once colors become too extreme, clamp and change direction
+        if (color[0] > 80 || color[0] < 10 || Math.abs(color[1]) > 128 || Math.abs(color[2]) > 128) {
+            if (color[0] > 80) {
+                color[0] = 80;
+            } else if (color[0] < 10) {
+                color[0] = 10;
+            }
+            if (Math.abs(color[1]) > 128) {
+                color[1] = Math.sign(color[1]) * 128;
+            }
+            if (Math.abs(color[2]) > 128) {
+                color[2] = Math.sign(color[2]) * 128;
+            }
+            color_direction = generate_direction();
         }
-        if (Math.abs(color[1]) > 128) {
-            color[1] = Math.sign(color[1]) * 128;
-        }
-        if (Math.abs(color[2]) > 128) {
-            color[2] = Math.sign(color[2]) * 128;
-        }
-        color_direction = generate_direction();
-    }
     }
     const [r, g, b] = labToRgb(color);
-    ctx.clearRect(pixel_idx, 0, letter_width, 100);
+    ctx.clearRect(pixel_idx, 0, letter_width+1, 40);
     ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
     ctx.fillText(letter, pixel_idx, 30);
     pixel_idx += letter_width;
