@@ -15,6 +15,7 @@ except ImportError as e:
 files = []
 dir = "original_images/"
 for file in tqdm.tqdm(os.listdir(dir)):
+    if file == ".DS_Store" or file == "bad_images" or file.endswith(".py"): continue
     try:
         # https://stackoverflow.com/questions/63947990/why-are-width-and-height-of-an-image-are-inverted-when-loading-using-pil-versus
         # it won't recognize things i've rotated w/o this
@@ -25,8 +26,12 @@ for file in tqdm.tqdm(os.listdir(dir)):
         print("got error: ", e)
         continue
 
+files.sort(key=lambda a:a[0])
+
 if files:
     json.dump(files, open("image_widths_heights.json", 'w'))
     print(f"Successfully created image_widths_heights.json with {len(files)} files.")
 else:
     print("Found no files, exiting.")
+
+print("npx -y wrangler pages deploy --project-name girlsurgery /Users/sophiawisdom/sophia_calendar")

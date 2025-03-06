@@ -1,0 +1,11 @@
+name = "dating-page-contact"
+main = "worker.js"
+compatibility_date = "2025-01-25"
+
+send_email = [
+  {name = "DATING_PAGE_EMAIL", destination_address = "sophia.wisdom1999@gmail.com"},
+]
+
+routes = [
+  { pattern = "girl.surgery/email", zone_id = "c7eb5ea94efebfb347c6dff34482d183" }
+]

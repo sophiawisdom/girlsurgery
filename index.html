@@ -58,7 +58,7 @@
 
     <div class="columns">
 
-        <div class="column">
+        <div style="flex: 1.5; width: 50px;">
 
     <p style="margin: 0px;"> I live in San Francisco, in the mission district. <a href="/dating.html">I'm looking for a partner</a>. I'm working on gathering datasets and selling them to LLM companies. Reach out for more info at sophia@dataset.consulting. </p>
     <p style="margin-top: 0px;"> I'm a <span class="age">25</span> year old transfem nb. I am looking for a monogamous relationship with a woman-type creature. Could it be you? Consider this my dating doc. I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>. </p>
@@ -85,14 +85,51 @@
             </p>
         </div>
 
-        <div style="flex: 1; width: 50px;"><a style="text-decoration: none;" href="/shmem_atomic"> I wrote a blog post on shared memory atomic throughput on RTX 4090</a>. Let me know what you think!</div>
+        <div class="column">
+            <p>
+            But thy eternal summer shall not fade,
+            </p><p>
+Nor lose possession of that fair thou ow’st;
+</p><p>
+Nor shall death brag thou wander’st in his shade,
+</p><p>
+When in eternal lines to time thou grow’st:
+</p><p>
+  So long as men can breathe or eyes can see,
+</p><p>
+  So long lives this, and this gives life to thee.
+</div>
+
+        <div style="flex: 0.3; display: flex; align-items: center; gap: 10px;" id="clock-goes-here">
+            <div style="font-size: 25px; color:red; line-height: 1; width: 60px;">I last woke up at:</div>
+            <canvas id="clock_canvas"></canvas>
+            <div id="date" style="font-size: 25px; color:blue; line-height: 1; width: 60px;overflow-wrap: break-word;"></div>
+        </div>
+        
+
 </div>
 
 <div style="border-top: 1px solid grey; padding-bottom: 20px; border-bottom: 1px solid grey;">
-    <div>
-        <p style="font-size: 1.5vh; padding: 0px; color:grey; position: absolute; left: 50px;"> click on the arrows to expand the content </p>
-        <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some things I'm thinking about.</p>
+    <div style="text-align: center; position: relative;">
+      <p style="font-size: 4vh; margin: 10px 0;">
+        Some things I'm thinking about.
+      </p>
+  
+      <div style="position: absolute; left: 70%; top: 10px; font-size: 3vh;">
+        <p style="margin: 0;">
+          Current main interests
+        </p>
+        <p style="margin: 0;">
+          <span style="color: #B8860B;; font-weight: bold;">Catholicism</span>,
+          <span style="color: #BC002D; font-weight: bold;">20th century Japan</span>,
+          <span style="color: #002D72; font-weight: bold;">Baseball</span>
+        </p>
+      </div>
     </div>
+  
+    <p style="font-size: 1.5vh; padding: 0px; color: grey;">
+      click on the arrows to expand the content
+    </p>
     <ol>
         <!--
         <li> <details> <summary> Systems that push risk to the limit </summary> There are certain classes of systems where when we endeavor to reduce the inherent riskiness of systems in order to then immediately plow that into some kind of fundamental risk/reward tradeoff.<br><br>In modern finance, a central insight is that a low-risk low-reward asset can be turned into a high-risk high-reward asset by just borrowing more money. A trade that is guaranteed to return 1% more than the treasuries is worth more than a risky one that returns on average 6% more than treasuries because the safer the investment is the more I can lever up. This is one of the central innovations of money managers to my mind, which is actually working hard to keep portfolio risk down which in turn means you can borrow much more.<br><br> There's a weirdly similar. dynamic in ML training where we want to make our learning rate as high as possible, but this makes our model training unstable. So we want our learning rate to be as high as possible without causing instability. The central insight of methods like shampoo is to "pre-condition" (get it) the gradient so it's less likely to become unstable as we increase the learning rate, which gain we immediately spend on increasing the learning rate and making training more unstable. </details> </li>
@@ -109,6 +146,13 @@
             </ol>
         </details></li>
         <li> <details><summary>How does information diffuse through industries?</summary>I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a> <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a> <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a> <a href="https://research.google/pubs/cores-that-dont-count/">its</a> <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>, but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry? </details></li>
+        <li> <details><summary>What exactly is the nature and amount of the federal government subsidies in the housing market?</summary>If you look at popular explanations of the government's role in the housing market, e.g. <a href="https://www.bitsaboutmoney.com/archive/mortgages-are-a-manufactured-product/">patio11's</a>, they say that there's an enormous government subsidy through the GSEs (Fannie Mae and Freddie Mac). As a summary for those who are unfamiliar, the GSEs take mortgages that meet some specifications and insure them against non-payment risk in return for a <a href="https://www.fhfa.gov/reports/single-family-guarantee-fees/2022">0.6% fee</a>. <a href="https://www.urban.org/sites/default/files/2024-03/Housing_Finance_At_A_Glance_Monthly_Chartbook_March_2024.pdf">2/3s</a> of mortgage debt in the US is insured in this manner. Mortgages that have been insured in this way trade at essentially the same price as US treasury debt, indicating the market believes the government will step in in case of significant non-payment, which seems true. But the GSEs are highly profitable (<a href="https://www.fanniemae.com/newsroom/fannie-mae-news/fourth-quarter-full-year-2023-financial-results">$2</a><a href="https://www.freddiemac.com/investors/financials/pdf/2023er-4q23_release.pdf">8B</a> in 2023) with enough assets (or enough assets after a few years years of retaining profits (which it doesn't do because treasury sweeps them)) to withstand even a 2008-level event. Many people think they could survive and do well as private companies and are trying to get the government to do this.<br>
+        <b>So what exactly is the nature of the subsidy here?</b> My vague understanding is that the government gives 
+
+        <br>
+        Relatedly, how are mortgage prices determined? As of today, 30-year mortgage rates are apparently 6.64%, but 30-year treasuries are 4.78%, so a 185 basis point difference.
+        
+        GSE fees/fee increases ~= taxes</details></li>
         <li> Why are people in e.g. Africa where grid power is expensive and unreliable not using local solar + batteries? </li>
         <li> Why are execution units in CPUs not more randomly/evenly distributed among ports? </li>
         <li> Are there real use cases for very cheap solar modules, or is intermittent power too hard to do anything with? </li>
@@ -234,7 +278,7 @@
 <div style="border-top: 1px solid black; margin-top: 20px;">
     <h2> Some cool fish I saw in China </h2>
     <p> It's in a temple they said was a thousand years old but I'm pretty sure is from the 80s. </p>
-    <video id="fish" height="600px" controls src="https://biggo.girl.surgery/fish2.mp4"></video>
+    <video loop id="fish" height="600px" controls src="https://biggo.girl.surgery/fish2.mp4"></video>
 </div>
 
     <script>
@@ -252,8 +296,8 @@ can.addEventListener("mousemove", event => {
     const mouseY = event.clientY - rect.top;
 })
 const sopic_ctx = can.getContext("2d");
-const centerX = 95*dpr;
-const centerY = 180*dpr;
+var centerX = 95*dpr;
+var centerY = 180*dpr;
 
 const radiusX = 30*dpr;
 const radiusY = 45*dpr;
@@ -375,33 +419,116 @@ const days_to_ymd = days_since_sophia => {
     return `the ${day}${day_ordinal} day of the month of ${month} in the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`;
 }
 
-/*
-const gregorian_date = new Date();
-const sophia_day = new Date(1999, 9, 7);
-const diff_in_days = Math.floor((gregorian_date - sophia_day)/1000/86400);
+const clockDiv = document.getElementById('clock-goes-here');
+const canvas = clock_canvas;
 
-let days = document.getElementById("days");
-days.innerHTML = `It is currently ${days_to_ymd(diff_in_days)}.`
+// npx -y wrangler pages deploy --project-name girlsurgery /Users/sophiawisdom/sophia_calendar
+let time = "9:00AM February 25rd";
 
-document.getElementById("months").innerHTML = months.slice(0, months.length-1).join(", ") + ", and " + months[months.length-1];
-*/
+// Set display size
+canvas.style.width = '100px';
+canvas.style.height = '100px';
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
+// Set actual size in memory (scaled for retina)
+canvas.width = 100 * dpr;
+canvas.height = 100 * dpr;
+
+// Add the date text
+date.textContent = time.split(" ").slice(1).join(" ");
+
+const ctx = canvas.getContext('2d');
+ctx.scale(dpr, dpr);
+
+// Draw clock face
+centerX = 50;
+centerY = 50;
+const radius = 45;
+
+// Draw outer circle
+ctx.beginPath();
+ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+ctx.strokeStyle = '#333';
+ctx.lineWidth = 1;
+ctx.stroke();
+
+let am_pm = "AM";
+if (time.includes("PM")) {
+    am_pm = "PM";
 }
+
+// phtalo green (18, 53, 36)
+ctx.font = "25px sans-serif";
+ctx.fillStyle = "rgb(18, 100, 36)";
+ctx.fillText(am_pm, 30, 40);
+
+// Draw hour marks
+for (let i = 0; i < 12; i++) {
+    const angle = (i * Math.PI) / 6 - Math.PI / 2;
+    const startRadius = radius - 4;
+    const endRadius = radius - (i % 3 === 0 ? 8 : 5);
+
+    ctx.beginPath();
+    ctx.moveTo(
+        centerX + Math.cos(angle) * startRadius,
+        centerY + Math.sin(angle) * startRadius
+    );
+    ctx.lineTo(
+        centerX + Math.cos(angle) * endRadius,
+        centerY + Math.sin(angle) * endRadius
+    );
+    ctx.strokeStyle = '#666';
+    ctx.lineWidth = i % 3 === 0 ? 1.5 : 1;
+    ctx.stroke();
+}
+
+// Extract hours and minutes from time string
+const [timeStr] = time.split(' ');
+const [hours, minutesPart] = timeStr.split(':');
+const minutes = parseInt(minutesPart);
+const period = timeStr.slice(-2);
+let hour = parseInt(hours);
+if (period === 'PM' && hour !== 12) hour += 12;
+if (period === 'AM' && hour === 12) hour = 0;
+
+// Calculate angles
+const hourAngle = ((hour % 12 + minutes / 60) * Math.PI / 6) - Math.PI / 2;
+const minuteAngle = ((minutes) * Math.PI / 30) - Math.PI / 2;
+
+// Hour hand
+ctx.beginPath();
+ctx.moveTo(centerX, centerY);
+ctx.lineTo(
+    centerX + Math.cos(hourAngle) * (radius * 0.5),
+    centerY + Math.sin(hourAngle) * (radius * 0.5)
+);
+ctx.strokeStyle = '#333';
+ctx.lineWidth = 2;
+ctx.stroke();
+
+// Minute hand
+ctx.beginPath();
+ctx.moveTo(centerX, centerY);
+ctx.lineTo(
+    centerX + Math.cos(minuteAngle) * (radius * 0.7),
+    centerY + Math.sin(minuteAngle) * (radius * 0.7)
+);
+ctx.strokeStyle = '#666';
+ctx.lineWidth = 1.5;
+ctx.stroke();
+
+// Center dot
+ctx.beginPath();
+ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI);
+ctx.fillStyle = '#333';
+ctx.fill();
+    
     </script>
-    <script async src="/movables.js"></script>
     <script async src="/movables.js"></script>
 
 
 
     <script>
 const love = document.getElementById("love");
-
-// dpr = window.devicePixelRatio || 1;
 
 let w = window.innerWidth-10;
 love.style.width = `${w}px`;
