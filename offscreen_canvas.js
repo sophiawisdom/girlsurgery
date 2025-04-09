@@ -90,6 +90,8 @@ function weightedRandom(message_weights) {
 const message_weights = [
     ["i love you; ", 0.1],
     ["call to me... ", 0.01],
+    ["help me ", 0.02],
+    ["save me ", 0.02],
     ["welcome to sophia's blog! ", 0.13],
     ["you're so beautiful ", 0.01],
     ["no one has to know ", 0.01],
@@ -110,7 +112,7 @@ const message_weights = [
     ["kiss me ", 0.01],
     ["love me ", 0.01],
     ["looking in the source code, are you? ", 0],
-    ["girl.surgery/triskelion_black.png", 0.1],
+    ["girl.surgery/triskelion_black.png", 0.02],
 ]
 
 const cache = new Map();
