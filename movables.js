@@ -2,7 +2,7 @@
 // NAMES
 //
 let mouse_interval = null;
-let names = ["Sophia", "Chrysanthemum", "Fork", "$DEADNAME", "cis_female", "computergorl", "the_great_magician", "girl.surgery", "me", "Sophirot", "Ein Sof"]
+let names = ["Sophia", "Chrysanthemum", "Fork", "$DEADNAME", "cis_female", "computergorl", "the_great_magician", "girl.surgery", "me", "Sophirot", "Ein Sof"];
 let mouseover = e => {
     let idx = Math.floor(Math.random()*names.length);
     Array.from(document.getElementsByClassName("name")).forEach(n => n.textContent = names[idx]);

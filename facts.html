@@ -1,3 +1,22 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+      </head>
+      <style>
+        /* 1 – pick a font that actually contains Mongolian glyphs */
+        @font-face{
+          font-family: "Noto Sans Mongolian";
+          src: url("NotoSansMongolian-Regular.woff2") format("woff2");
+        }
+        .mongol {
+    writing-mode: vertical-lr;   /* vertical-rl would give CJK layout (right→left columns) */
+    text-orientation: upright;  /* keep each glyph upright – try `sideways` on iOS if needed */
+    font-family: "Noto Sans Mongolian","Mongolian Baiti",sans-serif;
+    line-height: 1;             /* stops browsers adding extra gap between glyphs */
+    white-space: nowrap;        /* keep the word in one vertical line */
+  }
+        </style>
+<body>
 <ul>
     <li>Nintendo and Disney's first partnership was in the 1950s for playing cards</li>
     <li>The video game crash of 1983 led to a *97%* reduction in revenue for the industry</li>
@@ -13,12 +32,12 @@
     <li>the US is the second largest spanish-speaking country</li>
     <li> The largest library in Europe in 700AD had about 100 books (18:20 in https://www.youtube.com/watch?v=d5OFmQ-cQJ0&list=PL77A337915A76F660&index=20) </li>
     <li> Only 264 books survived in Europe from 550-750, and of those, only 26 were not about religion </li>
-    <li> Pachinko was about as big as restaurants in Japan (in 2019, as % of GDP) </li>
+    <!--<li> Pachinko was about as big as restaurants in Japan (in 2019, as % of GDP) </li>-->
     <li> "By the 1530s, the writings of Erasmus accounted for 10 to 20 percent of all book sales in Europe" </li>
     <li> In South Korea, truth is not a defense to defamation. If you say something true that harms someone's reputation, it can be punished by up to two years in jail. This is apparently following the German system. </li>
     <li> The phrase "intoxicating liquor" in the <a href="https://en.wikipedia.org/wiki/Eighteenth_Amendment_to_the_United_States_Constitution">18th amendment</a> was widely understood to exclude beer and wine (as they are not distilled), and their inclusion in Prohibition surprised many in the general public as well as producers of wine and beer. </li>
     <li> The second amendment to the Pakistani constitution says the the Ahmaddiya (the Mormons of Islam) are not muslims and not allowed to call themselves muslims (and then they did a lot of discrimination). </li>
-    <li> About 8% of adult men in England in 1500 were monks. (TODO: factcheck) </li>
+    <li> About 2-3% of adult men in England in 1500 were monks. </li>
     <li> We have approximately 1,000,000 cuneiform tablets left from Sumerian times </li>
     <li> The Epic of Gilgamesh was lost for more than 2000 years before its rediscovery in 1900. </li>
     <li> By 1640 approximately 40% of English workers were non-agricultural. India reached this mark around 2000. </li>
@@ -40,4 +59,14 @@
     <li> Charlemagne had an elephant. </li>
     <li> Until 2005, Catalonians were banned from Mount Athos due to the actions of a Catalonian mercenary company in the early 13th century. </li>
     <li> In the mid 1500s the Republic of Venice had 20% as many people as Russia </li>
+    <li> The IMF is immune to wage garnishment orders, but typically voluntarily chooses to comply </li>
+    <li> Intel and Toshiba have collaborated to make three films </li>
+    <li>
+        Mongolian script
+        <span lang="mn-Mong" class="mongol">ᠮᠣᠩᠭᠣᠯ</span>
+        descends from Egyptian Hieroglyphics
+      </li>
+      <!-- plate armor was on average less heavy than what the average us soldier wore in iraq. about 1:30 in https://www.youtube.com/watch?v=8W6PnhqnKx4  -->
 </ul>
+</body>
+</html>
