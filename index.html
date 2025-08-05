@@ -1,51 +1,61 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&family=Courier+New&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700;900&family=Courier+New&display=swap" rel="stylesheet">
         <style>
-    #lex-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                max-width: 300px;
-                margin: 0 auto;
-                text-align: center;
-            }
+#lex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
 
-            #lex h3 {
-                padding: 0px;
-                margin-top: 10px;
-                margin-bottom: 0px;
-            }
+#lex h3 {
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
 
-            #lex p {
-                padding: 0px;
-                margin: 0px;
-                width: 100%;
-            }
+#lex p {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
 
-            .columns {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px; /* Space between columns */
-        }
-        .column {
-            flex: 1;
-            /* Adjust the width of each column as needed */
-        }
-        .column p {
-            margin: 0px;
-        }
-        a {
-            text-decoration: none;
-        }
-        .name {
-            color: #20a6df;
-        }
-        .age {
-            color: red;
-            font-weight: bold;
-        }
+.columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; 
+}
+.column {
+    flex: 1;
+}
+.column p {
+    margin: 0px;
+}
+a {
+    text-decoration: none;
+}
+.name {
+    color: #20a6df;
+}
+.age {
+    color: red;
+    font-weight: bold;
+}
+.monasticism {
+    font-weight: bold;
+    transition: color 150ms;
+    transition: font-size 150ms;
+    color: #002D72;
+}
+
+body:has(.monasticism:hover) .monasticism {
+    font-size: larger;
+    color: #3C6FD1;
+}
         </style>
         <title> sophism </title>
     </head>
@@ -85,7 +95,7 @@ When in eternal lines to time thou grow’st:
   So long lives this, and this gives life to thee.
 </div>
 <div class="column">
-    Often I will say something at the edge of my confidence, and people listening will hold their tongue instead of telling me I'm wrong, so it's hard for me to update. Similarly, whole classes of people have had complaints about me but not told me directly. I find it really hard to act better without feedback, and would appreciate yours.
+    Reach out to me! Type in this box and hit enter and it will send me an email.
 </div>
 <div class="column">
     <textarea
@@ -108,10 +118,10 @@ When in eternal lines to time thou grow’st:
           Current main interests
         </p>
         <p style="margin: 0;">
-          <!--<span style="color: #B8860B;; font-weight: bold;">Catholicism</span>,-->
-          <span style="color: #00843D; font-weight: bold;">WW2 strategic bombing campaigns</span>,
-          <span style="color: #BC002D; font-weight: bold;">20th century Japan</span>,
-          <span style="color: #002D72; font-weight: bold;">Baseball</span>
+          <span style="color: #00843D; font-weight: bold;">Moving well</span>,
+          <span style="color: #BC002D; font-weight: bold;">How to design RL environments</span>,
+          <span class="monasticism">Modern Monasticism</span>,
+          <span style="color: #9834eb; font-weight: bold;">Physical memory</span>
           <!-- Previous interests:
 Catholicism
 Energy systems
@@ -121,14 +131,18 @@ Parametric insurance
 Nature of the US government subsidy of the mortgage market
 -->
         </p>
-        <abbr style="margin-top: 40px; font-size: 10px; color: grey;" title="Tawhid
+        <abbr style="margin-top: 40px; font-size: 10px; color: grey;" title="WW2 strategic bombing campaigns
+Meiji Restoration
+Baseball
+Tawhid
 Catholicism
 Energy systems
 Computer memory technologies
 GPU programming (somewhat current)
 Performance engineering
 Parametric insurance
-Nature of the US government subsidy of the mortgage market"> previous interests </abbr>
+Nature of the US government subsidy of the mortgage market
+"> previous interests </abbr>
       </div>
     </div>
 
@@ -141,6 +155,28 @@ Nature of the US government subsidy of the mortgage market"> previous interests 
         -->
         <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a> -- the meme maker is so good the meme is *better* than the source material it draws from.</details> </li>
         <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
+
+        <li><details>
+            <summary class="monasticism"> Working with intention </summary>
+            
+            <p style="margin: 0px;">
+                Most people seem to fall in to a career path and then default to working full time for the rest of their lives and spend the money that comes to them haphazardly.
+            </p>
+            <p style="margin: 0px;">
+                I personally don't like working. I think it would be much better for most people to have clear goals and intentions on how to live your life, and then structure your work to accomplish these goals with the least amount of working. FIRE is a good example of this, though you can go much further.
+            </p>
+            <p style="margin: 0px;">
+                A shining example of living with intention is groups like the <a href="https://www.carmelitemonks.org/">Carmelite monks of Wyoming</a>. If you look at <a href="https://www.carmelitemonkshorarium.org/">their schedule</a> they spend ~8 hours praying, 8 hours sleeping, and ~5.5 hours working (rest eating/recreation). Much of their work is devoted to the construction of <a href="https://www.youtube.com/watch?v=QxiwEEhcZX0">a massive Gothic church</a>. They make money from the outside world with <a href="https://www.mysticmonkcoffee.com/">Mystic Monk Coffee</a>.
+            </p>
+            <p style="margin: 0px;">
+                They have specific goals in mind: communion with god, living in brotherhood, building beautiful things. They interact with the outside world exactly as much as is necessary to accomplish those goals.
+            </p>
+            <p style="margin: 0px;">
+                What would this look like for you? How could you live in brotherhood with your friends and build beautiful things together, like a family or a small village? How could you work together to minimize your subordination to commerce?
+            </p>
+        </details>
+        </li>
+
         <li><details> <summary> The relationship between compute and intelligence </summary>
             <ol>
                 <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture an ~arbitrarily good player by just thinking longer! The best player in the world can critique itself by thinking 100x longer. </li>
@@ -199,33 +235,6 @@ Nature of the US government subsidy of the mortgage market"> previous interests 
     </ol>
 </div>
 
-<div id="lex-container" style="text-align: center; max-width: 300px;">
-    <h2 style="margin-bottom:0px; margin-top: 10px;"> <span class="name">Sophia</span>'s feelings </h2>
-    <p style="margin-bottom:10px; margin-top: 0px;"> Mostly I feel placid, but sometimes I start to Need, I become Active like an Animal and I need to manipulate Flesh. Sometimes I write down how I feel and these are from those times.</p>
-</div>
-    <div class="columns">
-        <div class="column">
-            <h3> me and you </h3>
-            <p>
-                you put your lips to me and i open to you and our tongues touch but mine is cotton candy that disentegrates under your gentle saliva… i jerk away but you hold me firm. i scream and need you, grasp for you, but find no purchase and with nothing left slack and can only moan as i entigrate into you
-            </p>
-        </div>
-        <div class="column">
-        <h3> Seeking Destruction </h3>
-        <p>
-            Destroy the part of me that aches. Destroy the part of me that weeps. Destroy the part of me that feels desperate and loss. Destroy the part of me that desires anything but your touch. Destroy the part of me that loves anyone but you. Leave me nothing but a shell with a perfectly you-sized hole.
-        </p>
-        </div>
-        <div class="column">
-            <h3> Rend me limb from limb </h3>
-            <p>
-                Find me on your bed, laying coyly, challenging you to take what's yours, you try to bind me with your legs, i resist, you give me a little bite and i relax and grind against you, you take that opportunity and i lose ability and shortly afterwards will to resist and give you a deep kiss
-            </p>
-        </div>
-
-    </div>
-</div>
-
 <div style="border-top: 1px solid grey;">
     <p style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>
     <span>
@@ -251,6 +260,8 @@ Nature of the US government subsidy of the mortgage market"> previous interests 
         <li> <a href="https://www.youtube.com/watch?v=BuNBLjJzRoo"> 90210 </a>. To me this song is about walking slick, rainy streets late at night without a friend for a thousand miles. </li>
         <li> <a href="https://www.youtube.com/watch?v=WVkD4lgXTEU"> Bones in the Ocean</a>. One of the songs I listened to <a href="/colorado.jpeg">wandering in Colorado</a>. I made a Finnish friend there, and then she said she wanted to kill all the rationalists. </li>
         <li> <a href="https://www.youtube.com/watch?v=c7khrDCCiHo"> Daddies</a>. Rocking, makes my body sway, brings me into the music.</li>
+        <li> <a href="https://www.jefftk.com/solstice-2020/07-breaking-strain---bitter-wind--2020-12-20-020459.mp3"> Hymn to the Breaking Strain </a> Makes me feel like a human being. The recording is hauntingly off-kilter from the internet.
+        </li>
     </ul>
 </div>
 
@@ -307,6 +318,10 @@ Nature of the US government subsidy of the mortgage market"> previous interests 
 </div>
 
     <script>
+let monastics = Array.from(documents.getElementsByClassName("monasticism"));
+monastics.forEach(elem => {
+})
+
 const can = document.getElementById("pointer");
 const rect = can.getBoundingClientRect();
 const dpr = window.devicePixelRatio || 1;
