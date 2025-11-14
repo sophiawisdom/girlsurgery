@@ -32,6 +32,8 @@ fetch("image_widths_heights.json").then(f => {
         return [parseInt(w/adjustment_factor), parseInt(h/adjustment_factor)]
     }).map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
 
+    // Strip packing produces substantially less aesthetic results so it's not really worth using. I was hoping
+    // for something like a mondrian painting.
     const USE_STRIP_PACKING = false;  // Set this to true to use strip packing positions
 
     if (USE_STRIP_PACKING) {
@@ -59,7 +61,7 @@ fetch("image_widths_heights.json").then(f => {
             let min_height = 0;
             let height = 600;
             let [w, h] = pairs[i];
-            
+
             while (1) {
                 let found_place = false;
                 let w_max = screen_width-w;
