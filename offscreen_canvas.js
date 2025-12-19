@@ -62,17 +62,6 @@ const randomrgb = () => {
     ];
 }
 
-function interpolateColors(colors, fraction) {
-    let labs = colors.map(rgb => rgbToLab(rgb));
-    let resultLab = [
-        labs[0][0] * (1-fraction) + labs[1][0] * fraction,
-        labs[0][1] * (1-fraction) + labs[1][1] * fraction,
-        labs[0][2] * (1-fraction) + labs[1][2] * fraction
-];
-
-    return labToRgb(resultLab);
-}
-
 function weightedRandom(message_weights) {
     const choices = message_weights.map(([a, b]) => a);
     const weights = message_weights.map(([a, b]) => b);
@@ -95,8 +84,8 @@ const message_weights = [
     ["welcome to sophia's blog! ", 0.13],
     ["you're so beautiful ", 0.01],
     ["no one has to know ", 0.01],
-    ["please... ", 0.001],
-    ["show me ", 0.001],
+    ["please... ", 0.005],
+    ["show me ", 0.005],
     ["how are you doing? ", 0.01],
     ["let me eat you ", 0.10],
     ["let me salt your wounds ", 0.02],
@@ -112,7 +101,7 @@ const message_weights = [
     ["kiss me ", 0.01],
     ["love me ", 0.01],
     ["looking in the source code, are you? ", 0],
-    ["girl.surgery/triskelion_black.png", 0.02],
+    // ["girl.surgery/triskelion_black.png", 0.02],
 ]
 
 const cache = new Map();

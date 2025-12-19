@@ -47,7 +47,7 @@ I am deeply ADHD.
     <li> Understanding, saying true things </li>
 </ul>
 
-I care about being good at things. I want you to be really good at things. I want to watch and admire you be good at things. 
+I care about being good at things. I want you to be really good at things. I want to watch and admire you be good at things.
 
 <h3> Things I want out of a relationship </h3>
 <p>
@@ -76,7 +76,7 @@ I'm not really huge on sex at the moment. This is plausibly fixable with the rig
 
 <h3>What my friends say about me</h3>
 <p>
-<a href="x.com/typedfemale">Typedfemale</a>: "sophia wisdom is one of my favorite people to talk to. she has a broad range of interests, is great at explaining things and a good listener. she loves trying new things and experiences. anyone would be lucky to have her as a partner."
+<a href="https://x.com/typedfemale">Typedfemale</a>: "sophia wisdom is one of my favorite people to talk to. she has a broad range of interests, is great at explaining things and a good listener. she loves trying new things and experiences. anyone would be lucky to have her as a partner."
 </p>
 
 <p>
@@ -123,7 +123,7 @@ Music taste: <a href="https://open.spotify.com/playlist/2CKnLKCNk0XbFyrDpwKxQd?s
 <h3 id="desiderata"> Desiderata </h3>
 <h4> Appearance </h4> I'm 6'3 and weigh ~160lbs. You can find photos of me on <a href="/">my main page</a>
 <h4> Drugs </h4>
-I used to do LSD fairly often. I don't nearly as much now. I don't smoke and I drink maybe once a month. I'm in general not very into drugs at the moment but I'm down to try if you're into them. 
+I used to do LSD fairly often. I don't nearly as much now. I don't smoke and I drink maybe once a month. I'm in general not very into drugs at the moment but I'm down to try if you're into them.
 <h4>Twitter</h4> I spend a lot of time on <a href="https://x.com/cis_female">twitter</a> and a lot of my social scene is from there.
 </ul>
 
@@ -132,8 +132,8 @@ I've had two partners in the past, both of whom I still talk to. The last one is
 <!--My main goal with this is to credibly demonstrate that past relationships were overall good and I'm not e.g. abusive.-->
 
 <h3> Want to contact me? Type in the below box and click enter. Remember to include your contact information or I won't be able to contact you back. </h3>
-<textarea 
-    id="contact" 
+<textarea
+    id="contact"
     placeholder="Type your message here. Don't forget to include your contact information!"
     style="width: 100%; min-height: 100px; margin: 10px 0; padding: 8px;"
 ></textarea>
@@ -146,14 +146,14 @@ const statusMessage = document.getElementById("status-message");
 contact.addEventListener("keydown", async function(e) {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault(); // Prevent default newline
-        
+
         const message = this.value.trim();
         if (!message) return;
-        
+
         // Disable textarea while sending
         this.disabled = true;
         statusMessage.textContent = "Sending...";
-        
+
         try {
             const response = await fetch("/email", {
                 method: "POST",
@@ -162,11 +162,11 @@ contact.addEventListener("keydown", async function(e) {
                 },
                 body: JSON.stringify({ message })
             });
-            
+
             if (!response.ok) {
                 throw new Error(await response.text());
             }
-            
+
             statusMessage.textContent = "Message sent successfully!";
             this.value = ""; // Clear textarea
         } catch (error) {

@@ -4,12 +4,11 @@ import tqdm
 import sys
 try:
     from PIL import Image, ImageOps
-    import pillow_avif
     from pillow_heif import register_heif_opener
     register_heif_opener()
 except ImportError as e:
     print("Got import error", e)
-    print("You need to install pillow, pillow-heif and pillow-avif: `pip3 install pillow pillow-heif pillow-avif-plugin`")
+    print("You need to install pillow, pillow-heif and pillow-avif: `pip3 install pillow pillow-heif`")
     sys.exit(1)
 
 files = []

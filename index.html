@@ -3,38 +3,6 @@
         <meta charset="utf-8">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700;900&family=Courier+New&display=swap" rel="stylesheet">
         <style>
-#lex-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 300px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-#lex h3 {
-    padding: 0px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-}
-
-#lex p {
-    padding: 0px;
-    margin: 0px;
-    width: 100%;
-}
-
-.columns {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px; 
-}
-.column {
-    flex: 1;
-}
-.column p {
-    margin: 0px;
-}
 a {
     text-decoration: none;
 }
@@ -52,18 +20,32 @@ a {
     color: #002D72;
 }
 
-body:has(.monasticism:hover) .monasticism {
-    font-size: larger;
-    color: #3C6FD1;
+[splittable] {
+    /* Initially hidden but still measurable */
+    visibility: hidden;
+    /* Will be positioned absolutely after measuring */
 }
+
+[splittable].positioned {
+    position: absolute;
+    visibility: visible;
+    transition: opacity 0.3s ease-in;
+}
+
+[group="words"] {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+[group="songs"] a {
+    font-size: 25px;
+}
+
         </style>
 
-    <style>
-        #explosion-container {
-            position: relative;
-            display: inline-block;
-        }
+        <!-- might be fun to have an effect where the fonts of each of the letters change, like it iterates through 100 fonts for each letter then next letter-->
 
+    <style>
         .explosion-emoji {
             position: absolute;
             pointer-events: none;
@@ -74,83 +56,104 @@ body:has(.monasticism:hover) .monasticism {
 
         <title> sophism </title>
     </head>
+    <!-- this is where the nice words scroll across the screen -->
     <canvas style="margin: 0px;" id="love" style="width:1710px; height:40px;">
     </canvas>
-    <!-- replacement for user-agent body 8px margin-->
-    <div style="margin:8px">
 
-    <p style="font-size:30px; justify-content: center; text-align: center; display:flex; margin-top: 15px; margin-bottom: 10px;"> I am&nbsp;<span class="name">Sophia</span>. This is my blog.
-
-    <div class="columns">
-
-        <div style="flex: 1.5; width: 50px;">
-
-    <p style="margin: 0px;"> I am a 26 year old woman-type creature living in San Francisco. I have a startup selling data to AI companies. You can find more information about my work at <a href="https://calaveras.ai">our website</a>. I <a href="https://twitter.com/cis_female"> have a twitter</a>. <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>.<br><br>
-    
-                <p style="margin: 0px;"><a style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a> <a style="font-size:22px;" href="/facts.html"> i'm assembling a list of facts</a>. I <a href="/graph.html"> made a graph </a>. I <a href="/shmem_atomic">half-made a blog post a while ago </a>. i wrote down some <span id="explosion-container" style="position: relative; display: inline-block;">
-    <a style="font-size:20px;" href="/thinking_about.html">Thoughts about Explosives</a>
-</span>. let me know if you find new facts. or new screenshots. or new explosives, for that matter. I'm in the market for ANFO.</p>
-        I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span id="yen" style="font-size:25px;">💹</span> emoji. If you are a [REDACTED] engineer, I am "Sophia Wisdom" of the "sophiawisdom" dataset.</p>
-
+    <p id="nameis" style="font-size:30px; justify-content: center; text-align: center; display:flex; margin-top: 15px; margin-bottom: 10px;">
+        I am&nbsp;<span class="name">Sophia</span>. This is my blog.
     </p>
+
+    <p style="margin: 0px;" splittable group="aboutme">
+        I am a 26 year old woman-type creature living in San Francisco.
+    </p>
+    <p style="margin: 0px;" splittable group="aboutme">
+    I have a startup selling data to AI companies.
+    You can find more information about my work at <a href="https://calaveras.ai">our website</a>.
+    </p>
+   <p style="margin: 0px;" splittable group="aboutme">
+        I <a href="https://twitter.com/cis_female"> have a twitter</a>.
+   </p>
+   <p style="margin: 0px;" splittable group="aboutme">
+        <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>.
+   </p>
+    <a splittable group="links" style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a>
+    <a splittable group="links" style="font-size:22px;" href="/facts.html"> i'm assembling a list of facts</a>
+    <a splittable group="links" href="/graph.html"> I made a graph </a>
+    <a splittable group="links" href="/shmem_atomic">I half-made a blog post a while ago </a>
+    <a splittable group="links" href="/bad_paper">I wrote about a really bad paper </a>
+    <a splittable group="links" style="font-size:20px;" href="/thinking_about.html" id="explosion-container"> i wrote down some Thoughts about Explosives</a>
+    <!--let me know if you find new facts. or new screenshots. or new explosives, for that matter. I'm in the market for ANFO.</p>-->
+    <span splittable group="links">I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span id="yen" style="font-size:25px;">💹</span> emoji.</span>
+    <span splittable group="links">If you are a [REDACTED] engineer, I am "Sophia Wisdom" of the "sophiawisdom" dataset.</span>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+
+<div splittable group="video">
+The site could hardly be called "Girl Surgery" without some videos on real girl surgeries, and here is such a video. It's of <a href="https://mesityl.substack.com/p/orchiectomy-part-2">Mesityl giving herself an orchiectomy</a>, i.e. removing her testicles. 🔪🥚🥚
+    <div style="position: relative; width: 400px; height:225px; margin-top: 10px; margin-bottom: 5px;">
+        <video id="orchie" controls style="width: 100%; background: black;">
+        </video>
+        <div id="play-overlay" style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        ">
+            <div style="
+                width: 0;
+                height: 0;
+                border-left: 40px solid white;
+                border-top: 25px solid transparent;
+                border-bottom: 25px solid transparent;
+            "></div>
         </div>
-
-    <div class="column">
-            The site could hardly be called "Girl Surgery" without some videos on real girl surgeries, and here is such a video. It's of <a href="https://mesityl.substack.com/p/orchiectomy-part-2">Mesityl giving herself an orchiectomy</a>, i.e. removing her testicles. 🔪🥚🥚
-<div style="position: relative; width: 400px; margin-top: 10px; margin-bottom: 5px;">
-    <video id="my-video" controls style="width: 100%; background: black;">
-        <source src="orchiefast.mp4" type="video/mp4">
-    </video>
-    <div id="play-overlay" style="
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    ">
-        <div style="
-            width: 0;
-            height: 0;
-            border-left: 40px solid white;
-            border-top: 25px solid transparent;
-            border-bottom: 25px solid transparent;
-        "></div>
     </div>
 </div>
+
+<script>
+  const orchie = document.getElementById('orchie');
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource('orchie/video.m3u8');
+    hls.attachMedia(orchie);
+  } else if (orchie.canPlayType('application/vnd.apple.mpegurl')) {
+    // Safari has native HLS support
+    orchie.src = 'video.m3u8';
+  }
+</script>
+
+<div splittable group="video" style="text-align: center; font-size: 20px;">
+    Here's a video of me burning off my pubic hair in the alley.
+    <video id="pubic_hair" src="burning_off_pubic_hair_web.mp4" style="height: 270px; width: 480px;" controls></video>
+    <!--<video id="pubic_hair" src="burning_off_pubic_hair.mp4" style="height: 270px; width: 480px;" controls></video>-->
 </div>
-<div class="column">
+
+<div splittable group="reachout" style="width: 200px; height: 100px;">
     <div style="width: 100%; height: 100%;">Reach out to me! Hit enter and it will send me an email.
-    <textarea
-    id="contact"
-    style="width: 100%; height: 80%;"
-    placeholder="Type your message here. Press enter to submit. If you want me to respond, don't forget to include your contact information!"></textarea>
+        <textarea
+        id="contact"
+        style="width: 100%; height: 80%; resize: none;"
+        placeholder="Type your message here. Press enter to submit. If you want me to respond, don't forget to include your contact information!"></textarea>
     </div>
 </div>
 
-</div>
+<p splittable title group="interests" style="margin: 0;">
+    Current main interests
+</p>
 
-<div style="padding-bottom: 20px;">
-    <div style="text-align: center; position: relative;">
-      <p style="font-size: 4vh; margin: 10px 0;">
-        Some things I'm thinking about.
-      </p>
-
-      <div style="position: absolute; left: 70%; top: 10px; font-size: 3vh;">
-        <p style="margin: 0;">
-          Current main interests
-        </p>
-        <p style="margin: 0;">
-          <a style="color: #00843D; font-weight: bold;">Mining</a>,
-          <span style="color: #BC002D; font-weight: bold;">Revolution in Military Affairs</span>,
-          <span class="monasticism">Modern Monasticism</span>,
-          <span style="color: #7c48d0; font-weight: bold;">Prehistoric signs & symbols</span>
-        </p>
-        <abbr style="margin-top: 40px; font-size: 10px; color: grey;" title="WW2 strategic bombing campaigns
+<span splittable group="interests" style="color: #00843D; font-weight: bold;">Mining</span>
+<span splittable group="interests" style="color: #BC002D; font-weight: bold;">Revolution in Military Affairs</span>
+<span splittable group="interests" class="monasticism">Modern Monasticism</span>
+<span splittable group="interests" style="color: #7c48d0; font-weight: bold;">Prehistoric signs & symbols</span>
+<abbr splittable group="interests" style="margin-top: 40px; font-size: 20px; color: grey;" title="WW2 strategic bombing campaigns
 Meiji Restoration
 Baseball
 Tawhid
@@ -165,25 +168,19 @@ Commodities trading
 Early modern siege warfare
 How to design RL environments
 "> previous interests </abbr>
-      </div>
-    </div>
 
-    <p style="font-size: 1.5vh; padding: 0px; color: grey;">
-      click on the arrows to expand the content
-    </p>
-    <ol>
-        <li> <details><summary> What sorts of moral obligation do I have wrt AGI? </summary>I have contributed a nonzero amount to the development of AI systems by selling AI companies data. I currently plan to do more of this. Is this bad? Should I not do this? The most important question is whether the current generation of LLM systems will reach AGI/ASI. My current belief is that this will not happen, though it's very unclear. I've committed to not selling to labs I consider immoral going forward. I'm also going to donate to pro-safety candidates. I think that's enough for the moment, but I could be wrong. As a final note, there are many thoughts I have on this topic that I can't write down for various reasons. </details>  </li>
+        <span splittable group="thinking"> <details><summary> What sorts of moral obligation do I have wrt AGI? </summary>I have contributed a nonzero amount to the development of AI systems by selling AI companies data. I currently plan to do more of this. Is this bad? Should I not do this? The most important question is whether the current generation of LLM systems will reach AGI/ASI. My current belief is that this will not happen, though it's very unclear. I've committed to not selling to labs I consider immoral going forward. I'm also going to donate to pro-safety candidates. I think that's enough for the moment, but I could be wrong. As a final note, there are many thoughts I have on this topic that I can't write down for various reasons. </details>  </span>
 
-        <li> <details><summary> What should I do in my retirement? </summary> I made a few million dollars selling datasets. This means I don't have to work ever again if I don't want to. I dislike work an unusual amount and am generally somewhat frugal. My main goal in earning money is to buy my time. Currently I am still working because I think the expected value of my time working is fairly high. Several friends have told me that I'm actually just going to continue working for a long time and this is not real retirement. I disagree because I think i have a real track record of not working for extended periods of time. I think it's highly plausible that I will do things that make money in the future, things like teaching GPU programming class for example.
+        <span splittable group="thinking"> <details><summary> What should I do in my retirement? </summary> I made a few million dollars selling datasets. This means I don't have to work ever again if I don't want to. I dislike work an unusual amount and am generally somewhat frugal. My main goal in earning money is to buy my time. Currently I am still working because I think the expected value of my time working is fairly high. Several friends have told me that I'm actually just going to continue working for a long time and this is not real retirement. I disagree because I think i have a real track record of not working for extended periods of time. I think it's highly plausible that I will do things that make money in the future, things like teaching GPU programming class for example.
 
             <br> Some things I would like to do in retirement:
             <ul>
-                <li> Make a better GPU chess engine with Leelachess </li>
+                <li> Make a better GPU chess engine [<a href="https://x.com/cis_female/status/1992618096847426032?s=20">PROGRESS</a>] </li>
                 <li> Learn more about mining. Visit mining conferences </li>
                 <li> Actually reach the Jhanas in a consistent way </li>
                 <li> Spend more time on dating </li>
                 <li> Go to college classes at Berkeley, esp on history/theology. </li>
-                <li> Read more history books. By default my consumption of historical information is highly frenetic, which is great for breadth but terrible for breadth. </li>
+                <li> Read more history books. By default my consumption of historical information is highly frenetic, which is great for breadth but terrible for depth. <!-- Fixed thanks to helpful emailer! --> </li>
                 <li> Play more sports. Climb more seriously perhaps? Actually try to get better? Want to get better at dancing too. </li>
                 <li> Try to understand trading in general better. Maybe work on a crypto marketmaking bot or something like that? Some kind of solana arb? </li>
                 <li> Try to understand theology better, read the bible front to end. </li>
@@ -195,24 +192,27 @@ How to design RL environments
                 <li> Try to pick up the guitar so I can play and sing old folk songs </li>
                 <li> Voice train </li>
             </ul>
-        </li>
+        </details>
+     </span>
 
-        <li> <details><summary> Why do I feel ~no sexual pleasure? </summary> Physically I don't receive much pleasure from having sex, relative to others, though it's hard to calibrate what other people are feeling to my feelings. Evidence I don't feel much: most people like having sex much more than I do, people describe needing to have sex in a way I don't, they describe like massive physical pleasure on orgasm which I don't have, you can see peoples physical reactions to doing sexual things. I find it intellectually interesting and compelling. I enjoy reading erotica, for example. Often the erotica most interesting to me is orgasm denial stuff, because of the focus on desperate craving for this overwhelmingly valuable thing. When I have even orgasms that involuntarily cause my toes to curl it feels very much whatever. I masturbate like once a week and it mostly feels vaguely disgusting, like I'm compelled to do it. This is a tricky situation to be in because 1&#41; it seems hard to sustain romantic/intimate relationships without sex and 2&#41; it's sad that a massive field of human enjoyment feels closed off to me. I'm not really sure how to go about having a good time here. Sometimes I've enjoyed butt stuff alone in the past but man it's so annoying to deal with. </li>
+        <span splittable group="thinking">
+            <details><summary> Why do I feel ~no sexual pleasure? </summary>
+                Physically I don't receive much pleasure from having sex, relative to others, though it's hard to calibrate what other people are feeling to my feelings. Evidence I don't feel much: most people like having sex much more than I do, people describe needing to have sex in a way I don't, they describe like massive physical pleasure on orgasm which I don't have, you can see peoples physical reactions to doing sexual things. I find it intellectually interesting and compelling. I enjoy reading erotica, for example. Often the erotica most interesting to me is orgasm denial stuff, because of the focus on desperate craving for this overwhelmingly valuable thing. When I have even orgasms that involuntarily cause my toes to curl it feels very much whatever. I masturbate like once a week and it mostly feels vaguely disgusting, like I'm compelled to do it. This is a tricky situation to be in because 1&#41; it seems hard to sustain romantic/intimate relationships without sex and 2&#41; it's sad that a massive field of human enjoyment feels closed off to me. I'm not really sure how to go about having a good time here. Sometimes I've enjoyed butt stuff alone in the past but man it's so annoying to deal with. </details> </span>
 
         <!--
-        <li> <details><summary> How do I be a better friend? </summary> Most of the connection in my life comes from people whose relationships I lump as "friend". </li>
+        <span> <details><summary> How do I be a better friend? </summary> Most of the connection in my life comes from people whose relationships I lump as "friend". </span>
         -->
 
         <!--
         this isn't exactly true
-        <li> <details> <summary> Systems that push risk to the limit </summary> There are certain classes of systems where when we endeavor to reduce the inherent riskiness of systems in order to then immediately plow that into some kind of fundamental risk/reward tradeoff.<br><br>In modern finance, a central insight is that a low-risk low-reward asset can be turned into a high-risk high-reward asset by just borrowing more money. A trade that is guaranteed to return 1% more than the treasuries is worth more than a risky one that returns on average 6% more than treasuries because the safer the investment is the more I can lever up. This is one of the central innovations of money managers to my mind, which is actually working hard to keep portfolio risk down which in turn means you can borrow much more.<br><br> There's a weirdly similar. dynamic in ML training where we want to make our learning rate as high as possible, but this makes our model training unstable. So we want our learning rate to be as high as possible without causing instability. The central insight of methods like shampoo is to "pre-condition" (get it) the gradient so it's less likely to become unstable as we increase the learning rate, which gain we immediately spend on increasing the learning rate and making training more unstable. </details> </li>
+        <span> <details> <summary> Systems that push risk to the limit </summary> There are certain classes of systems where when we endeavor to reduce the inherent riskiness of systems in order to then immediately plow that into some kind of fundamental risk/reward tradeoff.<br><br>In modern finance, a central insight is that a low-risk low-reward asset can be turned into a high-risk high-reward asset by just borrowing more money. A trade that is guaranteed to return 1% more than the treasuries is worth more than a risky one that returns on average 6% more than treasuries because the safer the investment is the more I can lever up. This is one of the central innovations of money managers to my mind, which is actually working hard to keep portfolio risk down which in turn means you can borrow much more.<br><br> There's a weirdly similar. dynamic in ML training where we want to make our learning rate as high as possible, but this makes our model training unstable. So we want our learning rate to be as high as possible without causing instability. The central insight of methods like shampoo is to "pre-condition" (get it) the gradient so it's less likely to become unstable as we increase the learning rate, which gain we immediately spend on increasing the learning rate and making training more unstable. </details> </span>
         -->
-        <li> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a> -- the meme maker is so good the meme is *better* than the source material it draws from.</details> </li>
-        <li> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </li>
+        <span splittable group="thinking"> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a> -- the meme maker is so good the meme is *better* than the source material it draws from.</details> </span>
+        <span splittable group="thinking"> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </span>
 
-        <li><details>
+        <span splittable group="thinking"><details>
             <summary class="monasticism"> Working with intention </summary>
-            
+
             <p style="margin: 0px;">
                 Most people fall in to a career and default to working 40 hours/week for the rest of their lives and *then* think about how to spend the money.
             </p>
@@ -229,9 +229,9 @@ How to design RL environments
                 What would this look like for you? How could you live in brotherhood with your friends and build beautiful things together, like a family, or a village?
             </p>
         </details>
-        </li>
+        </span>
 
-        <li><details> <summary> Monk tax law </summary>
+        <span splittable group="thinking"><details> <summary> Monk tax law </summary>
             <p style="margin: 0px;">
                 In US tax law, there are heavy taxes on "income". Most of the fighting is about what exactly "income" is. If you work for a company and receive non-money things that have some value (e.g. a company apartment) this is considered "income" and you will be taxed, because you receive it in exchange for work.
             </p>
@@ -244,54 +244,71 @@ How to design RL environments
 
             There are some subtleties here that I'm happy to talk about IRL.
             <a href="https://x.com/cis_female/status/1982018037239685303"> my tweet about this </a>
-        </details> </li>
+        </details> </span>
 
-        <li><details> <summary> The relationship between compute and intelligence </summary>
+        <span splittable group="thinking"><details> <summary> The relationship between compute and intelligence </summary>
             <ol>
                 <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture an ~arbitrarily good player by just thinking longer! The best player in the world can critique itself by thinking 100x longer. </li>
-                <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly, many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~2k positions/s. </li>
+                <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~20k positions/s (and uses ~100,000x more compute per position). </li>
                 <li> LLM tradeoffs between size and quality are interesting because the pareto frontier is moving so quickly. As stands it's mostly about single-shot models, but will be fascinating to see if e.g. agents can make a poor model a good one. </li>
                 <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone on twitter claimed they were able to tell ASICs were being used by some market participant because highly complex signals were being traded at latencies faster than FPGAs were capable of. That's fascinating. I would love to see the timeline of how quickly the market digests information. How many "bps of alpha per ms" do we see the market improve by? </li>
                 <!-- TODO: compression -->
             </ol>
-        </details></li>
-        <li> <details><summary>How does information diffuse through industries?</summary>I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a> <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a> <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a> <a href="https://research.google/pubs/cores-that-dont-count/">its</a> <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>, but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry? </details></li>
+        </details></span>
+        <span splittable group="thinking">
+            <details><summary>How does information diffuse through industries?</summary>
+                I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published
+                <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a>
+                <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a>
+                <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a>
+                <a href="https://research.google/pubs/cores-that-dont-count/">its</a>
+                <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>,
+                but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry?
+            </details>
+        </span>
         <!--
-        <li> <details><summary>What exactly is the nature and amount of the federal government subsidies in the housing market?</summary>If you look at popular explanations of the government's role in the housing market, e.g. <a href="https://www.bitsaboutmoney.com/archive/mortgages-are-a-manufactured-product/">patio11's</a>, they say that there's an enormous government subsidy through the GSEs (Fannie Mae and Freddie Mac). As a summary for those who are unfamiliar, the GSEs take mortgages that meet some specifications and insure them against non-payment risk in return for a <a href="https://www.fhfa.gov/reports/single-family-guarantee-fees/2022">0.6% fee</a>. <a href="https://www.urban.org/sites/default/files/2024-03/Housing_Finance_At_A_Glance_Monthly_Chartbook_March_2024.pdf">2/3s</a> of mortgage debt in the US is insured in this manner. Mortgages that have been insured in this way trade at essentially the same price as US treasury debt, indicating the market believes the government will step in in case of significant non-payment, which seems true. But the GSEs are highly profitable (<a href="https://www.fanniemae.com/newsroom/fannie-mae-news/fourth-quarter-full-year-2023-financial-results">$2</a><a href="https://www.freddiemac.com/investors/financials/pdf/2023er-4q23_release.pdf">8B</a> in 2023) with enough assets (or enough assets after a few years years of retaining profits (which it doesn't do because treasury sweeps them)) to withstand even a 2008-level event. Many people think they could survive and do well as private companies and are trying to get the government to do this.<br>
+        <span> <details><summary>What exactly is the nature and amount of the federal government subsidies in the housing market?</summary>If you look at popular explanations of the government's role in the housing market, e.g. <a href="https://www.bitsaboutmoney.com/archive/mortgages-are-a-manufactured-product/">patio11's</a>, they say that there's an enormous government subsidy through the GSEs (Fannie Mae and Freddie Mac). As a summary for those who are unfamiliar, the GSEs take mortgages that meet some specifications and insure them against non-payment risk in return for a <a href="https://www.fhfa.gov/reports/single-family-guarantee-fees/2022">0.6% fee</a>. <a href="https://www.urban.org/sites/default/files/2024-03/Housing_Finance_At_A_Glance_Monthly_Chartbook_March_2024.pdf">2/3s</a> of mortgage debt in the US is insured in this manner. Mortgages that have been insured in this way trade at essentially the same price as US treasury debt, indicating the market believes the government will step in in case of significant non-payment, which seems true. But the GSEs are highly profitable (<a href="https://www.fanniemae.com/newsroom/fannie-mae-news/fourth-quarter-full-year-2023-financial-results">$2</a><a href="https://www.freddiemac.com/investors/financials/pdf/2023er-4q23_release.pdf">8B</a> in 2023) with enough assets (or enough assets after a few years years of retaining profits (which it doesn't do because treasury sweeps them)) to withstand even a 2008-level event. Many people think they could survive and do well as private companies and are trying to get the government to do this.<br>
         <b>So what exactly is the nature of the subsidy here?</b> My vague understanding is that the government gives
 
         <br>
         Relatedly, how are mortgage prices determined? As of today, 30-year mortgage rates are apparently 6.64%, but 30-year treasuries are 4.78%, so a 185 basis point difference.
 
-        GSE fees/fee increases ~= taxes</details></li>
-        <li> Why are execution units in CPUs not more randomly/evenly distributed among ports? </li>
-        <li> How large are the implicit subsidies trucks get from road maintenance? Are they only cheaper than rail because of these subsidies? </li>
-        <li> <details><summary><a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </summary> My personal feeling is that spreads for any retail financial product should be essentially 0, because retail traders have no advantage (ignoring e.g. GME/AMC). But in fact we often see options spreads of 5% or more for options on relatively common stocks. Some of this is that Robinhood shows bid/ask numbers from exchanges and price improvement happens later (pointed out by @theemilyaccount). Another part is that retail options might go to an exchange more than retail stocks (though somehow robinhood made $150m last quarter on options revenue). My current theory is that internalizing retail options takes a lot of capital and skill, so there's less competition than for equities, which means spreads are wider and robinhood/market makers can take more of the price improvement. </details> </li>
-        <li> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </li>
+        GSE fees/fee increases ~= taxes</details></span>
+        <span> Why are execution units in CPUs not more randomly/evenly distributed among ports? </span>
+        <span> How large are the implicit subsidies trucks get from road maintenance? Are they only cheaper than rail because of these subsidies? </li>
+        <span> <details><summary><a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </summary> My personal feeling is that spreads for any retail financial product should be essentially 0, because retail traders have no advantage (ignoring e.g. GME/AMC). But in fact we often see options spreads of 5% or more for options on relatively common stocks. Some of this is that Robinhood shows bid/ask numbers from exchanges and price improvement happens later (pointed out by @theemilyaccount). Another part is that retail options might go to an exchange more than retail stocks (though somehow robinhood made $150m last quarter on options revenue). My current theory is that internalizing retail options takes a lot of capital and skill, so there's less competition than for equities, which means spreads are wider and robinhood/market makers can take more of the price improvement. </details> </span>
+        <span> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </span>
         -->
-        <li> <details> <summary> Games I want to exist </summary>
+        <span splittable group="thinking">
+            <details>
+                <summary> Games I want to exist </summary>
             <ul>
-                <li> Game where there's an entire fictional world populated by LLM-powered NPCs and your only means of interaction is to whisper in the internal monologues of the different characters once a day. How can you best persuade them?
+                <li>
+                    Game where there's an entire fictional world populated by LLM-powered NPCs and your only means of interaction is to whisper in the internal monologues of the different characters once a day. How can you best persuade them?
                 </li>
-                <li> Kerbal Space Program for war, where you design weapons for a war and deal with improving technology over time, support the war effort as best you can, plan what materials you can use based on what can be conquered at various times, think about retooling, get confusing feedback from the people fighting at the front that you have to interpret
+                <li>
+                    Kerbal Space Program for war, where you design weapons for a war and deal with improving technology over time, support the war effort as best you can, plan what materials you can use based on what can be conquered at various times, think about retooling, get confusing feedback from the people fighting at the front that you have to interpret
                 </li>
+			</ul>
         </details>
-        </li>
-        
-        <li> <details><summary>At scale, AOT becomes JIT</summary>
-            When large-scale serious enterprises ship products in AOT-compiled languages like C++, they compile with Profile Guided Optimization. The idea is that if the compiler knows exactly how hot or cold every function/branch is, it can do massive reorganizations to improve performance. Commonly the gain of PGO+LTO+BOLT-style stuff can be 20%+. The 
-        </details> </li>
+        </span>
+
         <!--
-        <li> What does it look like to optimize a model for reasoning? </li>
-        <li> <details> <summary> Various small questions </summary>
+        <span> <details><summary>At scale, AOT becomes JIT</summary>
+            When large-scale serious enterprises ship products in AOT-compiled languages like C++, they compile with Profile Guided Optimization. The idea is that if the compiler knows exactly how hot or cold every function/branch is, it can do massive reorganizations to improve performance. Commonly the gain of PGO+LTO+BOLT-style stuff can be 20%+. The
+        </details> </span>
+        -->
+        <!--
+        <span> What does it look like to optimize a model for reasoning? </li>
+        <span> <details> <summary> Various small questions </summary>
             <ul>
                 <li>
                     is "partisan politics evil, i wish everyone could just unite and do what's best for the country" a common brainworm outside the US?
                 </li>
             </ul>
-        </details> </li>
+        </details> </span>
     -->
-        <li> <details> <summary> Fun little product ideas: </summary>
+        <span splittable group="thinking"> <details> <summary> Fun little product ideas: </summary>
             <ol>
                 <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
                 <li> Hyperscalers should spin out REITs to own the datacenter land/buildings </li>
@@ -299,8 +316,8 @@ How to design RL environments
                 <li> Conveyor belt tapas instead of conveyor belt sushi </li>
             </ol>
         </details>
-        </li>
-        <li> <details><summary>silly projects i <abbr title="want theoretically but probably won't do">want</abbr> to make</summary>
+        </span>
+        <span splittable group="thinking"> <details><summary>silly projects i <abbr title="want theoretically but probably won't do">want</abbr> to make</summary>
             <ol>
                 <li> Ten rings, each of a different element (Samarium, Vanadium, Tungsten, etc.) </li>
                 <li> buy 10KW of solar panels for ~$2k and have them arc through the air starting in the morning. use the power of the sun to rip the air apart </li>
@@ -308,9 +325,9 @@ How to design RL environments
                 <li> Make plastic bags using my blood as feedstock </li>
             </ol>
         </details>
-        </li>
+        </span>
         <!--
-        <li>
+        <span>
             <details><summary>Previous questions that have been answered by viewers like you</summary>
             <ol>
                 <li> Why are there regularly negative electricity prices in the US? Why don't people curtail more?</li>
@@ -318,190 +335,270 @@ How to design RL environments
             <li> Why did nuclear energy capacity factors go from <a href="https://www.energy.gov/sites/default/files/styles/full_article_width/public/2022-06/chart-title.png?itok=jorBkYE1">~70% to ~90% between 1990 and 2003</a>? </li>
             Answered by <a href="https://x.com/Vernon3Austin"> Austin Vernon </a>: "Nuclear power plant capacity factor went up because of countless small improvements, slightly modified equipment, better operations management, etc. Also NRC got more flexible with performance based regulation. [This] kind of performance increase is relatively normal for factories, chemical plants, and power plants."
             </ol>
-        </details></li>
+        </details></span>
     -->
-    </ol>
-</div>
 
 <div>
-    <p style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>
-    <span>
-    <canvas id="pointer" style="width: 400; height:400; position: absolute;"></canvas>
-    <img id="family" loading="lazy" src="/sopics/family.jpeg" style="width: 400; height: 300;">
+    <p splittable title group="pictures" style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>
+    <span splittable group="pictures">
+    <canvas id="pointer" style="width: 400px; height:300px; position: absolute;"></canvas>
+    <img id="family" loading="lazy" src="/sopics/family.jpeg" style="width: 400px; height: 300px;">
     </span>
-    <img loading="lazy" src="/sopics/church.jpeg" style="max-height:400px">
-    <img loading="lazy" src="/sopics/fire.jpeg" style="max-height:400px">
-    <img loading="lazy" src="/sopics/parade.jpeg" style="max-height:400px">
-    <img loading="lazy" src="/sopics/peace.jpeg" style="max-height:400px">
-</div>
-
-<div style="padding-bottom: 20px; display: flex;">
-    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center; writing-mode: sideways-lr; text-orientation: mixed; flex-shrink: 0;">Some songs I enjoy.</p>
-    <ul style="flex: 1;">
-        <li> <a href="https://www.youtube.com/watch?v=F_f00f0OVsc">Nearer To Thee</a>. It sweeps me away. It makes me feel one with the crowd. It makes me believe in god. </li>
-        <li> <a href="https://www.youtube.com/watch?v=2HookiS1BmY">Clipo clipo</a>. Feels like being held by a mother. It's feels insane that a song this deeply affecting is about a topic so obscure to me (apparently Ivorian independence). </li>
-        <li> <a href="https://www.youtube.com/watch?v=28BFJ_TgiK8">Undone in sorrow</a>. Prototypical short story, played with candor. It feels like the sort of trap I could fall into, the song I could be singing. </li>
-        <li> <a href="https://www.youtube.com/watch?v=A_4N05coN2g">Tumble in the Wind</a>. The songwriter's history strongly influences my understanding of songs like these. This man's life is full of tragedy and sorrow. This song is too. The beginning makes my heart sway, powerfully moves my chest to beat with him. Also <a href="https://www.youtube.com/watch?v=XzF09zbEbxI">Box Canyon</a> by him. </li>
-        <li> <a href="https://www.youtube.com/watch?v=PC3eDwpVn6M">Fireflies Made Out of Dust</a>. I can't explain this one yet. </li>
-        <li> <a href="https://www.youtube.com/watch?v=b_dO7sUZI9g">Western Island</a>. A real, compelling vision of a life of solitude. I could live on a western island. I need to feel the ground. </li>
-        <li> <a href="https://www.youtube.com/watch?v=dTfmUAg0AGM"> Freak Show</a>. I find this song deeply disgusting. A connection to a world and a group of people I used to know. </li>
-        <!--<li> <a href="https://www.youtube.com/watch?v=BuNBLjJzRoo"> 90210</a>. To me this song is about walking slick, rainy streets late at night without a friend for a thousand miles. </li>
-        <li> <a href="https://www.youtube.com/watch?v=WVkD4lgXTEU"> Bones in the Ocean</a>. One of the songs I listened to <a href="/colorado.jpeg">wandering in Colorado</a>. I made a Finnish friend there, and then she said she wanted to kill all the rationalists. </li>-->
-        <li> <a href="https://www.youtube.com/watch?v=c7khrDCCiHo"> Daddies</a>. Rocking, makes my body sway, brings me into the music.</li>
-        <li> <a href="https://www.jefftk.com/solstice-2020/07-breaking-strain---bitter-wind--2020-12-20-020459.mp3"> Hymn to the Breaking Strain </a> Makes me feel like a human being. The recording is hauntingly off-kilter choral singing over the internet.
-        </li>
-        <li> <a href="https://x.com/bashu_thanks/status/1805350598918693329"> La Noyée </a> The pinnacle of energy, of life, of feeling </li>
-        <li> <a href="https://open.spotify.com/track/1saCKTst3kjchoiNkwt3el?si=12f6507d2a4d4f3c"> Mishima's closing</a>. <a href="https://x.com/cis_female/status/1970424311606583365">Makes me want to kill myself at the sunrise</a>. </li>
-        <li> <a href="https://www.youtube.com/watch?v=3uRZYNcYR-w"> Oh I'm a Good Ol' Rebel</a>. Feels like actual defiance. Defiance in our culture is mostly pathetic. People who don't really believe, don't really care, give in immediately. This is actual defiance. I hate you, I hate everything you stand for, I will destroy you. And they won! They won for 100 years! Even in the face of a decade-long full occupation. I have a complicated relationship with songs of the old south. Their ideology was repugnant. But these were my ancestors. I cannot totally disavow them. </li>
-    </ul>
 </div>
 
 
-        <div><h1 style="justify-content: center; text-align: center;">Words I didn't know</h1>
-            <p>
-            catafalque
-<abbr title="in the sense of walking">padding</abbr>
-hame
-ergotisms
-ecotone
-peculations
-macramé
-transosseous
-louche
-bumf
-phaeton
-laestrygonian
-commenda
-laterite
-eremitical
-brachiate
-valetudinarian
-asphodel
-lappets
-rigadoon
-gravid
-parturition
-Ampelography
-invigilator
-phronesis
-Boffola
-bibelots
-devadasi
-wode
-tribology
-onomastic
-coracle
-autophagy
-Oriflamme
-palter
-<abbr title="as in Girdling a tree">Girdling</abbr>
-bagnio
-soigné
-eyetooth
-trunnion
-autokabalesis
-Flitch
-assignation
-farrago
-howdah
-semiworks
-Rhadamanthine
-cavil
-cynosure
-sloes
-beneficiation
-entrainment
-jacquerie
-quirister
-bawbee
-indwell
-calcine
-freshet
-lamella
-boutonnièrec
-chilblained
-apotropaic
-Ramekin
-affray
-hemipenes
-moue
-muzzy
-doxy
-<a href="https://x.com/robinsonmeyer/status/1986527490106663143">roustabout</a>
-        </p></div>
+<img splittable group="pictures" src="strange_feeling.PNG" style="width: 377px; height:441px;">
 
-<div style=" padding-bottom: 20px;" id="places">
-    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center; flex-shrink: 0;">Places that mean something to me.</p>
-    <!-- i want it to be a bunch of boxes with the text in the box and they are all kind of bumping in to each other -->
-    <!-- would be cool to show physical locations -->
-    <ul>
-        <li>
-            The top of Bernal Heights. Looking out over the twinkling lights. Seeing the purple lights, always in the same place. Taking off my clothes and giggling. Trying to climb the fence. Musing with my friends walking down to the rocky humps. Scampering in the darkness up the concrete-bag-ladder you're not supposed to touch.
-        </li>
-        <li>
-            The walk between my house and the bus to go to work. A deeply hewn psychic path. Sprinting to try to make it. Getting the timing quite right.
-        </li>
-        <li>
-            Walking down St. Charles street in New Orleans, feeling vague dread at how closed off the city is to me.
-        </li>
-        <li>
-            Running through the woods outside school desperately trying to reason through whether I was trans. A season later sitting serenely in the snow.
-        </li>
-        <li>
-            Scootering through Golden Gate Park on acid at new years daybreak, the colors unnaturally saturated, everything feeling too wonderful, wind streaming past my face.
-        </li>
-        <li>
-            The purple lights off Twin Peaks, seeing them up close for the first time after crying walking home for two hours and feeling that there was more.
-        </li>
-    </ul>
-</div>
+<p splittable group="songs" title style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some songs I enjoy.</p>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=F_f00f0OVsc">Nearer To Thee</a>. It sweeps me away. It makes me feel one with the crowd. It makes me believe in god. </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=2HookiS1BmY">Clipo clipo</a>. Feels like being held by a mother. It's feels insane that a song this deeply affecting is about a topic so obscure to me (apparently Ivorian independence). </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=28BFJ_TgiK8">Undone in sorrow</a>. Prototypical short story, played with candor. It feels like the sort of trap I could fall into, the song I could be singing. </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=A_4N05coN2g">Tumble in the Wind</a>. The songwriter's history strongly influences my understanding of songs like these. This man's life is full of tragedy and sorrow. This song is too. The beginning makes my heart sway, powerfully moves my chest to beat with him. Also <a href="https://www.youtube.com/watch?v=XzF09zbEbxI">Box Canyon</a> by him. </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=PC3eDwpVn6M">Fireflies Made Out of Dust</a>. I can't explain this one yet. </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=b_dO7sUZI9g">Western Island</a>. A real, compelling vision of a life of solitude. I could live on a western island. I need to feel the ground. </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=dTfmUAg0AGM"> Freak Show</a>. I find this song deeply disgusting. A connection to a world and a group of people I used to know. </span>
+<!--<span> <a href="https://www.youtube.com/watch?v=BuNBLjJzRoo"> 90210</a>. To me this song is about walking slick, rainy streets late at night without a friend for a thousand miles. </span>
+<span> <a href="https://www.youtube.com/watch?v=WVkD4lgXTEU"> Bones in the Ocean</a>. One of the songs I listened to <a href="/colorado.jpeg">wandering in Colorado</a>. I made a Finnish friend there, and then she said she wanted to kill all the rationalists. </span-->
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=c7khrDCCiHo"> Daddies</a>. Rocking, makes my body sway, brings me into the music.</span>
+<span splittable group="songs"> <a href="https://www.jefftk.com/solstice-2020/07-breaking-strain---bitter-wind--2020-12-20-020459.mp3"> Hymn to the Breaking Strain </a> Makes me feel like a human being, like someone else is listening to my soul. The recording is hauntingly off-kilter choral singing over the internet.</span>
+<span splittable group="songs"> <a href="https://x.com/bashu_thanks/status/1805350598918693329"> La Noyée </a> The pinnacle of energy, of life, of feeling </span>
+<span splittable group="songs"> <a href="https://open.spotify.com/track/1saCKTst3kjchoiNkwt3el?si=12f6507d2a4d4f3c"> Mishima's closing</a>. <a href="https://x.com/cis_female/status/1970424311606583365">Makes me want to kill myself at the sunrise</a>. </span>
+<span splittable group="songs"> <a href="https://www.youtube.com/watch?v=3uRZYNcYR-w"> Oh I'm a Good Ol' Rebel</a>. Feels like actual defiance. Defiance in our culture is mostly pathetic. People who don't really believe, don't really care, give in immediately. This is actual defiance. I hate you, I hate everything you stand for, I will destroy you. And they won! They won for 100 years! Even in the face of a decade-long full occupation. I have a complicated relationship with songs of the old south. Their ideology was repugnant. But these were my ancestors. I cannot totally disavow them. </span>
+
+<h1 splittable title group="words" style="justify-content: center; text-align: center;">Words I didn't know</h1>
+<span splittable group="words">catafalque</span>
+<abbr splittable group="words" title="in the sense of walking">padding</abbr>
+<span splittable group="words">hame</span>
+<span splittable group="words">ergotisms</span>
+<span splittable group="words">ecotone</span>
+<span splittable group="words">peculations</span>
+<span splittable group="words">macramé</span>
+<span splittable group="words">transosseous</span>
+<span splittable group="words">louche</span>
+<span splittable group="words">bumf</span>
+<span splittable group="words">phaeton</span>
+<span splittable group="words">laestrygonian</span>
+<span splittable group="words">commenda</span>
+<span splittable group="words">laterite</span>
+<span splittable group="words">eremitical</span>
+<span splittable group="words">brachiate</span>
+<span splittable group="words">valetudinarian</span>
+<span splittable group="words">asphodel</span>
+<span splittable group="words">lappets</span>
+<span splittable group="words">rigadoon</span>
+<span splittable group="words">gravid</span>
+<span splittable group="words">parturition</span>
+<span splittable group="words">Ampelography</span>
+<span splittable group="words">invigilator</span>
+<span splittable group="words">phronesis</span>
+<span splittable group="words">Boffola</span>
+<span splittable group="words">bibelots</span>
+<span splittable group="words">devadasi</span>
+<span splittable group="words">wode</span>
+<span splittable group="words">tribology</span>
+<span splittable group="words">onomastic</span>
+<span splittable group="words">coracle</span>
+<span splittable group="words">autophagy</span>
+<span splittable group="words">Oriflamme</span>
+<span splittable group="words">palter</span>
+<abbr splittable group="words" title="as in Girdling a tree">Girdling</abbr>
+<span splittable group="words">bagnio</span>
+<span splittable group="words">soigné</span>
+<span splittable group="words">eyetooth</span>
+<span splittable group="words">trunnion</span>
+<span splittable group="words">autokabalesis</span>
+<span splittable group="words">Flitch</span>
+<span splittable group="words">assignation</span>
+<span splittable group="words">farrago</span>
+<span splittable group="words">howdah</span>
+<span splittable group="words">semiworks</span>
+<span splittable group="words">Rhadamanthine</span>
+<span splittable group="words">cavil</span>
+<span splittable group="words">cynosure</span>
+<span splittable group="words">sloes</span>
+<span splittable group="words">beneficiation</span>
+<span splittable group="words">entrainment</span>
+<span splittable group="words">jacquerie</span>
+<span splittable group="words">quirister</span>
+<span splittable group="words">bawbee</span>
+<span splittable group="words">indwell</span>
+<span splittable group="words">calcine</span>
+<span splittable group="words">freshet</span>
+<span splittable group="words">lamella</span>
+<span splittable group="words">boutonnièrec</span>
+<span splittable group="words">chilblained</span>
+<span splittable group="words">apotropaic</span>
+<span splittable group="words">Ramekin</span>
+<span splittable group="words">affray</span>
+<span splittable group="words">hemipenes</span>
+<span splittable group="words">moue</span>
+<span splittable group="words">muzzy</span>
+<span splittable group="words">doxy</span>
+<a splittable group="words" href="https://x.com/robinsonmeyer/status/1986527490106663143">roustabout</a>
+<span splittable group="words">swage</span>
+
+
+<p splittable title group="places" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center; flex-shrink: 0;">Places that mean something to me.</p>
+<!-- i want it to be a bunch of boxes with the text in the box and they are all kind of bumping in to each other -->
+<!-- would be cool to show physical locations -->
+<span splittable group="places">
+    The top of Bernal Heights. Looking out over the twinkling lights. Seeing the purple lights, always in the same place. Taking off my clothes and giggling. Trying to climb the fence. Musing with my friends walking down to the rocky humps. Scampering in the darkness up the concrete-bag-ladder you're not supposed to touch.
+</span>
+<span splittable group="places">
+    The walk between my house and the bus to go to work. A deeply hewn psychic path. Sprinting to try to make it. Getting the timing quite right.
+</span>
+<span splittable group="places">
+    Walking down St. Charles street in New Orleans, feeling vague dread at how closed off the city is to me.
+</span>
+<span splittable group="places">
+    Running through the woods outside school desperately trying to reason through whether I was trans. A season later sitting serenely in the snow.
+</span>
+<span splittable group="places">
+    Scootering through Golden Gate Park on acid at new years daybreak, the colors unnaturally saturated, everything feeling too wonderful, wind streaming past my face.
+</span>
+<span splittable group="places">
+    The purple lights off Twin Peaks, seeing them up close for the first time after crying walking home for two hours and feeling that there was more.
+</span>
+
+<span splittable group="work">
+    I wrote <a href="https://github.com/sophiawisdom/ssms">GPU kernels for diagonalizable State Space Models</a> many years ago
+</span>
+<span splittable group="work">
+I am working on a chess engine. Stay tuned!
+</span>
+<span splittable group="work">
+    I made a <a href="https://github.com/sophiawisdom/stimulator">Stimulator</a> for walking in da city
+</span>
+
+
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+[group="psalm23"] {
+    font-family: 'IM Fell English', serif;
+    font-size: 18px;
+    color: #5C6B4A;
+}
+[group="psalm23"] a {
+    color: #6c8251;
+}
+</style>
+<span splittable group="psalm23">
+    The Lord is my shepherd, I lack nothing
+</span>
+<span splittable group="psalm23">
+    He makes me lie down in green pastures
+</span>
+<span splittable group="psalm23">
+	he leads me beside quiet waters
+</span>
+<span splittable group="psalm23">
+	he refreshes my soul.
+</span>
+<span splittable group="psalm23">
+	He guides me along the right paths for his name’s sake.
+</span>
+<span splittable group="psalm23">
+	Even though I walk through the darkest valley,
+	<a href="https://en.wikipedia.org/wiki/I_Will_Fear_No_Evil">I will fear no evil</a>
+</span>
+<span splittable group="psalm23">
+	Surely your goodness and love will follow me
+	all the days of my life,
+	and I will dwell in the house of the Lord
+	forever.
+</span>
+
+<style>
+[group="jokes"] {
+    color: yellowgreen;
+}
+</style>
+<span splittable group="jokes">
+    francis drake was the first person to circumcise the globe. that's probably why they called his ship a clipper
+</span>
 
 <!--
 <div style="border-top: 1px solid grey; padding-bottom: 20px;" id="move">
     <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Ways that I want to move.</p>
     I was told I move "in an outsider art way".
     <ul>
-        <li>
+        <span>
             like Caroline Polachek in <a href="https://www.youtube.com/watch?v=sn3cHUtNZKo">this video</a>. In clear response to the beat, exact fluid, creative.
-        </li>
-        <li>
+        </span>
+        <span>
             "with maximum dependence on the other person's body"
-        </li>
-        <li> Freely, though I do this by default. </li>
+        </span>
+        <span> Freely, though I do this by default. </span>
     </ul>
 </div>
 -->
 
-<div style="border-top: 1px solid grey; padding-bottom: 20px;" id="move">
-    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some clothes I've enjoyed.</p>
-    <p> Some clothes I've made myself have been fun. </li>
+<div id="move">
+    <p splittable title group="clothes" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some clothes I've enjoyed.</p>
+    <p splittable group="clothes"> Some clothes I've made myself have been fun.
         There is a theme I like very much, of pretending not to understand something and making a stupid point that is in actuality a joke that other people don't understand. Now that I say it like this I suppose that's cruel.  In this case the joke is that it says "Your Gay", which leads people to believe I'm retarded because I'm making a peurile joke and misspelling it, but then in harder to see letters it says "mine too, date me", which i think is amusing. I also like that it looks retarded because of my poor writing. Shockingly I painted this 6 years ago and there's been ~no damage since that time.
         <br>
-        <img src="sopics/gay.jpg" width="400" height="400">
+        <img src="sopics/gay.jpg" style="width: 300px; height:450px;">
+    </p>
+</div>
+
+<div splittable group="friendframes" style="font-size: 20px;">
+    <span style="display: block"> CASEY'S BOX </span>
+    <iframe class="friendbox" id="caseybox" style="width: 150px; height: 200px; border-width: 3px;" src="https://caseymanning.github.io/sophia"></iframe>
+</div>
+
+<div splittable group="friendframes">
+    <span style="display: block; font-size: 23px;"> <a href="https://x.com/typedfemale">CRONE</a> ZONE </span>
+    <div style="border: 3px inset; width: 150px; padding: 5px;">
+
+    <p style="margin: 0px">
+    WEARS A BONNET AND LOOKS LONG
+    </p>
+    <br>
+    <p style="margin: 0px">
+IF SHE PULLS OFF HER PANTS YOU'LL SEE HER DONG
+    </p>
+    <br>
+    <p style="margin: 0px">
+WEARS TWO COLORS FOR SOCKS EVEN IF IT IS WRONG
+    </p>
+    <br>
+<p style="margin: 0px">
+HATES LISTENING TO A NEW SONG
+</p>
+<br>
+<p style="margin: 0px">
+WOULD NEVER SMOKE WEED HATES THE BONG
+</p>
+<br>
+<p style="margin: 0px">
+THROWS OUT HIT DATASETS LIKE HER NAME IS KONG
+</p>
+    </div>
 </div>
 
 <!--
 <div style="border-top: 1px solid grey; padding-bottom: 20px;">
     <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some other creative works I enjoyed.</p>
     <ul>
-    <li>
+    <span>
     The Prize, Daniel Yergin
     </li>
-    <li>
+    <span>
     The Blazing World
     </li>
-    <li>
+    <span>
     The Wise Man's fear book series
-    </li>
-    <li>
+    </span>
+    <span>
     Jon Bois's videos
-    </li>
-    <li>
+    </span>
+    <span>
     Survivor
-    </li>
-    <li>
+    </span>
+    <span>
     Dan Luu's blog
-    </li>
+    </span>
     </ul>
 </div>
 -->
@@ -515,18 +612,6 @@ doxy
 -->
 
 <script>
-    const video = document.getElementById('my-video');
-    const overlay = document.getElementById('play-overlay');
-
-    overlay.addEventListener('click', () => {
-        if (confirm('This video is quite bloody and is of someone removing their testicles. Are you sure you want to play it?')) {
-            overlay.style.display = 'none';
-            video.play();
-        }
-    });
-</script>
-
-    <script>
 const can = document.getElementById("pointer");
 const rect = can.getBoundingClientRect();
 const dpr = window.devicePixelRatio || 1;
@@ -541,11 +626,11 @@ can.addEventListener("mousemove", event => {
     const mouseY = event.clientY - rect.top;
 })
 const sopic_ctx = can.getContext("2d");
-var centerX = 95*dpr;
-var centerY = 180*dpr;
+var centerX = 98*dpr;
+var centerY = 80*dpr;
 
 const radiusX = 30*dpr;
-const radiusY = 45*dpr;
+const radiusY = 38*dpr;
 let angle = 0;
 
 function drawArrow() {
@@ -556,13 +641,14 @@ function drawArrow() {
     const y = centerY + (radiusY + 20) * Math.sin(angle);
 
     // draw dot at center
-    /*
+    if (false) {
     sopic_ctx.beginPath();
     sopic_ctx.arc(centerX, centerY, 8, 0, Math.PI * 2);
-    sopic_ctx.fillStyle = "black";
+    sopic_ctx.fillStyle = "red";
     sopic_ctx.fill();
     sopic_ctx.closePath();
-    */
+    }
+
 
     sopic_ctx.save();
     sopic_ctx.translate(x, y);
@@ -579,7 +665,7 @@ function drawArrow() {
     sopic_ctx.restore();
 }
 
-function animate() {
+function animateArrow() {
     // this is kind of insane... maybe re
     sopic_ctx.clearRect(0, 0, 450*dpr, 337*dpr);
 
@@ -591,185 +677,23 @@ function animate() {
         angle -= 2 * Math.PI;
     }
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animateArrow);
 }
 
-document.getElementById("family").onload = animate;
+document.getElementById("family").onload = animateArrow;
+</script>
 
-const months = [
-    "Wisdom",
-    "Temperance",
-    "Beauty",
-    "Lightness",
-    "Diligence",
-    "Humility",
-    "Kindness",
-    "Playfulness",
-    "Truth",
-    "Love",
-    '<abbr title="my sister!">Lacey</abbr>',
-    "Courage",
-    "Mercy"
-];
+<script>
+    const video = document.getElementById('my-video');
+    const overlay = document.getElementById('play-overlay');
 
-const gregorian_leap_year = gregorian_year => {
-    if (gregorian_year%4 == 0) {
-        if (gregorian_year%100 == 0) {
-            if (gregorian_year%400 == 0) {
-                return true;
-            }
-            return false;
+    overlay.addEventListener('click', () => {
+        if (confirm('This video is quite bloody and is of someone removing their testicles. Are you sure you want to play it?')) {
+            overlay.style.display = 'none';
+            video.play();
         }
-        return true;
-    }
-    return false;
-}
-const sophia_leap_year = sophia_year => {
-    let leap_years = [0, 4, 8, 12, 16, 20, 24];
-    return leap_years.includes(sophia_year);
-}
-const days_to_ymd = days_since_sophia => {
-    if (days_since_sophia < 0) {
-        throw "needs to be positive! no B.S.";
-    }
-
-    let day_in_year = days_since_sophia;
-    let year = 0;
-    while (day_in_year >= (365+sophia_leap_year(year))) {
-        day_in_year -= 365;
-        day_in_year -= sophia_leap_year(year);
-        year += 1;
-    }
-
-    let month = "";
-    let day_in_month = 0;
-    const year_ordinal = ((year%10) == 1) ? "st" : ((year%10) == 2) ? "nd" : ((year%10) == 3) ? "rd" : "th";
-    let year_string = `of the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`
-    if (day_in_year == 0) {
-        return "SOPHIA DAY!!! of " + year_string;
-    } else if (sophia_leap_year(year) && (day_in_year >= (6*28+1))) {
-        if (day_in_year == (6*28+1)) {
-            return "Leap day of " + year_string;
-        } else {
-            month = months[Math.floor((day_in_year-2)/28)];
-            day_in_month = (day_in_year-2)%28
-        }
-    } else {
-        month = months[Math.floor((day_in_year-1)/28)];
-        day_in_month = (day_in_year-1)%28;
-    }
-    const day = day_in_month+1;
-    const day_ordinal = ((day%10) == 1) ? "st" : ((day%10) == 2) ? "nd" : ((day%10) == 3) ? "rd" : "th";
-
-    return `the ${day}${day_ordinal} day of the month of ${month} in the <span class="age">${year}${year_ordinal}</span> year of <span class="name">Sophia</span>`;
-}
-
-/*
-const clockDiv = document.getElementById('clock-goes-here');
-const canvas = clock_canvas;
-
-// npx -y wrangler pages deploy --project-name girlsurgery /Users/sophiawisdom/sophia_calendar
-let time = "1:00PM April 8th";
-
-// Set display size
-canvas.style.width = '100px';
-canvas.style.height = '100px';
-
-// Set actual size in memory (scaled for retina)
-canvas.width = 100 * dpr;
-canvas.height = 100 * dpr;
-
-// Add the date text
-date.textContent = time.split(" ").slice(1).join(" ");
-
-const ctx = canvas.getContext('2d');
-ctx.scale(dpr, dpr);
-
-// Draw clock face
-centerX = 50;
-centerY = 50;
-const radius = 45;
-
-// Draw outer circle
-ctx.beginPath();
-ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-ctx.strokeStyle = '#333';
-ctx.lineWidth = 1;
-ctx.stroke();
-
-let am_pm = "AM";
-if (time.includes("PM")) {
-    am_pm = "PM";
-}
-
-// phtalo green (18, 53, 36)
-ctx.font = "25px sans-serif";
-ctx.fillStyle = "rgb(18, 100, 36)";
-ctx.fillText(am_pm, 30, 40);
-
-// Draw hour marks
-for (let i = 0; i < 12; i++) {
-    const angle = (i * Math.PI) / 6 - Math.PI / 2;
-    const startRadius = radius - 4;
-    const endRadius = radius - (i % 3 === 0 ? 8 : 5);
-
-    ctx.beginPath();
-    ctx.moveTo(
-        centerX + Math.cos(angle) * startRadius,
-        centerY + Math.sin(angle) * startRadius
-    );
-    ctx.lineTo(
-        centerX + Math.cos(angle) * endRadius,
-        centerY + Math.sin(angle) * endRadius
-    );
-    ctx.strokeStyle = '#666';
-    ctx.lineWidth = i % 3 === 0 ? 1.5 : 1;
-    ctx.stroke();
-}
-
-// Extract hours and minutes from time string
-const [timeStr] = time.split(' ');
-const [hours, minutesPart] = timeStr.split(':');
-const minutes = parseInt(minutesPart);
-const period = timeStr.slice(-2);
-let hour = parseInt(hours);
-if (period === 'PM' && hour !== 12) hour += 12;
-if (period === 'AM' && hour === 12) hour = 0;
-
-// Calculate angles
-const hourAngle = ((hour % 12 + minutes / 60) * Math.PI / 6) - Math.PI / 2;
-const minuteAngle = ((minutes) * Math.PI / 30) - Math.PI / 2;
-
-// Hour hand
-ctx.beginPath();
-ctx.moveTo(centerX, centerY);
-ctx.lineTo(
-    centerX + Math.cos(hourAngle) * (radius * 0.5),
-    centerY + Math.sin(hourAngle) * (radius * 0.5)
-);
-ctx.strokeStyle = '#333';
-ctx.lineWidth = 2;
-ctx.stroke();
-
-// Minute hand
-ctx.beginPath();
-ctx.moveTo(centerX, centerY);
-ctx.lineTo(
-    centerX + Math.cos(minuteAngle) * (radius * 0.7),
-    centerY + Math.sin(minuteAngle) * (radius * 0.7)
-);
-ctx.strokeStyle = '#666';
-ctx.lineWidth = 1.5;
-ctx.stroke();
-
-// Center dot
-ctx.beginPath();
-ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI);
-ctx.fillStyle = '#333';
-ctx.fill();
-*/
-
-    </script>
+    });
+</script>
     <script async src="/movables.js"></script>
 
 
@@ -835,61 +759,61 @@ window.addEventListener('resize', () => {
     <script>
         const container = document.getElementById('explosion-container');
         const explosionEmojis = ['💥', '💣', '🧨'];
-        
+
         function createExplosion() {
             const emoji = document.createElement('span');
             emoji.className = 'explosion-emoji';
             emoji.textContent = explosionEmojis[Math.floor(Math.random() * explosionEmojis.length)];
-            
+
             // Random angle in radians
             const angle = Math.random() * Math.PI * 2;
-            
+
             // Random distance (50-150px)
             const distance = 50 + Math.random() * 100;
-            
+
             // Calculate end position
             const endX = Math.cos(angle) * distance;
             const endY = Math.sin(angle) * distance;
-            
+
             // Start at center of the link
             const rect = container.getBoundingClientRect();
             emoji.style.left = (rect.width / 2) + 'px';
             emoji.style.top = (rect.height / 2) + 'px';
-            
+
             container.appendChild(emoji);
-            
+
             // Animation duration (800-1200ms)
             const duration = 800 + Math.random() * 400;
-            
+
             const startTime = performance.now();
-            
+
             function animate(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                
+
                 // Easing function (ease-out)
                 const eased = 1 - Math.pow(1 - progress, 3);
-                
+
                 // Update position
                 emoji.style.transform = `translate(${endX * eased}px, ${endY * eased}px)`;
-                
+
                 // Update size (shrink from 1 to 0.2)
                 const scale = 1 - (progress * 0.8);
                 emoji.style.fontSize = (30 * scale) + 'px';
-                
+
                 // Update opacity (fade from 1 to 0)
                 emoji.style.opacity = 1 - progress;
-                
+
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
                     emoji.remove();
                 }
             }
-            
+
             requestAnimationFrame(animate);
         }
-        
+
         // Create explosions at random intervals
         function scheduleNextExplosion() {
             // Random interval between 300-800ms
@@ -899,10 +823,10 @@ window.addEventListener('resize', () => {
                 scheduleNextExplosion();
             }, interval);
         }
-        
+
         // Start the animation cycle
         scheduleNextExplosion();
-        
+
         // Also create an explosion on hover
         container.addEventListener('mouseenter', () => {
             createExplosion();
@@ -933,39 +857,39 @@ function createOozingEmoji() {
         font-size: 30px;
         pointer-events: none;
     `;
-    
+
     // Random starting position
     const rect = document.getElementById("yen").getBoundingClientRect();
     emoji.style.left = rect.left + rect.width / 2 + 'px';
     emoji.style.top = rect.top + rect.height / 2 + 'px';
     emojiContainer.appendChild(emoji);
-    
+
     let startTime = Date.now();
     const duration = 3000; // 3 seconds to ooze and fade
-    
+
     function animate() {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Current position
         const currentX = parseFloat(emoji.style.left);
         const currentY = parseFloat(emoji.style.top);
-        
+
         // Calculate direction to cursor
         const dx = mouseX - currentX;
         const dy = mouseY - currentY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         // Slow oozing movement (0.5 pixels per frame)
         if (distance > 1) {
             const moveSpeed = 0.5;
             emoji.style.left = currentX + (dx / distance) * moveSpeed + 'px';
             emoji.style.top = currentY + (dy / distance) * moveSpeed + 'px';
         }
-        
+
         // Fade from 0.3 to 0
         emoji.style.opacity = 0.3 * (1 - progress);
-        
+
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
@@ -974,7 +898,7 @@ function createOozingEmoji() {
             setTimeout(createOozingEmoji, 1000);
         }
     }
-    
+
     animate();
 }
 
@@ -982,5 +906,379 @@ function createOozingEmoji() {
 createOozingEmoji();
 </script>
 
-</div>
-</html>
+<script>
+// Configuration: order of groups to layout
+const GROUP_ORDER = [
+    'aboutme',
+    'links',
+    'video',
+    'reachout',
+    'thinking',
+    'pictures',
+    'friendframes',
+    'songs',
+    'places',
+    'clothes',
+    "work",
+    "psalm23",
+    "jokes",
+    'words',
+];
+
+// Collision detection from your original algorithm
+function checkIntersection(a, b) {
+    return a.left < b.right &&
+           a.right > b.left &&
+           a.bottom > b.top &&
+           a.top < b.bottom;
+}
+
+// Random packing algorithm adapted from your image packer
+function packBoxes(positions, boxes, containerWidth, startY = 0) {
+    const isMobile = containerWidth < 768;
+
+    let newpositions = [];
+
+    boxes.forEach((box, i) => {
+        let placed = false;
+        let minHeight = startY;
+        let searchHeight = startY + 600;
+
+        // Keep expanding search area until we find a spot
+        while (!placed) {
+            const maxLeft = Math.max(10, containerWidth - box.width - 10);
+            const maxTop = Math.max(minHeight, searchHeight - box.height);
+
+            // Try 50 random positions
+            for (let attempt = 0; attempt < 50; attempt++) {
+                const left = parseInt(Math.random() * maxLeft);
+                const top = minHeight + parseInt(Math.random() * (maxTop - minHeight));
+
+                const candidate = {
+                    left,
+                    top,
+                    right: left + box.width,
+                    bottom: top + box.height,
+                    width: box.width,
+                    height: box.height
+                };
+
+                // Check if it intersects with any existing positions
+                let intersects = false;
+                for (let pos of positions) {
+                    if (checkIntersection(candidate, pos)) {
+                        intersects = true;
+                        break;
+                    }
+                }
+
+                if (!intersects) {
+                    positions.push({...candidate, element: box.element});
+                    newpositions.push({...candidate, element: box.element});
+                    placed = true;
+                    break;
+                }
+            }
+
+            if (!placed) {
+                minHeight += 5;
+                searchHeight += 5;
+            }
+        }
+    });
+
+    return newpositions;
+}
+
+function getPosition(elem) {
+  const rect = elem.getBoundingClientRect();
+  let node_top = rect.top + window.pageYOffset;
+  let node_left = rect.left + window.pageXOffset;
+  return {
+    left: node_left,
+    top: node_top,
+    right: node_left + rect.width,
+    bottom: node_top + rect.height,
+    element: elem,
+  }
+}
+
+// Main layout function
+function layoutSplittables() {
+    const containerWidth = window.innerWidth - 20;
+
+    let currentY = 0;
+
+    let all_placed_rects = [getPosition(love), getPosition(nameis)];
+
+    let padding_w = 0;
+    let padding_h = 0;
+
+    // Process each group in order
+    GROUP_ORDER.forEach(groupName => {
+        const elements = document.querySelectorAll(`[splittable][group="${groupName}"]`);
+        if (elements.length === 0) return;
+
+        // Measure all elements in this group
+        const boxes = Array.from(elements).map(el => {
+            // Clone to measure with constraints
+            const clone = el.cloneNode(true);
+            clone.style.position = 'absolute';
+            clone.style.visibility = 'hidden';
+            clone.style.maxWidth = '500px';
+
+            if (el.tagName !== 'IMG') {
+                clone.style.width = 'auto';
+            }
+            document.body.appendChild(clone);
+
+            const rect = clone.getBoundingClientRect();
+            const box = {
+                element: el,
+                width: Math.ceil(rect.width) + padding_w, // padding
+                height: Math.ceil(rect.height) + padding_h
+            };
+
+            document.body.removeChild(clone);
+            return box;
+        });
+
+        // Apply positions
+        packBoxes(all_placed_rects, boxes, containerWidth, currentY).forEach(pos => {
+            pos.element.style.left = pos.left + 'px';
+            pos.element.style.top = pos.top + 'px';
+            pos.element.style.width = (pos.width - padding_w) + 'px'; // remove padding
+            pos.element.style.height = (pos.height - padding_h) + 'px';
+            pos.element.style.margin = 0 + "px";
+            pos.element.classList.add('positioned');
+
+            /*
+            // Optional: add visual styling
+            pos.element.style.padding = '10px';
+            pos.element.style.background = 'rgba(255, 255, 255, 0.9)';
+            pos.element.style.border = '1px solid #ddd';
+            pos.element.style.borderRadius = '4px';
+            */
+        });
+
+        //  currentY += 20;
+    });
+
+    console.log(all_placed_rects);
+    window.rects = all_placed_rects;
+
+    setTimeout(() => {
+      for (box of all_placed_rects) {
+        let rect = box.element.getBoundingClientRect();
+        if (
+          rect.width != (box.width - padding_w) ||
+          rect.height != (box.height - padding_h) ||
+          rect.bottom != (box.bottom - padding_h) ||
+          rect.top != box.top ||
+          rect.left != box.left ||
+          rect.right != (box.right - padding_w)) {
+          console.log("box has changed: ", box, rect);
+        }
+      }
+    }, 300);
+
+    // Set container height
+    const maxY = Math.max(...Array.from(document.querySelectorAll('[splittable].positioned'))
+        .map(el => el.offsetTop + el.offsetHeight));
+
+    // Find parent container and set its height
+    document.querySelector('.splittable-container')?.style.setProperty('min-height', maxY + 'px');
+}
+
+// Run after DOM and fonts are loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.fonts.ready.then(layoutSplittables);
+    });
+} else {
+    document.fonts.ready.then(layoutSplittables);
+}
+
+</script>
+
+<script>
+// Store positioned element data
+const elementPositions = new Map();
+
+function getElementRect(el) {
+    return {
+        left: el.offsetLeft,
+        top: el.offsetTop,
+        right: el.offsetLeft + el.offsetWidth,
+        bottom: el.offsetTop + el.offsetHeight,
+        width: el.offsetWidth,
+        height: el.offsetHeight
+    };
+}
+
+function updatePositionsMap() {
+    elementPositions.clear();
+    document.querySelectorAll('[splittable].positioned').forEach(el => {
+        elementPositions.set(el, getElementRect(el));
+    });
+}
+
+function checkCollision(rect1, rect2) {
+    return !(rect1.right < rect2.left ||
+             rect1.left > rect2.right ||
+             rect1.bottom < rect2.top ||
+             rect1.top > rect2.bottom);
+}
+
+function findSafePosition(element, occupiedRects, containerWidth, detailsRect) {
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
+
+    const startY = detailsRect.bottom + 20;
+
+    // Try positions in a grid pattern around and below the details
+    const positions = [];
+
+    for (let yOffset = 0; yOffset < 400; yOffset += 40) {
+        for (let xOffset = -100; xOffset <= 100; xOffset += 50) {
+            const left = Math.max(10, Math.min(containerWidth - width - 10, detailsRect.left + xOffset));
+            const top = startY + yOffset;
+
+            positions.push({ left, top });
+        }
+    }
+
+    // Try each position
+    for (const pos of positions) {
+        const testRect = {
+            left: pos.left,
+            top: pos.top,
+            right: pos.left + width,
+            bottom: pos.top + height,
+            width,
+            height
+        };
+
+        const hasCollision = occupiedRects.some(rect => checkCollision(testRect, rect));
+
+        if (!hasCollision) {
+            return pos;
+        }
+    }
+
+    // Fallback: place far below
+    const fallbackLeft = Math.max(10, Math.min(containerWidth - width - 10, detailsRect.left));
+    return { left: fallbackLeft, top: startY + 400 };
+}
+
+function handleDetailsExpansion(detailsElement) {
+    const splittableParent = detailsElement.closest('[splittable].positioned');
+    if (!splittableParent) {
+        console.warn('Details element not inside a positioned splittable');
+        return;
+    }
+
+    // Wait for the details element itself to fully expand
+    // Use a longer delay to ensure content is rendered
+    setTimeout(() => {
+        // Get the actual details element's bounding box
+        const detailsActualRect = detailsElement.getBoundingClientRect();
+
+        // Create rect relative to the document
+        const detailsRect = {
+            left: detailsActualRect.left + window.pageXOffset,
+            top: detailsActualRect.top + window.pageYOffset,
+            right: detailsActualRect.right + window.pageXOffset,
+            bottom: detailsActualRect.bottom + window.pageYOffset,
+            width: detailsActualRect.width,
+            height: detailsActualRect.height
+        };
+
+        const containerWidth = window.innerWidth - 20;
+
+        console.log('Details expanded at:', detailsRect);
+        console.log('Details actual height:', detailsRect.height);
+
+        // Find all elements that collide
+        const collidingElements = [];
+        const nonCollidingRects = [detailsRect];
+
+        document.querySelectorAll('[splittable].positioned').forEach(el => {
+            if (el === splittableParent) return;
+
+            const elRect = getElementRect(el);
+            if (checkCollision(detailsRect, elRect)) {
+                const preview = el.textContent.substring(0, 30).replace(/\s+/g, ' ');
+                console.log('Element collides:', preview);
+                collidingElements.push(el);
+            } else {
+                nonCollidingRects.push(elRect);
+            }
+        });
+
+        console.log('Total colliding elements:', collidingElements.length);
+
+        if (collidingElements.length === 0) {
+            console.log('No collisions detected');
+            return;
+        }
+
+        // Reposition each colliding element
+        collidingElements.forEach((el, index) => {
+            const newPos = findSafePosition(el, nonCollidingRects, containerWidth, detailsRect);
+
+            console.log(`Moving element ${index} to:`, newPos);
+
+            el.style.transition = 'left 0.6s ease-out, top 0.6s ease-out';
+            el.style.left = newPos.left + 'px';
+            el.style.top = newPos.top + 'px';
+
+            nonCollidingRects.push({
+                left: newPos.left,
+                top: newPos.top,
+                right: newPos.left + el.offsetWidth,
+                bottom: newPos.top + el.offsetHeight,
+                width: el.offsetWidth,
+                height: el.offsetHeight
+            });
+        });
+
+        setTimeout(() => {
+            collidingElements.forEach(el => {
+                el.style.transition = '';
+            });
+            updatePositionsMap();
+        }, 0);
+
+    }, 0); // Increased delay to 200ms
+}
+
+// Set up listeners on all details elements
+function initializeDetailsListeners() {
+    document.querySelectorAll('details').forEach(details => {
+        details.addEventListener('toggle', function(e) {
+            if (this.open) {
+                handleDetailsExpansion(this);
+            }
+        });
+    });
+
+    updatePositionsMap();
+}
+
+// Run after layout is complete
+document.fonts.ready.then(() => {
+    setTimeout(initializeDetailsListeners, 100);
+});
+
+setTimeout(() => {
+  // rects.forEach(rect => rect.element.style.visibility = "hidden")
+}, 2000);
+</script>
+
+
+
+
+<canvas id="typeCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+<script src="background.js"></script>
