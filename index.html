@@ -13,12 +13,6 @@ a {
     color: red;
     font-weight: bold;
 }
-.monasticism {
-    font-weight: bold;
-    transition: color 150ms;
-    transition: font-size 150ms;
-    color: #002D72;
-}
 
 [splittable] {
     /* Initially hidden but still measurable */
@@ -80,8 +74,8 @@ a {
     <a splittable group="links" style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a>
     <a splittable group="links" style="font-size:22px;" href="/facts.html"> i'm assembling a list of facts</a>
     <a splittable group="links" href="/graph.html"> I made a graph </a>
-    <a splittable group="links" href="/shmem_atomic">I half-made a blog post a while ago </a>
-    <a splittable group="links" href="/bad_paper">I wrote about a really bad paper </a>
+    <a splittable group="links" href="/shmem_atomic.html">I half-made a blog post a while ago </a>
+    <a splittable group="links" href="/bad_paper.html">I wrote about a really bad paper </a>
     <a splittable group="links" style="font-size:20px;" href="/thinking_about.html" id="explosion-container"> i wrote down some Thoughts about Explosives</a>
     <!--let me know if you find new facts. or new screenshots. or new explosives, for that matter. I'm in the market for ANFO.</p>-->
     <span splittable group="links">I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span id="yen" style="font-size:25px;">💹</span> emoji.</span>
@@ -137,7 +131,7 @@ The site could hardly be called "Girl Surgery" without some videos on real girl 
 </div>
 
 <div splittable group="reachout" style="width: 200px; height: 100px;">
-    <div style="width: 100%; height: 100%;">Reach out to me! Hit enter and it will send me an email.
+    <div style="width: 100%; height: 100%;">Reach out to me! Hit enter and it will send me an email. Include your contact!
         <textarea
         id="contact"
         style="width: 100%; height: 80%; resize: none;"
@@ -145,59 +139,74 @@ The site could hardly be called "Girl Surgery" without some videos on real girl 
     </div>
 </div>
 
-<p splittable title group="interests" style="margin: 0;">
-    Current main interests
-</p>
+<style>
+[group="interests"] {
+        font-size: 20px;
+}
+span[group="interests"]:not([previous])::before {
+    content: "Interest: ";
+    color: black;
+    font-weight: bold;
+}
+</style>
 
 <span splittable group="interests" style="color: #00843D; font-weight: bold;">Mining</span>
 <span splittable group="interests" style="color: #BC002D; font-weight: bold;">Revolution in Military Affairs</span>
-<span splittable group="interests" class="monasticism">Modern Monasticism</span>
-<span splittable group="interests" style="color: #7c48d0; font-weight: bold;">Prehistoric signs & symbols</span>
-<abbr splittable group="interests" style="margin-top: 40px; font-size: 20px; color: grey;" title="WW2 strategic bombing campaigns
-Meiji Restoration
-Baseball
-Tawhid
-Catholicism
-Energy systems
-Computer memory technologies
-GPU programming (somewhat current)
-Performance engineering
-Parametric insurance
-Nature of the US government subsidy of the mortgage market
-Commodities trading
-Early modern siege warfare
-How to design RL environments
-"> previous interests </abbr>
+<span splittable group="interests" style="color: #002D72; font-weight: bold;">Modern Monasticism</span>
+<span splittable group="interests" style="color: #7c48d0; font-weight: bold;">Chess programming</span>
+<span splittable group="interests" previous>
+<details>
+    <summary style="font-size: 20px;"> Previous Interests </summary>
+    <ul style="padding-left: 0px; margin: 0px;">
+        <li>WW2 strategic bombing campaigns</li>
+        <li>Meiji Restoration</li>
+        <li>Baseball</li>
+        <li>Tawhid</li>
+        <li>Catholicism</li>
+        <li>Energy systems</li>
+        <li>Computer memory technologies</li>
+        <li>GPU programming (somewhat current)</li>
+        <li>Performance engineering</li>
+        <li>Parametric insurance</li>
+        <li>Nature of the US government subsidy of the mortgage market</li>
+        <li>Commodities trading</li>
+        <li>Early modern siege warfare</li>
+        <li>How to design RL environments</li>
+    </ul>
+</details>
+</span>
 
-        <span splittable group="thinking"> <details><summary> What sorts of moral obligation do I have wrt AGI? </summary>I have contributed a nonzero amount to the development of AI systems by selling AI companies data. I currently plan to do more of this. Is this bad? Should I not do this? The most important question is whether the current generation of LLM systems will reach AGI/ASI. My current belief is that this will not happen, though it's very unclear. I've committed to not selling to labs I consider immoral going forward. I'm also going to donate to pro-safety candidates. I think that's enough for the moment, but I could be wrong. As a final note, there are many thoughts I have on this topic that I can't write down for various reasons. </details>  </span>
+<span splittable group="thinking"> <details><summary> What sorts of moral obligation do I have wrt AGI? </summary>I have contributed a nonzero amount to the development of AI systems by selling AI companies data. I currently plan to do more of this. Is this bad? Should I not do this? The most important question is whether the current generation of LLM systems will reach AGI/ASI. My current belief is that this will not happen, though it's very unclear. I've committed to not selling to labs I consider immoral going forward. I'm also going to donate to pro-safety candidates. I think that's enough for the moment, but I could be wrong. As a final note, there are many thoughts I have on this topic that I can't write down for various reasons. </details>  </span>
 
-        <span splittable group="thinking"> <details><summary> What should I do in my retirement? </summary> I made a few million dollars selling datasets. This means I don't have to work ever again if I don't want to. I dislike work an unusual amount and am generally somewhat frugal. My main goal in earning money is to buy my time. Currently I am still working because I think the expected value of my time working is fairly high. Several friends have told me that I'm actually just going to continue working for a long time and this is not real retirement. I disagree because I think i have a real track record of not working for extended periods of time. I think it's highly plausible that I will do things that make money in the future, things like teaching GPU programming class for example.
+<span splittable group="thinking"> <details><summary> What should I do in my retirement? </summary>
+    I made a few million dollars selling datasets. This means I don't have to work ever again if I don't want to. I dislike work an unusual amount and am generally somewhat frugal. My main goal in earning money is to buy my time. Currently I am still working because I think the expected value of my time working is fairly high. Several friends have told me that I'm actually just going to continue working for a long time and this is not real retirement. I disagree because I think i have a real track record of not working for extended periods of time. I think it's highly plausible that I will do things that make money in the future, things like teaching GPU programming class for example.
+    <br> Some things I would like to do in retirement:
+    <ul>
+        <li> Make a better GPU chess engine [<a href="https://x.com/cis_female/status/1992618096847426032?s=20">PROGRESS</a>] </li>
+        <li> Learn more about mining. Visit mining conferences </li>
+        <li> Actually reach the Jhanas in a consistent way </li>
+        <li> Spend more time on dating </li>
+        <li> Go to college classes at Berkeley, esp on history/theology. </li>
+        <li> Read more history books. By default my consumption of historical information is highly frenetic, which is great for breadth but terrible for depth. <!-- Fixed thanks to helpful emailer! --> </li>
+        <li> Play more sports. Climb more seriously perhaps? Actually try to get better? Want to get better at dancing too. </li>
+        <li> Try to understand trading in general better. Maybe work on a crypto marketmaking bot or something like that? Some kind of solana arb? </li>
+        <li> Try to understand theology better, read the bible front to end. </li>
+        <li> Get my drivers license, spend time in the desert </li>
+        <li> Write STT inference kernels + API for parakeet 1.3b </li>
+        <li> Actually understand modern compression systems </li>
+        <li> Finish up wisewords and see if there are any gains on small model inference </li>
+        <li> Try to pick up some kind of physical craft. Maybe making clothes? Maybe blacksmithing or pottery? Not really sure. </li>
+        <li> Try to pick up the guitar so I can play and sing old folk songs </li>
+        <li> Voice train </li>
+    </ul>
+</details>
+</span>
 
-            <br> Some things I would like to do in retirement:
-            <ul>
-                <li> Make a better GPU chess engine [<a href="https://x.com/cis_female/status/1992618096847426032?s=20">PROGRESS</a>] </li>
-                <li> Learn more about mining. Visit mining conferences </li>
-                <li> Actually reach the Jhanas in a consistent way </li>
-                <li> Spend more time on dating </li>
-                <li> Go to college classes at Berkeley, esp on history/theology. </li>
-                <li> Read more history books. By default my consumption of historical information is highly frenetic, which is great for breadth but terrible for depth. <!-- Fixed thanks to helpful emailer! --> </li>
-                <li> Play more sports. Climb more seriously perhaps? Actually try to get better? Want to get better at dancing too. </li>
-                <li> Try to understand trading in general better. Maybe work on a crypto marketmaking bot or something like that? Some kind of solana arb? </li>
-                <li> Try to understand theology better, read the bible front to end. </li>
-                <li> Get my drivers license, spend time in the desert </li>
-                <li> Write STT inference kernels + API for parakeet 1.3b </li>
-                <li> Actually understand modern compression systems </li>
-                <li> Finish up wisewords and see if there are any gains on small model inference </li>
-                <li> Try to pick up some kind of physical craft. Maybe making clothes? Maybe blacksmithing or pottery? Not really sure. </li>
-                <li> Try to pick up the guitar so I can play and sing old folk songs </li>
-                <li> Voice train </li>
-            </ul>
-        </details>
-     </span>
-
-        <span splittable group="thinking">
-            <details><summary> Why do I feel ~no sexual pleasure? </summary>
-                Physically I don't receive much pleasure from having sex, relative to others, though it's hard to calibrate what other people are feeling to my feelings. Evidence I don't feel much: most people like having sex much more than I do, people describe needing to have sex in a way I don't, they describe like massive physical pleasure on orgasm which I don't have, you can see peoples physical reactions to doing sexual things. I find it intellectually interesting and compelling. I enjoy reading erotica, for example. Often the erotica most interesting to me is orgasm denial stuff, because of the focus on desperate craving for this overwhelmingly valuable thing. When I have even orgasms that involuntarily cause my toes to curl it feels very much whatever. I masturbate like once a week and it mostly feels vaguely disgusting, like I'm compelled to do it. This is a tricky situation to be in because 1&#41; it seems hard to sustain romantic/intimate relationships without sex and 2&#41; it's sad that a massive field of human enjoyment feels closed off to me. I'm not really sure how to go about having a good time here. Sometimes I've enjoyed butt stuff alone in the past but man it's so annoying to deal with. </details> </span>
+<span splittable group="thinking">
+    <details><summary> Why do I feel ~no sexual pleasure? </summary>
+        Physically I don't receive much pleasure from having sex, relative to others, though it's hard to calibrate what other people are feeling to my feelings. Evidence I don't feel much: most people like having sex much more than I do, people describe needing to have sex in a way I don't, they describe like massive physical pleasure on orgasm which I don't have, you can see peoples physical reactions to doing sexual things. I find it intellectually interesting and compelling. I enjoy reading erotica, for example. Often the erotica most interesting to me is orgasm denial stuff, because of the focus on desperate craving for this overwhelmingly valuable thing. When I have even orgasms that involuntarily cause my toes to curl it feels very much whatever. I masturbate like once a week and it mostly feels vaguely disgusting, like I'm compelled to do it. This is a tricky situation to be in because 1&#41; it seems hard to sustain romantic/intimate relationships without sex and 2&#41; it's sad that a massive field of human enjoyment feels closed off to me. I'm not really sure how to go about having a good time here. Sometimes I've enjoyed butt stuff alone in the past but man it's so annoying to deal with.
+    </details>
+</span>
 
         <!--
         <span> <details><summary> How do I be a better friend? </summary> Most of the connection in my life comes from people whose relationships I lump as "friend". </span>
@@ -207,65 +216,66 @@ How to design RL environments
         this isn't exactly true
         <span> <details> <summary> Systems that push risk to the limit </summary> There are certain classes of systems where when we endeavor to reduce the inherent riskiness of systems in order to then immediately plow that into some kind of fundamental risk/reward tradeoff.<br><br>In modern finance, a central insight is that a low-risk low-reward asset can be turned into a high-risk high-reward asset by just borrowing more money. A trade that is guaranteed to return 1% more than the treasuries is worth more than a risky one that returns on average 6% more than treasuries because the safer the investment is the more I can lever up. This is one of the central innovations of money managers to my mind, which is actually working hard to keep portfolio risk down which in turn means you can borrow much more.<br><br> There's a weirdly similar. dynamic in ML training where we want to make our learning rate as high as possible, but this makes our model training unstable. So we want our learning rate to be as high as possible without causing instability. The central insight of methods like shampoo is to "pre-condition" (get it) the gradient so it's less likely to become unstable as we increase the learning rate, which gain we immediately spend on increasing the learning rate and making training more unstable. </details> </span>
         -->
-        <span splittable group="thinking"> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a> -- the meme maker is so good the meme is *better* than the source material it draws from.</details> </span>
-        <span splittable group="thinking"> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </span>
+<span splittable group="thinking"> <details> <summary>What does it mean to be skilled?</summary> How does being skilled change you? Often the answer in history for why one group triumphed over another is the skill of a single person (Rockefeller, Napoleon, <a href="https://en.wikipedia.org/wiki/Enrico_Mattei">Enrico Mattei</a>), but <abbr title="except for generals">they rarely explain what that means</abbr>. Why was Rockefeller able to run more efficient refineries than any of his competitors? People often just say he was better, but what did that actually entail? One clue is that he actually looked at what expenses were and managed them in a way nobody else did at the time. I wish I understood this about everyone.<br><a href="https://x.com/rmbalt/status/1671951288483938331">Here's a small example of skill in making memes</a> -- the meme maker is so good the meme is *better* than the source material it draws from.</details> </span>
+<span splittable group="thinking"> <details><summary>Why are some people and organizations more efficient than others with the same resources?</summary> The best example I have right now is Google's Ad organization vs Meta's Ad organization, where Meta is ~3 years behind due to, as far as I can tell, not believing in compute for several years (e.g. many of their production models are not just inferenced on CPU, but <i>trained</i> on CPU). Apparently this costs them ~20-40% of revenue. That's totally fucking insane! Tens of billions of dollars of lost opportunity. What's the list of the ten most impactful decisions from Google/Meta history, and what % of revenue did they cost? <!--How much does quality of execution like this actually matter? <a href="https://danluu.com/hardware-unforgiving/#2021-comments">Is it all just about PMF?</a> thinking about twitter vs facebook and the danluu post about how maybe it was because of poor execution--></details> </span>
 
-        <span splittable group="thinking"><details>
-            <summary class="monasticism"> Working with intention </summary>
+<span splittable group="thinking"><details>
+    <summary class="monasticism"> Working with intention </summary>
 
-            <p style="margin: 0px;">
-                Most people fall in to a career and default to working 40 hours/week for the rest of their lives and *then* think about how to spend the money.
-            </p>
-            <p style="margin: 0px;">
-                I don't like working. Most people don't. I have structured my life to maximize freedom from the desires of others. It would be much better for you to have clear goals and intentions on how to live your life, and then choose your work to accomplish these goals with the least amount of pain. FIRE is a good example of this, though you can go much further.
-            </p>
-            <p style="margin: 0px;">
-                A shining example of living with intention is groups like the <a href="https://www.carmelitemonks.org/">Carmelite monks of Wyoming</a>. If you look at <a href="https://www.carmelitemonkshorarium.org/">their schedule</a> they spend ~8 hours praying, 8 hours sleeping, and ~5.5 hours working (rest eating/recreation). Much of their work is devoted to the construction of <a href="https://www.youtube.com/watch?v=QxiwEEhcZX0">a massive Gothic church</a>. They make money from the outside world with <a href="https://www.mysticmonkcoffee.com/">Mystic Monk Coffee</a>.
-            </p>
-            <p style="margin: 0px;">
-                They have specific goals in mind: communion with god, living in brotherhood, building beautiful things. They suborn themselves to commerce and the desires of others exactly as much as is necessary to accomplish those goals.
-            </p>
-            <p style="margin: 0px;">
-                What would this look like for you? How could you live in brotherhood with your friends and build beautiful things together, like a family, or a village?
-            </p>
-        </details>
-        </span>
+    <p style="margin: 0px;">
+        Most people fall in to a career and default to working 40 hours/week for the rest of their lives and *then* think about how to spend the money.
+    </p>
+    <p style="margin: 0px;">
+        I don't like working. Most people don't. I have structured my life to maximize freedom from the desires of others. It would be much better for you to have clear goals and intentions on how to live your life, and then choose your work to accomplish these goals with the least amount of pain. FIRE is a good example of this, though you can go much further.
+    </p>
+    <p style="margin: 0px;">
+        A shining example of living with intention is groups like the <a href="https://www.carmelitemonks.org/">Carmelite monks of Wyoming</a>. If you look at <a href="https://www.carmelitemonkshorarium.org/">their schedule</a> they spend ~8 hours praying, 8 hours sleeping, and ~5.5 hours working (rest eating/recreation). Much of their work is devoted to the construction of <a href="https://www.youtube.com/watch?v=QxiwEEhcZX0">a massive Gothic church</a>. They make money from the outside world with <a href="https://www.mysticmonkcoffee.com/">Mystic Monk Coffee</a>.
+    </p>
+    <p style="margin: 0px;">
+        They have specific goals in mind: communion with god, living in brotherhood, building beautiful things. They suborn themselves to commerce and the desires of others exactly as much as is necessary to accomplish those goals.
+    </p>
+    <p style="margin: 0px;">
+        What would this look like for you? How could you live in brotherhood with your friends and build beautiful things together, like a family, or a village?
+    </p>
+</details>
+</span>
 
-        <span splittable group="thinking"><details> <summary> Monk tax law </summary>
-            <p style="margin: 0px;">
-                In US tax law, there are heavy taxes on "income". Most of the fighting is about what exactly "income" is. If you work for a company and receive non-money things that have some value (e.g. a company apartment) this is considered "income" and you will be taxed, because you receive it in exchange for work.
-            </p>
-            <p style="margin: 0px;">
-                Monks have been <a href="https://en.wikipedia.org/wiki/Ora_et_labora">required to work</a> for 1500 years. Some of this work is praying or maintenance but traditionally they have had "side businesses", selling e.g. <a href="https://en.wikipedia.org/wiki/Chartreuse_(liqueur)">Chartreuse</a> or <a href="https://en.wikipedia.org/wiki/Trappist_beer">beer</a>. The order provides housing, healthcare, food, etc. for the monks. But these benefits are not considered "income" because it is not done <em>in exchange</em> for work. But this is a subtle distinction. If you stop working one day, you will be kicked out of the order and no longer receive benefits, just like a job. The distinction is that if you <em> cannot </em> work, e.g. for health reasons, then you still receive the benefits.
-            </p>
-            <p style="margin: 0px;">
-                Think about how thin of a distinction that is, economically! 98% of your life you are required to work and in exchange you receive benefits. But because 2% of the time you receive benefits without work, it's no longer income and you don't have to pay taxes. They don't have to pay corporate/UBIT taxes for the same "not compensation" reasons and don't pay property taxes either. For a software engineer this is a ~2x increase in after-tax income.
-            </p>
+<span splittable group="thinking"><details> <summary> Monk tax law </summary>
+    <p style="margin: 0px;">
+        In US tax law, there are heavy taxes on "income". Most of the fighting is about what exactly "income" is. If you work for a company and receive non-money things that have some value (e.g. a company apartment) this is considered "income" and you will be taxed, because you receive it in exchange for work.
+    </p>
+    <p style="margin: 0px;">
+        Monks have been <a href="https://en.wikipedia.org/wiki/Ora_et_labora">required to work</a> for 1500 years. Some of this work is praying or maintenance but traditionally they have had "side businesses", selling e.g. <a href="https://en.wikipedia.org/wiki/Chartreuse_(liqueur)">Chartreuse</a> or <a href="https://en.wikipedia.org/wiki/Trappist_beer">beer</a>. The order provides housing, healthcare, food, etc. for the monks. But these benefits are not considered "income" because it is not done <em>in exchange</em> for work. But this is a subtle distinction. If you stop working one day, you will be kicked out of the order and no longer receive benefits, just like a job. The distinction is that if you <em> cannot </em> work, e.g. for health reasons, then you still receive the benefits.
+    </p>
+    <p style="margin: 0px;">
+        Think about how thin of a distinction that is, economically! 98% of your life you are required to work and in exchange you receive benefits. But because 2% of the time you receive benefits without work, it's no longer income and you don't have to pay taxes. They don't have to pay corporate/UBIT taxes for the same "not compensation" reasons and don't pay property taxes either. For a software engineer this is a ~2x increase in after-tax income.
+    </p>
 
-            There are some subtleties here that I'm happy to talk about IRL.
-            <a href="https://x.com/cis_female/status/1982018037239685303"> my tweet about this </a>
-        </details> </span>
+    There are some subtleties here that I'm happy to talk about IRL.
+    <a href="https://x.com/cis_female/status/1982018037239685303"> my tweet about this </a>
+</details> </span>
 
-        <span splittable group="thinking"><details> <summary> The relationship between compute and intelligence </summary>
-            <ol>
-                <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture an ~arbitrarily good player by just thinking longer! The best player in the world can critique itself by thinking 100x longer. </li>
-                <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~20k positions/s (and uses ~100,000x more compute per position). </li>
-                <li> LLM tradeoffs between size and quality are interesting because the pareto frontier is moving so quickly. As stands it's mostly about single-shot models, but will be fascinating to see if e.g. agents can make a poor model a good one. </li>
-                <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone on twitter claimed they were able to tell ASICs were being used by some market participant because highly complex signals were being traded at latencies faster than FPGAs were capable of. That's fascinating. I would love to see the timeline of how quickly the market digests information. How many "bps of alpha per ms" do we see the market improve by? </li>
-                <!-- TODO: compression -->
-            </ol>
-        </details></span>
-        <span splittable group="thinking">
-            <details><summary>How does information diffuse through industries?</summary>
-                I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published
-                <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a>
-                <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a>
-                <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a>
-                <a href="https://research.google/pubs/cores-that-dont-count/">its</a>
-                <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>,
-                but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry?
-            </details>
-        </span>
+<span splittable group="thinking"><details> <summary> The relationship between compute and intelligence </summary>
+    <ol>
+        <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture an ~arbitrarily good player by just thinking longer! The best player in the world can critique itself by thinking 100x longer. </li>
+        <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~20k positions/s (and uses ~100,000x more compute per position). </li>
+        <li> LLM tradeoffs between size and quality are interesting because the pareto frontier is moving so quickly. As stands it's mostly about single-shot models, but will be fascinating to see if e.g. agents can make a poor model a good one. </li>
+        <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone on twitter claimed they were able to tell ASICs were being used by some market participant because highly complex signals were being traded at latencies faster than FPGAs were capable of. That's fascinating. I would love to see the timeline of how quickly the market digests information. How many "bps of alpha per ms" do we see the market improve by? </li>
+        <!-- TODO: compression -->
+    </ol>
+</details></span>
+
+<span splittable group="thinking">
+    <details><summary>How does information diffuse through industries?</summary>
+        I used to work in cloud infrastructure. Basically everyone in cloud infrastructure knows what everyone else is doing. Google not only published
+        <a href="https://research.google/pubs/software-defined-far-memory-in-warehouse-scale-computers/">many</a>
+        <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf">papers</a>
+        <a href="https://research.google/pubs/the-datacenter-as-a-computer-an-introduction-to-the-design-of-warehouse-scale-machines/">on</a>
+        <a href="https://research.google/pubs/cores-that-dont-count/">its</a>
+        <a href="https://research.google/pubs/the-tail-at-scale/">infrastructure</a>,
+        but open sourced much of it (k8s, t8w, j1x, b3l, p6f). Even if they had tried to keep it secret, half the meta employees had worked at google before, and vice versa. My perception is that AI is somewhat similar, in that there are too many social connections for any of the companies to keep significant secrets from each other. <br>To what degree are other industries this tight-knit? Is it advantageous or disadvantageous for industries to be like this? To what degree can secrets actually be kept in a whole industry?
+    </details>
+</span>
         <!--
         <span> <details><summary>What exactly is the nature and amount of the federal government subsidies in the housing market?</summary>If you look at popular explanations of the government's role in the housing market, e.g. <a href="https://www.bitsaboutmoney.com/archive/mortgages-are-a-manufactured-product/">patio11's</a>, they say that there's an enormous government subsidy through the GSEs (Fannie Mae and Freddie Mac). As a summary for those who are unfamiliar, the GSEs take mortgages that meet some specifications and insure them against non-payment risk in return for a <a href="https://www.fhfa.gov/reports/single-family-guarantee-fees/2022">0.6% fee</a>. <a href="https://www.urban.org/sites/default/files/2024-03/Housing_Finance_At_A_Glance_Monthly_Chartbook_March_2024.pdf">2/3s</a> of mortgage debt in the US is insured in this manner. Mortgages that have been insured in this way trade at essentially the same price as US treasury debt, indicating the market believes the government will step in in case of significant non-payment, which seems true. But the GSEs are highly profitable (<a href="https://www.fanniemae.com/newsroom/fannie-mae-news/fourth-quarter-full-year-2023-financial-results">$2</a><a href="https://www.freddiemac.com/investors/financials/pdf/2023er-4q23_release.pdf">8B</a> in 2023) with enough assets (or enough assets after a few years years of retaining profits (which it doesn't do because treasury sweeps them)) to withstand even a 2008-level event. Many people think they could survive and do well as private companies and are trying to get the government to do this.<br>
         <b>So what exactly is the nature of the subsidy here?</b> My vague understanding is that the government gives
@@ -279,19 +289,19 @@ How to design RL environments
         <span> <details><summary><a href="https://x.com/cis_female/status/1790141729082864097">Why are retail options spreads so high? </a> </summary> My personal feeling is that spreads for any retail financial product should be essentially 0, because retail traders have no advantage (ignoring e.g. GME/AMC). But in fact we often see options spreads of 5% or more for options on relatively common stocks. Some of this is that Robinhood shows bid/ask numbers from exchanges and price improvement happens later (pointed out by @theemilyaccount). Another part is that retail options might go to an exchange more than retail stocks (though somehow robinhood made $150m last quarter on options revenue). My current theory is that internalizing retail options takes a lot of capital and skill, so there's less competition than for equities, which means spreads are wider and robinhood/market makers can take more of the price improvement. </details> </span>
         <span> <a href="graph.html">How expensive are various memory technologies per GB and per GB/S?</a> </span>
         -->
-        <span splittable group="thinking">
-            <details>
-                <summary> Games I want to exist </summary>
-            <ul>
-                <li>
-                    Game where there's an entire fictional world populated by LLM-powered NPCs and your only means of interaction is to whisper in the internal monologues of the different characters once a day. How can you best persuade them?
-                </li>
-                <li>
-                    Kerbal Space Program for war, where you design weapons for a war and deal with improving technology over time, support the war effort as best you can, plan what materials you can use based on what can be conquered at various times, think about retooling, get confusing feedback from the people fighting at the front that you have to interpret
-                </li>
-			</ul>
-        </details>
-        </span>
+<span splittable group="thinking">
+    <details>
+        <summary> Games I want to exist </summary>
+        <ul>
+            <li>
+                Game where there's an entire fictional world populated by LLM-powered NPCs and your only means of interaction is to whisper in the internal monologues of the different characters once a day. How can you best persuade them?
+            </li>
+            <li>
+                Kerbal Space Program for war, where you design weapons for a war and deal with improving technology over time, support the war effort as best you can, plan what materials you can use based on what can be conquered at various times, think about retooling, get confusing feedback from the people fighting at the front that you have to interpret
+            </li>
+    	</ul>
+    </details>
+</span>
 
         <!--
         <span> <details><summary>At scale, AOT becomes JIT</summary>
@@ -308,24 +318,24 @@ How to design RL environments
             </ul>
         </details> </span>
     -->
-        <span splittable group="thinking"> <details> <summary> Fun little product ideas: </summary>
-            <ol>
-                <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
-                <li> Hyperscalers should spin out REITs to own the datacenter land/buildings </li>
-                <li> <a href="https://x.com/cis_female/status/1811447447622697392">Parametric consumer disaster insurance</a> (on the BLOCKCHAIN) (because it's probably not legal otherwise) </li>
-                <li> Conveyor belt tapas instead of conveyor belt sushi </li>
-            </ol>
-        </details>
-        </span>
-        <span splittable group="thinking"> <details><summary>silly projects i <abbr title="want theoretically but probably won't do">want</abbr> to make</summary>
-            <ol>
-                <li> Ten rings, each of a different element (Samarium, Vanadium, Tungsten, etc.) </li>
-                <li> buy 10KW of solar panels for ~$2k and have them arc through the air starting in the morning. use the power of the sun to rip the air apart </li>
-                <li> A history of something -- a nation, a movement, a war, a company -- that actually takes numbers and statistics seriously, as something that drives the narrative instead of being a sidenote. Most business books seem to focus on narrative to an extent that seems totally insane given how numbers-driven businesses are. </li>
-                <li> Make plastic bags using my blood as feedstock </li>
-            </ol>
-        </details>
-        </span>
+<span splittable group="thinking"> <details> <summary> Fun little product ideas: </summary>
+    <ol>
+        <li> Ski resort in Alaska where you buy a mountain and all the land nearby and only lease it out -- most value in ski resorts is land value, so if the resort was able to internalize this they would be able to afford much more amenities. </li>
+        <li> Hyperscalers should spin out REITs to own the datacenter land/buildings </li>
+        <li> <a href="https://x.com/cis_female/status/1811447447622697392">Parametric consumer disaster insurance</a> (on the BLOCKCHAIN) (because it's probably not legal otherwise) </li>
+        <li> Conveyor belt tapas instead of conveyor belt sushi </li>
+    </ol>
+</details>
+</span>
+<span splittable group="thinking"> <details><summary>silly projects i <abbr title="want theoretically but probably won't do">want</abbr> to make</summary>
+    <ol>
+        <li> Ten rings, each of a different element (Samarium, Vanadium, Tungsten, etc.) </li>
+        <li> buy 10KW of solar panels for ~$2k and have them arc through the air starting in the morning. use the power of the sun to rip the air apart </li>
+        <li> A history of something -- a nation, a movement, a war, a company -- that actually takes numbers and statistics seriously, as something that drives the narrative instead of being a sidenote. Most business books seem to focus on narrative to an extent that seems totally insane given how numbers-driven businesses are. </li>
+        <li> Make plastic bags using my blood as feedstock </li>
+    </ol>
+</details>
+</span>
         <!--
         <span>
             <details><summary>Previous questions that have been answered by viewers like you</summary>
@@ -517,23 +527,17 @@ I am working on a chess engine. Stay tuned!
     francis drake was the first person to circumcise the globe. that's probably why they called his ship a clipper
 </span>
 
-<!--
-<div style="border-top: 1px solid grey; padding-bottom: 20px;" id="move">
-    <p style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Ways that I want to move.</p>
+<div id="move" splittable group="thoughts">
     I was told I move "in an outsider art way".
-    <ul>
-        <span>
-            like Caroline Polachek in <a href="https://www.youtube.com/watch?v=sn3cHUtNZKo">this video</a>. In clear response to the beat, exact fluid, creative.
-        </span>
-        <span>
-            "with maximum dependence on the other person's body"
-        </span>
-        <span> Freely, though I do this by default. </span>
-    </ul>
+    <br>
+    I want to move like Caroline Polachek in <a href="https://www.youtube.com/watch?v=sn3cHUtNZKo">this video</a>. In clear response to the beat, exact, fluid, creative.
+    <br>
+    I want to move/act "with maximum dependence on the other person". Maximally responsive or dependent to what they do.
+    <br>
+    I want to move freely, without reserve, though I mostly do this by default.
 </div>
--->
 
-<div id="move">
+<div>
     <p splittable title group="clothes" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some clothes I've enjoyed.</p>
     <p splittable group="clothes"> Some clothes I've made myself have been fun.
         There is a theme I like very much, of pretending not to understand something and making a stupid point that is in actuality a joke that other people don't understand. Now that I say it like this I suppose that's cruel.  In this case the joke is that it says "Your Gay", which leads people to believe I'm retarded because I'm making a peurile joke and misspelling it, but then in harder to see letters it says "mine too, date me", which i think is amusing. I also like that it looks retarded because of my poor writing. Shockingly I painted this 6 years ago and there's been ~no damage since that time.
@@ -909,20 +913,22 @@ createOozingEmoji();
 <script>
 // Configuration: order of groups to layout
 const GROUP_ORDER = [
-    'aboutme',
-    'links',
-    'video',
-    'reachout',
-    'thinking',
-    'pictures',
-    'friendframes',
-    'songs',
-    'places',
-    'clothes',
+    "aboutme",
+    "links",
+    "video",
+    "reachout",
+    "interests",
+    "thinking",
+    "pictures",
+    "friendframes",
+    "songs",
+    "places",
+    "thoughts",
+    "clothes",
     "work",
     "psalm23",
     "jokes",
-    'words',
+    "words",
 ];
 
 // Collision detection from your original algorithm
