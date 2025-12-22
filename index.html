@@ -202,6 +202,10 @@ span[group="interests"]:not([previous])::before {
 </details>
 </span>
 
+<span splittable group="aphorisms">
+    If you meet the respectable man on the road, kill him.
+</span>
+
 <span splittable group="thinking">
     <details><summary> Why do I feel ~no sexual pleasure? </summary>
         Physically I don't receive much pleasure from having sex, relative to others, though it's hard to calibrate what other people are feeling to my feelings. Evidence I don't feel much: most people like having sex much more than I do, people describe needing to have sex in a way I don't, they describe like massive physical pleasure on orgasm which I don't have, you can see peoples physical reactions to doing sexual things. I find it intellectually interesting and compelling. I enjoy reading erotica, for example. Often the erotica most interesting to me is orgasm denial stuff, because of the focus on desperate craving for this overwhelmingly valuable thing. When I have even orgasms that involuntarily cause my toes to curl it feels very much whatever. I masturbate like once a week and it mostly feels vaguely disgusting, like I'm compelled to do it. This is a tricky situation to be in because 1&#41; it seems hard to sustain romantic/intimate relationships without sex and 2&#41; it's sad that a massive field of human enjoyment feels closed off to me. I'm not really sure how to go about having a good time here. Sometimes I've enjoyed butt stuff alone in the past but man it's so annoying to deal with.
@@ -259,6 +263,7 @@ span[group="interests"]:not([previous])::before {
     <ol>
         <li> thinking longer in chess regularly improves your skill by ~50 elo for every doubling of time. That's incredible! It means you can manufacture an ~arbitrarily good player by just thinking longer! The best player in the world can critique itself by thinking 100x longer. </li>
         <li> Chess engines are typically architected as a search engine for the best move on top of an algorithm to evaluate how good a position is. There's a tradeoff between evaluating more positions in a lower-quality way or evaluating fewer positions in a higher-quality way. Surprisingly many points along this curve are effective -- Stockfish pre-NNUE (2020) used a handcrafted function that evaluates ~50m positions/s, modern Stockfish runs at ~2m positions/s, and Leela Chess Zero, which runs on GPU, runs at ~20k positions/s (and uses ~100,000x more compute per position). </li>
+        <li> How do you train a chess engine's evaluation algorithm? You have the algorithm play out games, then run the algorithm a million times on each position to get "true"/"correct" moves and then train on that.</li>
         <li> LLM tradeoffs between size and quality are interesting because the pareto frontier is moving so quickly. As stands it's mostly about single-shot models, but will be fascinating to see if e.g. agents can make a poor model a good one. </li>
         <li> In stock market trading, there's a relationship between latency and the complexity of signals. Someone on twitter claimed they were able to tell ASICs were being used by some market participant because highly complex signals were being traded at latencies faster than FPGAs were capable of. That's fascinating. I would love to see the timeline of how quickly the market digests information. How many "bps of alpha per ms" do we see the market improve by? </li>
         <!-- TODO: compression -->
@@ -926,6 +931,7 @@ const GROUP_ORDER = [
     "thoughts",
     "clothes",
     "work",
+    "aphorisms",
     "psalm23",
     "jokes",
     "words",
@@ -1044,6 +1050,11 @@ function layoutSplittables() {
                 width: Math.ceil(rect.width) + padding_w, // padding
                 height: Math.ceil(rect.height) + padding_h
             };
+            if (el.textContent.startsWith("Some ")) {
+              // stupid fucking hack. the sizes kept changing for some reason and it would display on two lines. idgi.
+              // in any case the solution is confusing so just increase the width.
+              box.width += 10;
+            }
 
             document.body.removeChild(clone);
             return box;
@@ -1070,9 +1081,10 @@ function layoutSplittables() {
         //  currentY += 20;
     });
 
-    console.log(all_placed_rects);
+    // console.log(all_placed_rects);
     window.rects = all_placed_rects;
 
+    /*
     setTimeout(() => {
       for (box of all_placed_rects) {
         let rect = box.element.getBoundingClientRect();
@@ -1087,6 +1099,7 @@ function layoutSplittables() {
         }
       }
     }, 300);
+    */
 
     // Set container height
     const maxY = Math.max(...Array.from(document.querySelectorAll('[splittable].positioned'))
