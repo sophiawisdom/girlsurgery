@@ -26,11 +26,6 @@ a {
     transition: opacity 0.3s ease-in;
 }
 
-[group="words"] {
-    font-size: 12px;
-    opacity: 0.6;
-}
-
 [group="songs"] a {
     font-size: 25px;
 }
@@ -378,6 +373,13 @@ span[group="interests"]:not([previous])::before {
 <span splittable group="songs"> <a href="https://open.spotify.com/track/1saCKTst3kjchoiNkwt3el?si=12f6507d2a4d4f3c"> Mishima's closing</a>. <a href="https://x.com/cis_female/status/1970424311606583365">Makes me want to kill myself at the sunrise</a>. </span>
 <span splittable group="songs"> <a href="https://www.youtube.com/watch?v=3uRZYNcYR-w"> Oh I'm a Good Ol' Rebel</a>. Feels like actual defiance. Defiance in our culture is mostly pathetic. People who don't really believe, don't really care, give in immediately. This is actual defiance. I hate you, I hate everything you stand for, I will destroy you. And they won! They won for 100 years! Even in the face of a decade-long full occupation. I have a complicated relationship with songs of the old south. Their ideology was repugnant. But these were my ancestors. I cannot totally disavow them. </span>
 
+<style>
+[group="words"] {
+    font-size: 12px;
+    opacity: 0.6;
+}
+</style>
+
 <h1 splittable title group="words" style="justify-content: center; text-align: center;">Words I didn't know</h1>
 <span splittable group="words">catafalque</span>
 <abbr splittable group="words" title="in the sense of walking">padding</abbr>
@@ -451,7 +453,13 @@ span[group="interests"]:not([previous])::before {
 <span splittable group="words">swage</span>
 
 
-<p splittable title group="places" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center; flex-shrink: 0;">Places that mean something to me.</p>
+<style>
+[group="places"] {
+    color: #9370DB;
+}
+</style>
+
+<!-- <p splittable title group="places" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center; flex-shrink: 0;">Places that mean something to me.</p> -->
 <!-- i want it to be a bunch of boxes with the text in the box and they are all kind of bumping in to each other -->
 <!-- would be cool to show physical locations -->
 <span splittable group="places">
@@ -1037,6 +1045,10 @@ function layoutSplittables() {
             clone.style.maxWidth = '500px';
             if (el.hasAttribute('title')) {
                 // clone.style.whiteSpace = 'nowrap';
+            }
+            if (el.getAttribute('group') === 'psalm23') {
+                clone.style.whiteSpace = 'nowrap';
+                clone.style.maxWidth = null;
             }
             if (el.tagName !== 'IMG') {
                 clone.style.width = 'auto';
