@@ -202,7 +202,7 @@ span[group="interests"]:not([previous])::before {
 </details>
 </span>
 
-<span splittable group="aphorisms">
+<span splittable group="aphorisms" style="color: red;">
     If you meet the respectable man on the road, kill him.
 </span>
 
@@ -353,18 +353,16 @@ span[group="interests"]:not([previous])::before {
         </details></span>
     -->
 
-<div>
-    <p splittable title group="pictures" style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>
-    <span splittable group="pictures">
+<!--<p splittable title group="pictures" style="font-size:25px; justify-content: center; text-align: center;">Some photos of me that I like.</p>-->
+<span splittable group="pictures">
     <canvas id="pointer" style="width: 400px; height:300px; position: absolute;"></canvas>
     <img id="family" loading="lazy" src="/sopics/family.jpeg" style="width: 400px; height: 300px;">
-    </span>
-</div>
+</span>
 
 
 <img splittable group="pictures" src="strange_feeling.PNG" style="width: 377px; height:441px;">
 
-<p splittable group="songs" title style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some songs I enjoy.</p>
+<!--<p splittable group="songs" title style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some songs I enjoy.</p>-->
 <span splittable group="songs"> <a href="https://www.youtube.com/watch?v=F_f00f0OVsc">Nearer To Thee</a>. It sweeps me away. It makes me feel one with the crowd. It makes me believe in god. </span>
 <span splittable group="songs"> <a href="https://www.youtube.com/watch?v=2HookiS1BmY">Clipo clipo</a>. Feels like being held by a mother. It's feels insane that a song this deeply affecting is about a topic so obscure to me (apparently Ivorian independence). </span>
 <span splittable group="songs"> <a href="https://www.youtube.com/watch?v=28BFJ_TgiK8">Undone in sorrow</a>. Prototypical short story, played with candor. It feels like the sort of trap I could fall into, the song I could be singing. </span>
@@ -542,14 +540,13 @@ I am working on a chess engine. Stay tuned!
     I want to move freely, without reserve, though I mostly do this by default.
 </div>
 
-<div>
-    <p splittable title group="clothes" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some clothes I've enjoyed.</p>
-    <p splittable group="clothes"> Some clothes I've made myself have been fun.
-        There is a theme I like very much, of pretending not to understand something and making a stupid point that is in actuality a joke that other people don't understand. Now that I say it like this I suppose that's cruel.  In this case the joke is that it says "Your Gay", which leads people to believe I'm retarded because I'm making a peurile joke and misspelling it, but then in harder to see letters it says "mine too, date me", which i think is amusing. I also like that it looks retarded because of my poor writing. Shockingly I painted this 6 years ago and there's been ~no damage since that time.
-        <br>
-        <img src="sopics/gay.jpg" style="width: 300px; height:450px;">
-    </p>
-</div>
+<!--<p splittable title group="clothes" style="font-size: 4vh; padding: 0px; margin: 10px; justify-content: center; text-align: center;">Some clothes I've enjoyed.</p>-->
+
+<p splittable group="clothes"> Some clothes I've made myself have been fun.
+    There is a theme I like very much, of pretending not to understand something and making a stupid point that is in actuality a joke that other people don't understand. Now that I say it like this I suppose that's cruel.  In this case the joke is that it says "Your Gay", which leads people to believe I'm retarded because I'm making a peurile joke and misspelling it, but then in harder to see letters it says "mine too, date me", which i think is amusing. I also like that it looks retarded because of my poor writing. Shockingly I painted this 6 years ago and there's been ~no damage since that time.
+    <br>
+    <img src="sopics/gay.jpg" style="width: 300px; height:450px;">
+</p>
 
 <div splittable group="friendframes" style="font-size: 20px;">
     <span style="display: block"> CASEY'S BOX </span>
@@ -1038,7 +1035,9 @@ function layoutSplittables() {
             clone.style.position = 'absolute';
             clone.style.visibility = 'hidden';
             clone.style.maxWidth = '500px';
-
+            if (el.hasAttribute('title')) {
+                // clone.style.whiteSpace = 'nowrap';
+            }
             if (el.tagName !== 'IMG') {
                 clone.style.width = 'auto';
             }
@@ -1053,7 +1052,7 @@ function layoutSplittables() {
             if (el.textContent.startsWith("Some ")) {
               // stupid fucking hack. the sizes kept changing for some reason and it would display on two lines. idgi.
               // in any case the solution is confusing so just increase the width.
-              box.width += 10;
+              // box.width += 10;
             }
 
             document.body.removeChild(clone);
