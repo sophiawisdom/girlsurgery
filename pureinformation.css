@@ -1,0 +1,126 @@
+body {
+  display: grid;
+  width: calc(100vw - 0px);
+  height: calc(100vh - 0px);
+  background-color: #fff;
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#message-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.current-message {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 2vw 5vw;
+  color: white;
+  font-size: 20px;
+  width: min(max(60vw, 400px), 90%);
+  filter: blur(0.5px);
+  color: #111;
+}
+
+.flex-item {
+  text-align: center;
+  display: inline;
+}
+
+.center {
+  opacity: 1;
+  animation: fadeIn 5s infinite;
+  -webkit-animation: fadeIn 5s infinite;
+  -moz-animation: fadeIn 5s infinite;
+  -o-animation: fadeIn 5s infinite;
+  -ms-animation: fadeIn 5s infinite;
+}
+
+.center {
+  color: rgb(88, 88, 88) !important;
+}
+
+.left {
+  width: 100%;
+  text-align: right;
+}
+
+.right {
+  width: 100%;
+  text-align: left;
+}
+
+/* .left, .right {
+      font-size: 18px;
+  } */
+
+/* .message {
+      position: absolute;
+      transform: translate(0, -50%);
+      transition-timing-function: ease-in-out;
+      animation: fadeIn 5s;
+      -webkit-animation: fadeIn 5s;
+      -moz-animation: fadeIn 5s;
+      -o-animation: fadeIn 5s;
+      -ms-animation: fadeIn 5s;
+      padding: 10px;
+      background: white;
+      border-radius: 50px;
+  } */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/*
+  fieldset {
+      border: 10px solid transparent;
+      border-top-color: black;
+      box-sizing: border-box;
+      grid-area: 1 / 1;
+      padding: 20px;
+      width: inherit;
+  }
+
+  fieldset:nth-of-type(1) {
+      background: content-box center/contain no-repeat url("photo-1588852065463-5de1411ea697?w=400");
+  }
+
+  fieldset:nth-of-type(2) {
+      transform: rotate(90deg);
+  }
+
+  fieldset:nth-of-type(3) {
+      transform: rotate(180deg);
+  }
+
+  fieldset:nth-of-type(4) {
+      transform: rotate(-90deg);
+  }
+
+  legend {
+      font: 15pt/0 'Averia Serif Libre';
+      margin: auto;
+      padding: 0 4px;
+  }
+
+  fieldset:nth-of-type(3)>legend {
+      transform: rotate(180deg);
+  } */
