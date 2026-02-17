@@ -67,11 +67,17 @@ a {
    <p style="margin: 0px;" splittable group="aboutme">
         <a href="mailto:spam@girl.surgery" class="email" style="text-decoration: none;">i can be emailed</a>.
    </p>
+   <p style="margin: 0px; font-size: 25px;" splittable group="aboutme">
+       I'm going to <a href="https://smeannualconference.org/">minexchange</a> in salt lake city feb 22-25!
+   </p>
     <a splittable group="links" style="font-size:25px;" href="/website_vibes/index.html"> i uploaded some of my screenshots </a>
     <a splittable group="links" style="font-size:22px;" href="/facts.html"> i'm assembling a list of facts</a>
     <a splittable group="links" href="/graph.html"> I made a graph </a>
-    <a splittable group="links" href="/shmem_atomic.html">I half-made a blog post a while ago </a>
+    <a splittable group="links" href="/shmem_atomic.html">half-made blog post on shared memory atomics </a>
     <a splittable group="links" href="/bad_paper.html">I wrote about a really bad paper </a>
+    <a splittable group="links" style="font-size:20px;" href="/chess.html">I wrote about chess engines </a>
+    <a splittable group="links" href="/pureinformation">pureinformation</a>
+    <a splittable group="links" style="font-size:18px;" href="/movies.html"> I wrote some movie reviews</a>
     <a splittable group="links" style="font-size:20px;" href="/thinking_about.html" id="explosion-container"> i wrote down some Thoughts about Explosives</a>
     <!--let me know if you find new facts. or new screenshots. or new explosives, for that matter. I'm in the market for ANFO.</p>-->
     <span splittable group="links">I am the <a href="https://aac.unicode.org/sponsors#bronze-1f4b9">proud owner</a> of the <span id="yen" style="font-size:25px;">💹</span> emoji.</span>
@@ -149,7 +155,7 @@ span[group="interests"]:not([previous])::before {
 <span splittable group="interests" style="color: #00843D; font-weight: bold;">Mining</span>
 <span splittable group="interests" style="color: #BC002D; font-weight: bold;">Revolution in Military Affairs</span>
 <span splittable group="interests" style="color: #002D72; font-weight: bold;">Modern Monasticism</span>
-<span splittable group="interests" style="color: #7c48d0; font-weight: bold;">Chess programming</span>
+<span splittable group="interests" style="color: #7c48d0; font-weight: bold;"><a href="/chess.html">Chess programming</a></span>
 <span splittable group="interests" previous>
 <details>
     <summary style="font-size: 20px;"> Previous Interests </summary>
@@ -361,11 +367,13 @@ span[group="interests"]:not([previous])::before {
     <!-- interesting point about game shows, from the Jet Lag people: you want to design the game such that the competitively optimal thing to do is also the most entertaining thing to do. part of the entertainment is the competition, so you really need to maintain this, but you want the gradient of the game to be fun to watch. They mention designing the game such that there are moments it's strategically optimal to put around and be fun for the audience, so they can do that and not have it be uncompetitive. This is similar but slightly different to most games, where you want the most competitive path to be often something other than the most entertaining. greco-roman wrestling is not made so that it's most entertaining, for example (imo) -->
 </details>
 </span>
+<!--
 <span splittable group="thinking"> <details><summary>conversation tree</summary>
-    <!-- TODO: write this up. key idea: llms UIs have conversation trees that are kind of like "playing chess with the devil".
-    can go back infinitely, see what's going wrong. "groundhog day rape". -->
+    TODO: write this up. key idea: llms UIs have conversation trees that are kind of like "playing chess with the devil".
+    can go back infinitely, see what's going wrong. "groundhog day rape".
 </details>
 </span>
+-->
 
 <span splittable group="thinkingpoor"> Could you optimise a video for playback at higher fps? If I play a 60fps video at 2x speed, it now shows at 120fps -- but I only need 60fps. So now I can remove half the frames. How much saving would you actually get? Less than 2x, but maybe 1.5x? How do large providers think about how to balance having more versions of a single video vs having more videos in cache? </span>
 <span splittable group="thinkingpoor"> Why is it so critical to figure out reusable laws for operating over many orders of magnitude in ML? The basic answer is that if you're varying stuff, your default position is to be left lacking any theory at all.
@@ -631,6 +639,10 @@ I am working on a chess engine. Stay tuned!
     There is a theme I like very much, of pretending not to understand something and making a stupid point that is in actuality a joke that other people don't understand. Now that I say it like this I suppose that's cruel. In this case the joke is that it says "Your Gay", which leads people to believe I'm retarded because I'm making a puerile joke and misspelling it, but then in harder to see letters it says "mine too, date me", which i think is amusing. I also like that it looks retarded because of my poor writing. Shockingly I painted this 6 years ago and there's been ~no damage since that time.
     <br>
     <img src="sopics/gay.jpg" style="width: 300px; height:450px;">
+    <!--
+    Similarly
+    <img src="sopics/trans_women.jpeg" style="width: 300px; height:450px;">
+    -->
 </p>
 
 <div splittable group="friendframes" style="font-size: 20px;">
@@ -643,7 +655,7 @@ I am working on a chess engine. Stay tuned!
     <div style="border: 3px inset; width: 150px; padding: 5px;">
 
     <p style="margin: 0px">
-    WEARS A BONNET AND LOOKS LONG
+    <a href="sopics/bonnet.jpg">WEARS A BONNET AND LOOKS LONG</a>
     </p>
     <br>
     <p style="margin: 0px">
@@ -667,6 +679,31 @@ THROWS OUT HIT DATASETS LIKE HER NAME IS KONG
 </p>
     </div>
 </div>
+
+<div splittable id="jeanfriendframe" group="friendframesjean" style="font-size: 20px; width: 213px; height: 270px; overflow: hidden;">
+    <span style="display: block; text-align: center;"> JEAN LAND </span>
+    <iframe id="jeanbox" style="border-width: 3px; width: 420px; height: 500px; transform: scale(0.5); transform-origin: top left;" src="https://jean.land/card"></iframe>
+</div>
+
+<div splittable group="thinkingpoor">
+    School was by far the worst part of my life. I did poorly, I think because of organizational reasons, and hated myself because I got poor grades even though I was smart. My mom told me that every parent-teacher conference since kindergarten said the same thing: Sophia is so smart, but [s]he doesn't apply herself in school. She would go back and cry in the car alone. They tried so hard to fix me. I went to a <a href="https://greenwood.org/">special school for retards</a>. There were 50 kids at the school and I related to no one. I spent a lot of time on omegle roleplaying as a girl. I programmed an alarm clock to try to get myself to be on time. I went to <a href="https://www.gouldacademy.org/">another school</a> and nothing improved. I spent years ruminating on the most data-proven ways to kill oneself. I got into a mediocre college and took a gap year to transition. During the gap year I found <a href="https://web.archive.org/web/20180719051921/https://triplebyte.com/">triplebyte</a> and thank the lord was able to get myself a job in tech before having to go to college.
+    <br/>
+    I think I've substantially never used any of the things I was taught in school. I think of it as essentially 13 years of torture that taught me nothing of use. The only useful thing I learned, programming, was procrastination from the "more important" work of school.
+    <br/>
+    I learn quite well. I spend huge amounts of my time learning things. As a child I would just click "random page" on wikipedia over and over again. But instead I had to force myself to learn their way and it was so hard and hurt so much.
+    <br/>
+    My children will never have to go to school if they don't want to. I will homeschool them unless they wish to leave.
+</div>
+
+<div splittable group="thinkingpoor">
+    when I first started transitioning, it was extremely important to me that I be able to justify what I was doing in a way that people would understand. I came up with a story, a mostly accurate story, that described what transitioning was to me. That story was optimized for other people thinking that my cause was just. I told more or less that exact same story to everyone. But because I kept repeating it over and over again to people, it <em>became</em> the story to me. I forgot about the territory the map was meant to describe, and was left with a distorted map for understanding my own experiences. I think this is meaningfully causal for why I identified as a trans woman for a long time, as opposed to nonbinary or something.
+</div>
+
+<!--
+<div splittable group="thinkingpoor">
+    Thinking about what it means to sing with others
+</div>
+-->
 
 <!--
 <div style="border-top: 1px solid grey; padding-bottom: 20px;">
@@ -1018,6 +1055,7 @@ const GROUP_ORDER = [
     "thoughts",
     "clothes",
     "work",
+    "friendframesjean",
     "psalm23",
     "jokes",
     "aphorisms",
@@ -1133,7 +1171,7 @@ function layoutSplittables() {
                 clone.style.whiteSpace = 'nowrap';
                 clone.style.maxWidth = null;
             }
-            if (el.tagName !== 'IMG') {
+            if (el.tagName !== 'IMG' && el.id !== "jeanfriendframe") {
                 clone.style.width = 'auto';
             }
             document.body.appendChild(clone);

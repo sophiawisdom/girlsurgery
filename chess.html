@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Engines Do Weird Stuff</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFDF8;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --accent: #b44;
+    --code-bg: #f4f0eb;
+    --border: #e0dbd3;
+    --footnote-bg: #f9f6f1;
+    --link: #8B4513;
+    --link-hover: #b44;
+    --max-width: 640px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  article {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+
+  h1 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.3em;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  h2 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-top: 2.8rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin-bottom: 1.1em;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: rgba(139, 69, 19, 0.3);
+    text-underline-offset: 2px;
+    transition: color 0.15s, text-decoration-color 0.15s;
+  }
+
+  a:hover {
+    color: var(--link-hover);
+    text-decoration-color: var(--link-hover);
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82em;
+    background: var(--code-bg);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; }
+
+  /* Footnote references */
+  .fn-ref {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 0;
+    cursor: pointer;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0 1px;
+    transition: opacity 0.15s;
+  }
+
+  .fn-ref:hover {
+    opacity: 0.7;
+    text-decoration: none;
+  }
+
+  /* Footnotes section */
+  .footnotes {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footnotes h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .footnote {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.9em;
+    padding-left: 1.8em;
+    position: relative;
+  }
+
+  .footnote a {
+    color: var(--link);
+  }
+
+  .footnote-num {
+    position: absolute;
+    left: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    top: 2px;
+  }
+
+  .footnote-back {
+    font-size: 0.75em;
+    text-decoration: none;
+    color: var(--accent);
+    margin-left: 4px;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+  }
+
+  .footnote-back:hover {
+    opacity: 1;
+  }
+
+  /* Highlight target */
+  :target {
+    animation: highlight 1.5s ease;
+  }
+
+  @keyframes highlight {
+    0% { background-color: rgba(180,68,68,0.12); }
+    100% { background-color: transparent; }
+  }
+
+  /* Separator between sections */
+  h2::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--border);
+    margin-bottom: 0.6rem;
+  }
+
+  article > h2:first-of-type::before {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    article { padding: 48px 18px 80px; }
+    h1 { font-size: 1.8rem; }
+    body { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<article>
+  <h1>Chess Engines Do Weird Stuff</h1>
+  <p class="subtitle">Things LLM people can learn from</p>
+
+  <h2>Training method</h2>
+  <p>
+    Since AlphaZero, lc0-style chess engines have been trained with RL. Specifically, you have the engine (search + model) play itself a bunch of times, and train the model to predict the outcome of the game.
+  </p>
+  <p>
+    It turns out this isn't necessary. Good model vs bad model is ~200 elo, but <a href="https://www.melonimarco.it/mm/wp-content/uploads/2021/03/stockfishnodes.png">search is ~1200 elo</a>, so even a bad model + search is essentially an oracle to a good model without, and you can distill from bad model + search → good model.
+  </p>
+  <p>
+    So RL was necessary in some sense only one time. Once a good model with search was trained, every future engine (including their competitors!)<a href="#fn1" id="fn1-ref" class="fn-ref">1</a> can distill from that, and doesn't have to generate games (expensive). lc0 trained their premier model, BT4, with distillation and it got <em>worse</em> when you put it in the RL loop.
+  </p>
+  <p>
+    What makes distillation from search so powerful? People often compare this to distilling from best-of-n in RL, which I think is limited — a chess engine that runs the model on 50 positions is roughly equivalent to a model 30x larger, whereas LLM best-of-50 is generously worth a model 2x larger. Perhaps this was why people wanted test-time search to work so badly when RLVR was right under their noses.
+  </p>
+
+  <h2>Training at runtime</h2>
+  <p>
+    <a href="https://github.com/official-stockfish/Stockfish/pull/4950">A recent technique</a> is applying the distillation trick <em>at runtime</em>. At runtime, you evaluate early positions with your NN, then search them and get a more accurate picture. If your network says the position is +0.15 pawns better than search says, subtract 0.15 pawns from future evaluations. Your network live adapts to the position it's in!
+  </p>
+
+  <h2>Training on winning</h2>
+  <p>
+    The fundamental training objective of distilling from search is almost but not quite what we actually care about: winning. It's very correlated, but we don't actually care about how well the model estimates one position, we care about how well it performs <em>after search</em>, after looking at 100 positions.
+  </p>
+  <p>
+    To fix this, lc0 uses a weird technique called SPSA: you randomly perturb the weights in two directions, play a bunch of games, and go the direction that wins more.<a href="#fn2" id="fn2-ref" class="fn-ref">2</a> This works very well and can get +50 elo on small models.<a href="#fn3" id="fn3-ref" class="fn-ref">3</a>
+  </p>
+  <p>
+    Consider for a moment how insane it is that this works at all. You're modifying the weights in purely random directions. You have no gradient whatsoever. And yet it works quite well! +50 elo is ~1.5x model size or ~a year's worth of development effort!
+  </p>
+  <p>
+    The main issue with this is that it's wildly expensive. To do a single step you must play thousands of games with dozens of moves and hundreds of position inferences per move.
+  </p>
+  <p>
+    Like LLMs, you train for a long time on a pseudo-objective that's close to what you want, then a short time on a very expensive and limited objective that's closer to what you want.
+  </p>
+
+  <h2>Tuning through C++</h2>
+  <p>
+    The underlying technique of SPSA can be applied to <em>literally any number in your chess program</em>. Modify the number, see if it wins more or loses more, move in the direction that wins more. You have a hand-tuned heuristic that if there's a checkmate in the search from a position you should back off by <a href="https://github.com/official-stockfish/Stockfish/blob/54cf226604cfc9d17f432fa0b5bca56277e5561c/src/search.cpp#L1173">depth 1</a>? <a href="https://github.com/official-stockfish/Stockfish/commit/cc5c67c564f52a0611ba38d04af02636291280b6">Replace that with thousandths-of-a-depth</a> and then tune it with SPSA — turns out the optimal value is actually to back off by depth <a href="https://github.com/official-stockfish/Stockfish/commit/d9fd516547849bd5ca2a05c491aadc66fc750a39#diff-da923b7afa45cab7add143c4705b54142e46b2afe9a2627d5fa3b3474bdc8aecR108-R1192">1.09</a>, which nets you 5 elo. You can do this <em>for every number in your search algorithm</em>. You can do something that looks a lot like gradient descent <em>through arbitrary C++</em> because you have a grading function (winning).
+  </p>
+
+  <h2>Weird architecture</h2>
+  <p>
+    lc0 uses a standard-ish transformer architecture, which they found to be hundreds of elo better than their old convolution-based models. It's still confusing to me that the transformer biases apply to literally every application imaginable. The only substantial architectural change they use is "smolgen", a system for generating attention biases. They claim smolgen is a ~1.2x throughput hit but an accuracy win equivalent to <em>2.5x</em> model size. Why is it so good? I find all the explanations poor.
+  </p>
+
+  <div class="footnotes">
+    <h2>Notes</h2>
+    <div class="footnote" id="fn1">
+      <span class="footnote-num">1.</span>
+      Their primary competitor, Stockfish, <a href="https://github.com/official-stockfish/Stockfish#:~:text=Stockfish%20uses%20neural%20networks%20trained%20on%20data%20provided%20by%20the%20Leela%20Chess%20Zero%20project">uses their data</a> and so do most engines. <a href="https://github.com/cosmobobak/viridithas#:~:text=The%20Viridithas%20project%20prides%20itself%20on%20using%20original%20training%20data%20for%20its%20neural%20networks.">Some engines don't</a>, mostly because they care about originality.
+      <a href="#fn1-ref" class="footnote-back">↩</a>
+    </div>
+    <div class="footnote" id="fn2">
+      <span class="footnote-num">2.</span>
+      More specifically, they take a particular part of the weights, and then for every parameter you randomly choose +1 or −1; this is the direction tensor. You then create two versions of the network, one where <code>weight += direction</code> and one where <code>weight -= direction</code>. Then you play these two versions against each other. If positive wins, you do <code>weight += direction * lr</code>. If negative wins, you do <code>weight -= direction * lr</code>.
+      <a href="#fn2-ref" class="footnote-back">↩</a>
+    </div>
+    <div class="footnote" id="fn3">
+      <span class="footnote-num">3.</span>
+      Up to about 15 elo on larger models.
+      <a href="#fn3-ref" class="footnote-back">↩</a>
+    </div>
+  </div>
+</article>
+
+</body>
+</html>

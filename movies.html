@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sophia's Movie Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f2efe8;
+      --bg-2: #e6ece8;
+      --ink: #1f1d1a;
+      --ink-soft: #4a463f;
+      --line: #24211b;
+      --high: #1f7f4d;
+      --mid: #275f96;
+      --low: #8f2f3b;
+      --none: #6c6475;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.92) 0%, rgba(255,255,255,0) 45%),
+        radial-gradient(circle at 90% 30%, rgba(166, 195, 220, 0.26) 0%, rgba(166, 195, 220, 0) 45%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 100%);
+      font-family: "Lato", sans-serif;
+      min-height: 100vh;
+    }
+
+    [splittable] {
+      visibility: hidden;
+    }
+
+    [splittable].positioned {
+      position: absolute;
+      visibility: visible;
+    }
+
+    .splittable-container {
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    .review-card {
+      width: 360px;
+      max-width: min(360px, calc(100vw - 24px));
+      margin: 0;
+      padding: 12px 13px 12px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(32, 29, 23, 0.22);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(35, 31, 26, 0.14);
+      transform: rotate(var(--tilt, 0deg));
+      transform-origin: center center;
+      backdrop-filter: blur(1.3px);
+    }
+
+    .review-card:hover {
+      z-index: 10;
+      box-shadow: 0 13px 28px rgba(35, 31, 26, 0.2);
+    }
+
+    .review-card.rating-high { border-left: 4px solid var(--high); }
+    .review-card.rating-mid { border-left: 4px solid var(--mid); }
+    .review-card.rating-low { border-left: 4px solid var(--low); }
+    .review-card.rating-none { border-left: 4px solid var(--none); }
+
+    .film-title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(20px, 2.7vw, 28px);
+      line-height: 1.03;
+    }
+
+    .film-meta {
+      margin: 8px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      color: var(--ink-soft);
+      font-weight: 700;
+    }
+
+    .review-text {
+      margin: 9px 0 0;
+      font-size: 14px;
+      line-height: 1.38;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    #reshuffle {
+      position: fixed;
+      right: 10px;
+      top: 10px;
+      z-index: 20;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+    }
+
+    #reshuffle:hover {
+      background: rgba(255, 255, 255, 0.97);
+    }
+
+    @media (max-width: 768px) {
+      .review-card {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+      }
+
+      #reshuffle {
+        right: 8px;
+        top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button type="button" id="reshuffle">Reshuffle</button>
+  <main class="splittable-container" id="review-container">
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-2.20">
+  <h2 class="film-title">The Boys in the Band</h2>
+  <p class="film-meta">1970 release • watched 2020 • 5 stars</p>
+  <p class="review-text">what a fantastic movie. you&#x27;re thrown out of society and hate yourself for it so seek comfort in the people who were also thrown out, but the way you hate yourself forces you to lash out at everyone around you constantly in ways that cause them to explode. this kind of intense cycle of self hatred. i prefer this over the remake because it&#x27;s a huge point that they are ugly! they are old! the &quot;fairy&quot; character looks mannish! not like a twink. i think trans women get these kinds of dynamics as well. a great exposition of something i hadn&#x27;t seen before</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.41">
+  <h2 class="film-title">The Royal Tenenbaums</h2>
+  <p class="film-meta">2001 release • watched 2020 • 5 stars</p>
+  <p class="review-text">actually makes me feel something. makes me relate. the characters do something meaningful. they&#x27;re iconic. film looks beautiful</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.99">
+  <h2 class="film-title">Memento</h2>
+  <p class="film-meta">2000 release • watched 02/15/2026 • 4.5 stars</p>
+  <p class="review-text">Quite enjoyed, found it quite thrilling, violence didn&#x27;t turn me off too much, was enjoyable to watch.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.51">
+  <h2 class="film-title">The Good, the Bad and the Ugly</h2>
+  <p class="film-meta">1966 release • watched 02/01/2026 • 4.5 stars</p>
+  <p class="review-text">Shockingly compelling and thrilling. Quite enjoyed the whole way through. The scene where the guy jumps out the traincar while shackled and then bashes the other guy&#x27;s skull in was just sick.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.78">
+  <h2 class="film-title">Paprika</h2>
+  <p class="film-meta">2006 release • watched 01/09/2026 • 4.5 stars</p>
+  <p class="review-text">cool and engrossing to see all the different ways things went.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.06">
+  <h2 class="film-title">Dogtooth</h2>
+  <p class="film-meta">2009 release • watched 2025 • 4.5 stars</p>
+  <p class="review-text">kept making me think about what happened. felt unsettling</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.20">
+  <h2 class="film-title">Mishima: A Life in Four Chapters</h2>
+  <p class="film-meta">1985 release • watched 2025 • 4.5 stars</p>
+  <p class="review-text">great film. score is incredible. images make me want to kill myself at sunrise. much of it hard to follow or make a ton of sense of. i loved the end, where he was playing out his side of the play but no one else was cooperating, no one could hear him or do anything. perhaps i would get more out of it if i had read his books or knew more beforehand.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.64">
+  <h2 class="film-title">The Favourite</h2>
+  <p class="film-meta">2018 release • watched 2025 • 4.5 stars</p>
+  <p class="review-text">really fun. liked the kind of nested internecine relationships</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.51">
+  <h2 class="film-title">Pride &amp; Prejudice</h2>
+  <p class="film-meta">2005 release • watched 2025 • 4.5 stars</p>
+  <p class="review-text">a romance that feels real and makes me yearn</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.51">
+  <h2 class="film-title">Bottoms</h2>
+  <p class="film-meta">2023 release • watched 2023 • 4.5 stars</p>
+  <p class="review-text">so, so funny. i loved this movie. i watched it with my friends then recommended to my parents and watched with them</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.21">
+  <h2 class="film-title">Margin Call</h2>
+  <p class="film-meta">2011 release • watched 2023 • 4.5 stars</p>
+  <p class="review-text">very cool, very real, love the theme over and over again of why are they doing this, why do they need the money, why are they degrading themselves. feels real in terms of how people like this actually act and what they&#x27;re doing.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.04">
+  <h2 class="film-title">Everything Everywhere All at Once</h2>
+  <p class="film-meta">2022 release • watched 2022 • 4.5 stars</p>
+  <p class="review-text">loved this movie. felt so real. felt very sincere.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.88">
+  <h2 class="film-title">Baby Driver</h2>
+  <p class="film-meta">2017 release • watched 2022 • 4.5 stars</p>
+  <p class="review-text">really fun, love the action, love the song. i feel so so strongly that things should be on the beat, that movement should be on the beat, that life should be on the beat, and it feels like in real life people rarely go nearly as hard as i do in this way. this movie goes as hard as i want.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.67">
+  <h2 class="film-title">Fight Club</h2>
+  <p class="film-meta">1999 release • watched 2021 • 4.5 stars</p>
+  <p class="review-text">really, really good movie. felt deep and meaningful and surprising</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.90">
+  <h2 class="film-title">Some Like It Hot</h2>
+  <p class="film-meta">1959 release • watched 2021 • 4.5 stars</p>
+  <p class="review-text">uproariously funny throughout, monroe was hot, a good portrait of an older time</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.05">
+  <h2 class="film-title">American Psycho</h2>
+  <p class="film-meta">2000 release • watched 2020 • 4.5 stars</p>
+  <p class="review-text">felt so cool. i loved the twists and not being sure what was happening. the like pathetic amount of emphasis placed on workplace behavior and seeming like a good idea while just fully blathering</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.68">
+  <h2 class="film-title">When Harry Met Sally...</h2>
+  <p class="film-meta">1989 release • watched 2020 • 4.5 stars</p>
+  <p class="review-text">a romantic movie that meant something, iirc</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.44">
+  <h2 class="film-title">Heartworn Highways</h2>
+  <p class="film-meta">1976 release • watched 2019 • 4.5 stars</p>
+  <p class="review-text">originally watched this movie because the clips of various songs that made their way to youtube, especially waiting around to die. several of the songs show a really interesting portrait of communal life of adults at that time, esp. bluebird wine. some of the songs were deeply affecting, especially these performances and having some context on e.g. the blacksmith. some of the songs with accompaniment like that old time feeling or the one where they&#x27;re in the bus are substantially improved in film form. but mostly i think this is best watched as a series of clips on youtube.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.63">
+  <h2 class="film-title">The Last Black Man in San Francisco</h2>
+  <p class="film-meta">2019 release • watched 2019 • 4.5 stars</p>
+  <p class="review-text">really affecting. i still listen to the soundtrack. the like whole meaning of your life coming apart and being a fraud, the strong identity in something that&#x27;s falling apart.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.37">
+  <h2 class="film-title">The Matrix</h2>
+  <p class="film-meta">1999 release • watched 2015 • 4.5 stars</p>
+  <p class="review-text">such a good movie. concept is sick, characters are really cool, fights are great.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.03">
+  <h2 class="film-title">The Fugitive</h2>
+  <p class="film-meta">1993 release • watched 2014 • 4.5 stars</p>
+  <p class="review-text">engaging, makes sense, everyone acts realistically, as someone said there are no like idiots in the plot to make everything work, thrilling, he comes from the bottom in a cool way, the relationship between fbi guy and him, chase scenes are great all around great movie</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.24">
+  <h2 class="film-title">Inside Man</h2>
+  <p class="film-meta">2006 release • watched 02/16/2026 • 4 stars</p>
+  <p class="review-text">Really fun. All the characters were smart and knew what they were doing and it created a compelling story. I underestimated the detective at the beginning but he pulled it out in a good way, really made me root for him. The criminals came in with a foolproof plan but the detective managed to outsmart them -- but not completely. The reveal at the end was great. The middle was somewhat too slow. The detective fought for justice in a way that felt really admirable. Even small things were good -- after they wrecked the mayor they laughed about it afterward! they said wow we smoked that guy. felt realistic.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.53">
+  <h2 class="film-title">Dune: Part Two</h2>
+  <p class="film-meta">2024 release • watched 02/15/2026 • 4 stars</p>
+  <p class="review-text">dune!!! i loved this book as a kid and the movie feels epic and big</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.65">
+  <h2 class="film-title">Laura</h2>
+  <p class="film-meta">1944 release • watched 2025 • 4 stars</p>
+  <p class="review-text">really fun noir with lots of twists and turns. sparkling dialogue</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.22">
+  <h2 class="film-title">Sherlock Holmes</h2>
+  <p class="film-meta">2009 release • watched 2025 • 4 stars</p>
+  <p class="review-text">fun stuff, i enjoyed detective moding</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.49">
+  <h2 class="film-title">The Lives of Others</h2>
+  <p class="film-meta">2006 release • watched 2025 • 4 stars</p>
+  <p class="review-text">really nice movie. emotionally affecting. was cool trying to piece together why everyone did everything. very cool to feel the heroism in the characters.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.20">
+  <h2 class="film-title">Palm Springs</h2>
+  <p class="film-meta">2020 release • watched 2025 • 4 stars</p>
+  <p class="review-text">really enjoyable and cute romantic comedy. liked the depiction of weariness and trying to get to real love. when the main two have escaped at the end was a good moment. agency on the woman&#x27;s part to get out of there while the guy was just depresso</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.51">
+  <h2 class="film-title">Groundhog Day</h2>
+  <p class="film-meta">1993 release • watched 2024 • 4 stars</p>
+  <p class="review-text">really nice and sincere movie that&#x27;s become part of my vocabulary for talking about llms</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.89">
+  <h2 class="film-title">The Truman Show</h2>
+  <p class="film-meta">1998 release • watched 2024 • 4 stars</p>
+  <p class="review-text">nice movie that makes me think with great score. fun to watch him piece together each thing, discover agency, become a bigger person.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.59">
+  <h2 class="film-title">Ocean&#x27;s Eleven</h2>
+  <p class="film-meta">2001 release • watched 2024 • 4 stars</p>
+  <p class="review-text">great heist movie, fun to watch</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.03">
+  <h2 class="film-title">The Grand Budapest Hotel</h2>
+  <p class="film-meta">2014 release • watched 2024 • 4 stars</p>
+  <p class="review-text">really beautiful really fun love his style. the decline of old europe is so sad. i&#x27;m not sure how real it ever was though, just like gustave h</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.73">
+  <h2 class="film-title">Oppenheimer</h2>
+  <p class="film-meta">2023 release • watched 2023 • 4 stars</p>
+  <p class="review-text">nice to take responsibility in a real way. i thought if it very explicitly as being ai-related. what does it mean to have helped creating this thing</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.60">
+  <h2 class="film-title">The Usual Suspects</h2>
+  <p class="film-meta">1995 release • watched 2023 • 4 stars</p>
+  <p class="review-text">fun heist movie with a little bit to make you think</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.87">
+  <h2 class="film-title">Harakiri</h2>
+  <p class="film-meta">1962 release • watched 2023 • 4 stars</p>
+  <p class="review-text">loved the unfolding plot over time. felt like i could identify with the plights of the characters. portrayal of honor was good</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.83">
+  <h2 class="film-title">The Batman</h2>
+  <p class="film-meta">2022 release • watched 2022 • 4 stars</p>
+  <p class="review-text">i loved the urbanism and the physical environment. also robert pattinson is really hot</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="0.96">
+  <h2 class="film-title">The Imitation Game</h2>
+  <p class="film-meta">2014 release • watched 2022 • 4 stars</p>
+  <p class="review-text">nice stuff and involves one of my favorite ww2 episodes</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.15">
+  <h2 class="film-title">The Fast and the Furious: Tokyo Drift</h2>
+  <p class="film-meta">2006 release • watched 2021 • 4 stars</p>
+  <p class="review-text">Pretty fun, as I recall. great songs. great to watch while on some drug that incapacitates but not sure it makes any sense</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.66">
+  <h2 class="film-title">The Boys in the Band</h2>
+  <p class="film-meta">2020 release • watched 2020 • 4 stars</p>
+  <p class="review-text">good, but a worse version than the original because the characters and scene look too physically beautiful such that parts of the plot don&#x27;t make sense. sheldon cooper looks young! not a norwooding mid-30s guy who&#x27;s losing his beauty. this matters.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-0.70">
+  <h2 class="film-title">Donnie Darko</h2>
+  <p class="film-meta">2001 release • watched 2020 • 4 stars</p>
+  <p class="review-text">i vaguely recall this being emotionally affecting</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="-1.45">
+  <h2 class="film-title">Ex Machina</h2>
+  <p class="film-meta">2015 release • watched 2018 • 4 stars</p>
+  <p class="review-text">thought provoking if i recall correctly. curious to see how it holds up in age of LLMs</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.70">
+  <h2 class="film-title">Dead Poets Society</h2>
+  <p class="film-meta">1989 release • watched 2017 • 4 stars</p>
+  <p class="review-text">made me feel like words could have meaning iirc</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.29">
+  <h2 class="film-title">Moneyball</h2>
+  <p class="film-meta">2011 release • watched 2017 • 4 stars</p>
+  <p class="review-text">Quite enjoyable, I think largely because of my relation to or interest in the topic itself of statistical analysis of baseball. Cool to see it working, I suppose. I had previously read the book.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-high" data-tilt="1.16">
+  <h2 class="film-title">Ferris Bueller&#x27;s Day Off</h2>
+  <p class="film-meta">1986 release • watched 2015 • 4 stars</p>
+  <p class="review-text">really really nice and such a strong like old americana and corrective against being anxious or whatever</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-0.44">
+  <h2 class="film-title">Barry Lyndon</h2>
+  <p class="film-meta">1975 release • watched 2024 • 3.5 stars</p>
+  <p class="review-text">i watched because of the phlanthippe edit. it was enjoyable but somewhat hard to follow or make real sense of for me</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-1.64">
+  <h2 class="film-title">Pitch Perfect</h2>
+  <p class="film-meta">2012 release • watched 2023 • 3.5 stars</p>
+  <p class="review-text">fun and i liked the songs</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="0.44">
+  <h2 class="film-title">Skyfall</h2>
+  <p class="film-meta">2012 release • watched 2021 • 3.5 stars</p>
+  <p class="review-text">fun</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="0.30">
+  <h2 class="film-title">Call Me by Your Name</h2>
+  <p class="film-meta">2017 release • watched 2019 • 3.5 stars</p>
+  <p class="review-text">really pretty and then sad at the end</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-0.99">
+  <h2 class="film-title">Catch Me If You Can</h2>
+  <p class="film-meta">2002 release • watched 2015 • 3.5 stars</p>
+  <p class="review-text">the emotional arc of the fraud is good. of course the true fraud is the movie itself bc none of this ever happened</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="1.58">
+  <h2 class="film-title">Inception</h2>
+  <p class="film-meta">2010 release • watched 2015 • 3.5 stars</p>
+  <p class="review-text">good nolan thriller iirc</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-0.91">
+  <h2 class="film-title">The Social Network</h2>
+  <p class="film-meta">2010 release • watched 02/15/2026 • 3 stars</p>
+  <p class="review-text">Somewhat interesting but frustrating because it didn&#x27;t seem to care about reality or truth at all.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="0.61">
+  <h2 class="film-title">But I&#x27;m a Cheerleader</h2>
+  <p class="film-meta">1999 release • watched 01/08/2026 • 3 stars</p>
+  <p class="review-text">Enjoyable gayslop</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-1.90">
+  <h2 class="film-title">Stardust</h2>
+  <p class="film-meta">2007 release • watched 2025 • 3 stars</p>
+  <p class="review-text">a little bit too much, kind of whatever.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-1.69">
+  <h2 class="film-title">The Princess Bride</h2>
+  <p class="film-meta">1987 release • watched 2025 • 3 stars</p>
+  <p class="review-text">nice but i didnt feel so strongly</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-0.59">
+  <h2 class="film-title">The Talented Mr. Ripley</h2>
+  <p class="film-meta">1999 release • watched 2023 • 3 stars</p>
+  <p class="review-text">a new kind of scary in a cool way. being totally taken over. and it works! almost</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="1.04">
+  <h2 class="film-title">Edge of Tomorrow</h2>
+  <p class="film-meta">2014 release • watched 2022 • 3 stars</p>
+  <p class="review-text">fun but kind of whatever</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-0.83">
+  <h2 class="film-title">Licorice Pizza</h2>
+  <p class="film-meta">2021 release • watched 2021 • 3 stars</p>
+  <p class="review-text">enjoyable. amusing age gap relationship. not a lot really happens though. why was i watching this movie again?</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-2.00">
+  <h2 class="film-title">The Shawshank Redemption</h2>
+  <p class="film-meta">1994 release • watched 2017 • 3 stars</p>
+  <p class="review-text">nice</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="0.53">
+  <h2 class="film-title">The Wolf of Wall Street</h2>
+  <p class="film-meta">2013 release • watched 2016 • 2.5 stars</p>
+  <p class="review-text">nice but too gauche, too much, too disgusting, too much yelling</p>
+</article>
+<article splittable group="reviews" class="review-card rating-mid" data-tilt="-1.34">
+  <h2 class="film-title">Mean Girls</h2>
+  <p class="film-meta">2004 release • watched 2015 • 2.5 stars</p>
+  <p class="review-text">kind of nice</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-1.40">
+  <h2 class="film-title">Barbie</h2>
+  <p class="film-meta">2023 release • watched 02/15/2026 • 2 stars</p>
+  <p class="review-text">pretty boring</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.89">
+  <h2 class="film-title">Nosferatu</h2>
+  <p class="film-meta">2024 release • watched 02/15/2026 • 2 stars</p>
+  <p class="review-text">I thought it was a bit too gross and didn&#x27;t seem to mean anything. It looked nice but otherwise wasn&#x27;t very compelling to me. And it just didn&#x27;t hit very well.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-1.06">
+  <h2 class="film-title">The Phoenician Scheme</h2>
+  <p class="film-meta">2025 release • watched 2025 • 2 stars</p>
+  <p class="review-text">eh. i just didnt care. it looked nice i guess but i didnt get into the relationships at all</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="0.73">
+  <h2 class="film-title">Crazy Rich Asians</h2>
+  <p class="film-meta">2018 release • watched 2025 • 2 stars</p>
+  <p class="review-text">representationslop for asians. i dont care</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.62">
+  <h2 class="film-title">Amélie</h2>
+  <p class="film-meta">2001 release • watched 2024 • 2 stars</p>
+  <p class="review-text">love the songs but it&#x27;s so slow</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-1.64">
+  <h2 class="film-title">Legally Blonde</h2>
+  <p class="film-meta">2001 release • watched 2024 • 2 stars</p>
+  <p class="review-text">i don&#x27;t think people this fullheartedly ditzy are this intelligent. it frustrates me this idea of someone who doesn&#x27;t care at all succeeding this much and i think it&#x27;s not real</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.77">
+  <h2 class="film-title">Top Gun</h2>
+  <p class="film-meta">1986 release • watched 2021 • 2 stars</p>
+  <p class="review-text">didn&#x27;t draw me in. characters are cute though</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.15">
+  <h2 class="film-title">In the Mood for Love</h2>
+  <p class="film-meta">2000 release • watched 2021 • 2 stars</p>
+  <p class="review-text">didn&#x27;t really get the movie and it was too slow</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.76">
+  <h2 class="film-title">Once Upon a Time... in Hollywood</h2>
+  <p class="film-meta">2019 release • watched 2019 • 2 stars</p>
+  <p class="review-text">too violent, too much</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="1.32">
+  <h2 class="film-title">Portrait of a Lady on Fire</h2>
+  <p class="film-meta">2019 release • watched 2019 • 2 stars</p>
+  <p class="review-text">i just didn&#x27;t get it</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.60">
+  <h2 class="film-title">The Terminator</h2>
+  <p class="film-meta">1984 release • watched 2015 • 2 stars</p>
+  <p class="review-text">really just didn&#x27;t care</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-1.03">
+  <h2 class="film-title">Marty Supreme</h2>
+  <p class="film-meta">2025 release • watched 01/15/2026 • 1.5 stars</p>
+  <p class="review-text">Much too scary, I had to leave the movie halfway through.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="2.08">
+  <h2 class="film-title">The Andromeda Strain</h2>
+  <p class="film-meta">1971 release • watched 2025 • 1.5 stars</p>
+  <p class="review-text">too slow. watched this while vaguely drunk at lucy&#x27;s house. there just wasn&#x27;t a ton going along and my interest wasn&#x27;t really piqued. the ending felt like it didn&#x27;t make a ton of sense to me. i just was never interested in anything going on. it did look cool, very 60s sci-fi.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.90">
+  <h2 class="film-title">Iron Man</h2>
+  <p class="film-meta">2008 release • watched 2025 • 1.5 stars</p>
+  <p class="review-text">fine to watch i just really didnt like that they turned inventing and robots and all this into basically a magic fairy power instead of something that takes real ingenuity. he can just do anything at any time. this totally skips all of why inventing is real and interesting</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="0.12">
+  <h2 class="film-title">The Big Short</h2>
+  <p class="film-meta">2015 release • watched 2023 • 1.5 stars</p>
+  <p class="review-text">Fun movie to watch but it&#x27;s not true and patronizingly explains how the economy works in a way that&#x27;s just wrong</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.11">
+  <h2 class="film-title">Glass Onion</h2>
+  <p class="film-meta">2022 release • watched 2022 • 1.5 stars</p>
+  <p class="review-text">it&#x27;s a movie that thinks it&#x27;s smart but it&#x27;s really retarded</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="2.14">
+  <h2 class="film-title">Uncut Gems</h2>
+  <p class="film-meta">2019 release • watched 2022 • 1.5 stars</p>
+  <p class="review-text">too anxiety-inducing i can&#x27;t watch the movie</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.13">
+  <h2 class="film-title">The Godfather</h2>
+  <p class="film-meta">1972 release • watched 2020 • 1.5 stars</p>
+  <p class="review-text">i really don&#x27;t get this one to be honest. it&#x27;s slow and has nothing of interest. i relate to none of the characters. why does everyone like it?</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="0.47">
+  <h2 class="film-title">Pulp Fiction</h2>
+  <p class="film-meta">1994 release • watched 2011 • 1.5 stars</p>
+  <p class="review-text">too violent. just seems to revel in it. i watched this first with my dad i think. i turn away from this kind of violence and can&#x27;t really get engaged. it all felt like it was for no purpose or meaning</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.26">
+  <h2 class="film-title">Once Upon a Time in the West</h2>
+  <p class="film-meta">1968 release • watched 2020 • 1 stars</p>
+  <p class="review-text">watched because of &quot;my body is a cage&quot; music video. it was just agonizingly slow and really didn&#x27;t connect for me.</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="-0.28">
+  <h2 class="film-title">Us</h2>
+  <p class="film-meta">2019 release • watched 2019 • 1 stars</p>
+  <p class="review-text">way too scary</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="0.27">
+  <h2 class="film-title">Wuthering Heights</h2>
+  <p class="film-meta">2026 release • watched 02/15/2026 • 0.5 stars</p>
+  <p class="review-text">90 minutes of watching disabled children have sex. at least we got to laugh in the theater together. totally absurd</p>
+</article>
+<article splittable group="reviews" class="review-card rating-low" data-tilt="0.29">
+  <h2 class="film-title">Lucy</h2>
+  <p class="film-meta">2014 release • watched 2014 • 0.5 stars</p>
+  <p class="review-text">total slop that makes no fucking sense</p>
+</article>
+  </main>
+
+  <script>
+    function checkIntersection(a, b) {
+      return a.left < b.right && a.right > b.left && a.bottom > b.top && a.top < b.bottom;
+    }
+
+    function packBoxes(positions, boxes, containerWidth, startY) {
+      const isMobile = containerWidth < 768;
+      const attemptsPerStep = isMobile ? 120 : 80;
+      const verticalStep = isMobile ? 8 : 6;
+      const edgePad = 10;
+
+      const newPositions = [];
+
+      boxes.forEach((box) => {
+        let placed = false;
+        let minHeight = startY;
+        let searchHeight = startY + (isMobile ? 520 : 700);
+
+        while (!placed) {
+          const maxLeft = Math.max(edgePad, containerWidth - box.width - edgePad);
+          const maxTop = Math.max(minHeight, searchHeight - box.height);
+
+          for (let attempt = 0; attempt < attemptsPerStep; attempt++) {
+            const left = edgePad + Math.random() * Math.max(1, maxLeft - edgePad);
+            const top = minHeight + Math.random() * Math.max(1, maxTop - minHeight);
+
+            const candidate = {
+              left,
+              top,
+              right: left + box.width,
+              bottom: top + box.height,
+              width: box.width,
+              height: box.height,
+            };
+
+            let intersects = false;
+            for (let i = 0; i < positions.length; i++) {
+              if (checkIntersection(candidate, positions[i])) {
+                intersects = true;
+                break;
+              }
+            }
+
+            if (!intersects) {
+              const placedBox = { ...candidate, element: box.element };
+              positions.push(placedBox);
+              newPositions.push(placedBox);
+              placed = true;
+              break;
+            }
+          }
+
+          if (!placed) {
+            minHeight += verticalStep;
+            searchHeight += verticalStep;
+          }
+        }
+      });
+
+      return newPositions;
+    }
+
+    function resetSplittables() {
+      document.querySelectorAll('[splittable]').forEach((el) => {
+        el.classList.remove('positioned');
+        el.style.left = '';
+        el.style.top = '';
+        el.style.width = '';
+        el.style.height = '';
+        const tilt = el.dataset.tilt || '0';
+        el.style.setProperty('--tilt', `${tilt}deg`);
+      });
+    }
+
+    function layoutSplittables() {
+      const container = document.getElementById('review-container');
+      const containerWidth = window.innerWidth - 20;
+      const maxCardWidth = Math.max(260, Math.min(360, containerWidth - 24));
+
+      resetSplittables();
+
+      const startY = 8;
+      const placedRects = [{ left: 0, top: 0, right: 0, bottom: 0 }];
+      const elements = Array.from(document.querySelectorAll('[splittable][group="reviews"]'));
+
+      const boxes = elements.map((el) => {
+        const clone = el.cloneNode(true);
+        clone.style.position = 'absolute';
+        clone.style.visibility = 'hidden';
+        clone.style.width = `${maxCardWidth}px`;
+        clone.style.maxWidth = `${maxCardWidth}px`;
+        clone.style.height = 'auto';
+        clone.style.left = '-20000px';
+        clone.style.top = '-20000px';
+        document.body.appendChild(clone);
+
+        const rect = clone.getBoundingClientRect();
+        document.body.removeChild(clone);
+
+        return {
+          element: el,
+          width: Math.ceil(rect.width),
+          height: Math.ceil(rect.height),
+        };
+      });
+
+      packBoxes(placedRects, boxes, containerWidth, startY).forEach((pos) => {
+        pos.element.style.left = `${pos.left}px`;
+        pos.element.style.top = `${pos.top}px`;
+        pos.element.style.width = `${pos.width}px`;
+        pos.element.style.height = `${pos.height}px`;
+        pos.element.classList.add('positioned');
+      });
+
+      const positioned = Array.from(document.querySelectorAll('[splittable].positioned'));
+      const maxY = positioned.length
+        ? Math.max(...positioned.map((el) => el.offsetTop + el.offsetHeight))
+        : startY;
+
+      container.style.minHeight = `${Math.ceil(maxY + 20)}px`;
+    }
+
+    let resizeTimer = null;
+
+    function queueLayout() {
+      if (resizeTimer) {
+        window.clearTimeout(resizeTimer);
+      }
+      resizeTimer = window.setTimeout(() => {
+        layoutSplittables();
+      }, 140);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        document.fonts.ready.then(layoutSplittables);
+      });
+    } else {
+      document.fonts.ready.then(layoutSplittables);
+    }
+
+    window.addEventListener('resize', queueLayout);
+
+    document.getElementById('reshuffle').addEventListener('click', () => {
+      layoutSplittables();
+    });
+  </script>
+</body>
+</html>
